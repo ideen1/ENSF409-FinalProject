@@ -11,92 +11,19 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 
 public class Person {
-    enum PersonType {
-        CHILDUNDER8{
-            public int getCalories(){
-                return ;
-            }
-            public int getProteins(){
-                return ;
-            }
-            public int getFruitVeggies(){
-                return ;
-            }
-            public int getWholeGrains(){
-                return ;
-            }
-            public int getOther(){
-                return ;
-            }
-        },
-        CHILDOVER8{
-            public int getCalories(){
-                return ;
-            }
-            public int getProteins(){
-                return ;
-            }
-            public int getFruitVeggies(){
-                return ;
-            }
-            public int getWholeGrains(){
-                return ;
-            }
-            public int getOther(){
-                return ;
-            }
-
-        },
-        ADULTFEMALE{
-            public int getCalories(){
-                return ;
-            }
-            public int getProteins(){
-                return ;
-            }
-            public int getFruitVeggies(){
-                return ;
-            }
-            public int getWholeGrains(){
-                return ;
-            }
-            public int getOther(){
-                return ;
-            }
-
-        },
-        ADULTMALE{
-            public int getCalories(){
-                return ;
-            }
-            public int getProteins(){
-                return ;
-            }
-            public int getFruitVeggies(){
-                return ;
-            }
-            public int getWholeGrains(){
-                return ;
-            }
-            public int getOther(){
-                return ;
-            }
-
-        };
-        public abstract int getCalories();
-        public abstract int getProteins();
-        public abstract int getFruitVeggies();
-        public abstract int getWholeGrains();
-        public abstract int getOther();
-    }
 
     private final PersonType type;
 
-    public Person(String type){
-        this.type = convertToPersonType(type);
+    public Person(PersonType type){
+        this.type = type;
     }
 
-    private PersonType convertToPersonType(String type){
-        return PersonType.valueOf(type);
+    public PersonType getPersonType() {
+        return type;
     }
+
+    public NutritionValues getNutrition() {
+        return this.type.getNutrition();
+    }
+
 }
