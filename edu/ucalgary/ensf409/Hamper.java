@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<>();
 
-    private Client client;
+    private String client;
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled;
@@ -30,9 +30,9 @@ public class Hamper {
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
 
-    public Hamper(Client client, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+    public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
-        this.client = client;
+        this.client = clientName;
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
