@@ -4,7 +4,7 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class TestClassName {
+public class TestDefault {
     
     public TestClassName() {
     }
@@ -14,7 +14,7 @@ public class TestClassName {
         
         int[] birthDate = new int[]{2011,1,1};
         
-        ClassName object= new ClassName("Pongo");
+        Default object= new Default("Pongo");
         
         System.out.println("calculateAge");
         int expResult = 11;
