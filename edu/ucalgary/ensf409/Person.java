@@ -8,7 +8,6 @@
  */
 
 package edu.ucalgary.ensf409;
-import java.util.*;
 
 public class Person {
 
