@@ -18,7 +18,7 @@ public class FoodItem{
 	public int getGrainContent() { return this.grainContent; }
 	public int getProteinContent() { return proteinContent; }
 	public int getOther() { return this.other; }
-	public int calories() { return this.calories; }
+	public int getCalories() { return this.calories; }
 	
 	
 	// Constructor
