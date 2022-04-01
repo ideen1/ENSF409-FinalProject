@@ -9,12 +9,16 @@
 
 package edu.ucalgary.ensf409;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
 
-    private String client;
+
+    private final String CLIENT;
+
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;
@@ -32,7 +36,9 @@ public class Hamper {
 
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
-        this.client = clientName;
+
+        this.CLIENT = clientName;
+
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -160,7 +166,9 @@ public class Hamper {
     }
 
     public String getClientName(){
-        return this.client;
+
+        return this.CLIENT;
     }
 
 }
+

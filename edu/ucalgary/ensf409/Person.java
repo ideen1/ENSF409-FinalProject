@@ -8,22 +8,21 @@
  */
 
 package edu.ucalgary.ensf409;
-import java.util.*;
 
 public class Person {
 
-    private final PersonType type;
+    private final PersonType TYPE;
 
     public Person(PersonType type){
-        this.type = type;
+        this.TYPE = type;
     }
 
     public PersonType getPersonType() {
-        return type;
+        return TYPE;
     }
 
     public NutritionValues getNutrition() {
-        return this.type.getNutrition();
+        return this.TYPE.getNutrition();
     }
 
 }
