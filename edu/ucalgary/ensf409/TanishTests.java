@@ -63,4 +63,22 @@ public class TanishTests {
         
     }
 
+    // Test Creating a new hamper with negative person amounts
+    @Test 
+    public void testCreateHampersWithNegativePeople(){
+        
+        
+        boolean exceptionThrown = false;
+
+        try {
+            Request.addHamper("Test", -1, 0, 0, -10);
+
+        } catch (Exception e) {
+
+            exceptionThrown = true;
+        }
+
+        assertTrue("Create Hamper wth negative amounts of people did not throw an exception", exceptionThrown);
+    }
+
     }
