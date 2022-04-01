@@ -12,12 +12,12 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 
 public class Hamper {
-    private ArrayList<Person> people = new ArrayList<>();
+    private ArrayList<Person> people = new ArrayList<Person>();
 
-    private Client client;
+    private final String CLIENT;
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
-    private boolean canBeFulfilled;
+    private boolean canBeFulfilled = false;
 
     private int totalNeedWG = 0;
     private int totalNeedFV = 0;
@@ -30,9 +30,9 @@ public class Hamper {
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
 
-    public Hamper(Client client, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+    public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
-        this.client = client;
+        this.CLIENT = clientName;
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -70,12 +70,29 @@ public class Hamper {
         }
     }
 
+    public void recalculateNutrients(){
+        this.totalNeedFV = 0;
+        this.totalNeedOther = 0;
+        this.totalNeedProtein = 0;
+        this.totalNeedWG = 0;
+        this.totalNeedCalories = 0;
+        calculateNeededNutrients();
+    }
+
     
     /** 
-     * @return Integer[]
+     * @return ArrayList<Person>
      */
-    public Integer[] getAllocatedItems() {
-        return (Integer[]) allocatedItems.toArray();
+    public ArrayList<Person> getPeople() {
+        return people;
+
+    }
+
+    /** 
+     * @return ArrayList<Integer>
+     */
+    public ArrayList<Integer> getAllocatedItems() {
+        return allocatedItems;
     }
 
     
@@ -140,6 +157,10 @@ public class Hamper {
      */
     public int getTotalNeedCalories() {
         return totalNeedCalories;
+    }
+
+    public String getClientName(){
+        return this.CLIENT;
     }
 
 }

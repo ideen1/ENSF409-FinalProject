@@ -13,11 +13,11 @@ package edu.ucalgary.ensf409;
  * NutritionValues
  */
 public class NutritionValues {
-    private final double percentWG;
-    private final double percentFV;
-    private final double percentProtein;
-    private final double percentOther;
-    private final double totalNeedCalories;
+    private  double percentWG;
+    private  double percentFV;
+    private  double percentProtein;
+    private  double percentOther;
+    private  double totalNeedCalories;
 
     public NutritionValues(String type){
         // TO DO : MUST BE POPULATED BY SQL QUERY
@@ -92,6 +92,25 @@ public class NutritionValues {
         return percentOther * totalNeedCalories;
     }
 
-    
+    public void setPercentWG(double percentWG) {
+        this.percentWG = percentWG;
+    }
+
+    public void setPercentFV(double percentFV) {
+        this.percentFV = percentFV;
+    }
+
+    public void setPercentProtein(double percentProtein) {
+        this.percentProtein = percentProtein;
+    }
+
+    public void setPercentOther(double percentOther) {
+        this.percentOther = percentOther;
+    }
+
+    public void setTotalNeedCalories(double totalNeedCalories) {
+        this.totalNeedCalories = totalNeedCalories;
+    }
+
     
 }
