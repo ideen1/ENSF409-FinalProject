@@ -16,7 +16,9 @@ import java.util.Date;
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
 
+
     private final String CLIENT;
+
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;
@@ -34,7 +36,9 @@ public class Hamper {
 
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
+
         this.CLIENT = clientName;
+
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -162,7 +166,9 @@ public class Hamper {
     }
 
     public String getClientName(){
+
         return this.CLIENT;
     }
 
 }
+
