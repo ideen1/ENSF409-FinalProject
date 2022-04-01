@@ -20,6 +20,11 @@ public class NutritionValues {
     private  double totalNeedCalories;
 
     public NutritionValues(String type){
+
+        if (!type.equals(PersonType.ADULTFEMALE.toString()) && !type.equals(PersonType.ADULTMALE.toString()) &&
+            !type.equals(PersonType.CHILDOVER8.toString()) && !type.equals(PersonType.CHILDUNDER8.toString())){
+                throw new IllegalArgumentException("Must be valid person type");
+        }
         // TO DO : MUST BE POPULATED BY SQL QUERY
         this.totalNeedCalories = 0;
         this.percentFV = 0;

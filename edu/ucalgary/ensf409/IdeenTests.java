@@ -8,7 +8,7 @@ public class IdeenTests {
     
     // Person Tests:
     /**
-     * Test Basic Person Constructor to ensure that constructor is initilized
+     * Test Basic Person Constructor to ensure that object is initilized
      */
     @Test
     public void testPersonConstructor() {
@@ -17,7 +17,9 @@ public class IdeenTests {
         assertTrue("The person constructor did not initialize an Object", person != null);
     }
 
-
+    /**
+     * Test Basic Person nutritionValues to ensure that values are getting appropriate updates
+     */
     @Test
     public void testPersonNutrition() {
         Person person = new Person(PersonType.ADULTFEMALE);
@@ -30,8 +32,9 @@ public class IdeenTests {
         assertEquals(String.valueOf(200.0) , String.valueOf(nutrition.getAmountFV()));
     }
 
-    // Hamper Tests:
-
+    /**
+     * Test Creation of Hamper when there are 0 people
+     */
     @Test
     public void testHamperConstructorWith0People() {
         
@@ -40,7 +43,9 @@ public class IdeenTests {
         assertTrue("Hamper object was not created when there are 0 people", hamper1 != null);
     }
 
-
+    /**
+     * Test Creation of Hamper with 0 Adults and Only 1 child 
+     */
     @Test
     public void testHamperConstructorWithOnly1Child() {
         
@@ -49,6 +54,9 @@ public class IdeenTests {
         assertTrue("Hamper object was not created with only 1 child", hamper1 != null);
     }
 
+    /**
+     * Test recalculate nutrition values function on Hamper
+     */
     @Test
     public void testHamperRecalculationFunction() {
         
@@ -67,6 +75,10 @@ public class IdeenTests {
         
     }
 
+    /**
+     * Test that the correct nurtrition values are returned for each family memeber type 
+     * when there are multiple family memebers.
+     */
     @Test
     public void testHamperCalculateNutrientsForFamily() {
         
@@ -94,6 +106,9 @@ public class IdeenTests {
         assertEquals(1050.0, hamper1.getTotalNeedWG(), 1050 - hamper1.getTotalNeedWG());
     }
 
+    /**
+     * Ensure allocated items are returned appropriately 
+     */
     @Test
     public void testHamperAddAllocatedItem() {
         
@@ -113,42 +128,42 @@ public class IdeenTests {
     }
 
 
-    // Tests for NutrientValues
-    @Test
-    public void testNutritionValuesConstructor() {
-        
-        NutritionValues nutrients = new NutritionValues("TEST");
+    /**
+     * Test Normal Constructor for Nutrition Values
+     */
 
-        assertTrue("THe nutrition Class was not created", nutrients != null);
+    @Test
+    public void testNutritionValuesConstructorWithInvalidType() {
+        boolean exceptionThrown = false;
+        
+        try{
+            NutritionValues nutrients = new NutritionValues("TEENMALE");
+        } catch(Exception e){
+            exceptionThrown = true;
+        }
+        
+
+        assertTrue("The nutrition class was created with invalid type TEENMALE", exceptionThrown);
     }
 
+    /**
+     * Test that valid nutrition values are returned when they are modified through setters
+     */
     @Test
     public void testNutritionValuesSetValues() {
         
-        NutritionValues nutrients = new NutritionValues("TEST");
+        NutritionValues nutrients = new NutritionValues("ADULTMALE");
         nutrients.setTotalNeedCalories(1000);
         nutrients.setPercentOther(0.05);
         
         
         assertEquals(0.05, nutrients.getPercentOther(), 0.05 - nutrients.getPercentOther());
         assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
-        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() );
+        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther());
 
     }
 
-    @Test
-    public void testInventoryThrowsException() {
-        
-        NutritionValues nutrients = new NutritionValues("TEST");
-        nutrients.setTotalNeedCalories(1000);
-        nutrients.setPercentOther(5);
-        
-        
-        assertEquals(5, nutrients.getPercentOther(), 5 - nutrients.getPercentOther());
-        assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
-        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() );
 
-    }
 
 	
 }
