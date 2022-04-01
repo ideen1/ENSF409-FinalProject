@@ -1,13 +1,15 @@
 package edu.ucalgary.ensf409;
 
-public class Inventory {
-    static private FoodItem[] foodList;
+import java.util.ArrayList;
 
-    public FoodItem[] getFoodlist(){
+public class Inventory {
+    static private ArrayList<FoodItem> foodList = new ArrayList<FoodItem>();
+
+    public ArrayList<FoodItem> getFoodlist(){
         return this.foodList;
     }
 
-    public void setFoodList(FoodItem[] list){
+    public void setFoodList(ArrayList<FoodItem> list){
         this.foodList = list;
     }
 }

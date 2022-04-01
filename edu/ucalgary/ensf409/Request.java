@@ -1,9 +1,11 @@
 package edu.ucalgary.ensf409;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Request{
-    private Hamper[] hampers;
+
+	private static ArrayList<Hamper> hampers = new ArrayList<Hamper>();
     private LocalDate date;
     private String nameRequest;
 
@@ -13,19 +15,18 @@ public class Request{
 
     }
 
-    public void addHamper(){
-        
+    public static void addHamper(){
     }
 
-    public void genarateOrderForm(){
-
-    }
-
-    public void createOrderFile(){
+    public static void genarateOrderForm(){
 
     }
 
-    public Hamper[] getHampers(){
-        return this.hampers;
+    public static void createOrderFile(){
+
+    }
+
+    public static ArrayList<Hamper> getHampers(){
+        return hampers;
     }
 }

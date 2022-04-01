@@ -6,8 +6,6 @@ import static org.junit.Assert.*;
 
 public class TestDefault {
     
-    public TestClassName() {
-    }
     
     @Test
     public void testNumberOne() {
