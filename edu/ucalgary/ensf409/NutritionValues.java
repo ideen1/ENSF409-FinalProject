@@ -77,19 +77,19 @@ public class NutritionValues {
     }
 
     public double getAmountWG() {
-        return percentWG * totalNeedCalories;
+        return percentWG * totalNeedCalories / 100;
     }
 
     public double getAmountFV() {
-        return percentFV * totalNeedCalories;
+        return percentFV * totalNeedCalories / 100;
     }
 
     public double getAmountProtein() {
-        return percentProtein * totalNeedCalories;
+        return percentProtein * totalNeedCalories / 100;
     }
 
     public double getAmountOther() {
-        return percentOther * totalNeedCalories;
+        return percentOther * totalNeedCalories / 100;
     }
 
     public void setPercentWG(double percentWG) {

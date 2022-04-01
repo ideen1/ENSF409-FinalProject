@@ -136,5 +136,19 @@ public class IdeenTests {
 
     }
 
+    @Test
+    public void testInventoryThrowsException() {
+        
+        NutritionValues nutrients = new NutritionValues("TEST");
+        nutrients.setTotalNeedCalories(1000);
+        nutrients.setPercentOther(5);
+        
+        
+        assertEquals(5, nutrients.getPercentOther(), 5 - nutrients.getPercentOther());
+        assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
+        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() );
+
+    }
+
 	
 }
