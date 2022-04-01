@@ -79,6 +79,7 @@ public class TanishTests {
 
     }
 
+
     @Test
     public void testAddDuplicateFoodItemID(){
         FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);
@@ -91,4 +92,24 @@ public class TanishTests {
         //will add more
         
     }
+
+    // Test Creating a new hamper with negative person amounts
+    @Test 
+    public void testCreateHampersWithNegativePeople(){
+        
+        
+        boolean exceptionThrown = false;
+
+        try {
+            Request.addHamper("Test", -1, 0, 0, -10);
+
+        } catch (Exception e) {
+
+            exceptionThrown = true;
+        }
+
+        assertTrue("Create Hamper wth negative amounts of people did not throw an exception", exceptionThrown);
+    }
+
+
     }

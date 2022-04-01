@@ -1,7 +1,9 @@
 package edu.ucalgary.ensf409;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 
 public class Request{
 
@@ -15,7 +17,11 @@ public class Request{
 
     }
 
-    public void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+    public static void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+        if (numAdultFemales < 0 && numAdultMales < 0 && numChildOver8 < 0 && numChildUnder8 < 0){
+            throw new InvalidParameterException("Number of people must not be below 0");
+        }
+
         Hamper addHamper = new Hamper(clientName, numAdultMales, numAdultFemales, numChildUnder8, numChildOver8);
         hampers.add(addHamper);
     }
