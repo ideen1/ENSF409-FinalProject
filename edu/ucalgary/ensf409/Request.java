@@ -21,19 +21,20 @@ public class Request{
         if (numAdultFemales < 0 && numAdultMales < 0 && numChildOver8 < 0 && numChildUnder8 < 0){
             throw new InvalidParameterException("Number of people must not be below 0");
         }
+
         Hamper addHamper = new Hamper(clientName, numAdultMales, numAdultFemales, numChildUnder8, numChildOver8);
         hampers.add(addHamper);
     }
 
-    public static void genarateOrderForm(){
+    public  void genarateOrderForm(){
 
     }
 
-    public static void createOrderFile(){
+    public void createOrderFile(){
 
     }
 
-    public static ArrayList<Hamper> getHampers(){
+    public ArrayList<Hamper> getHampers(){
         return hampers;
     }
 }
