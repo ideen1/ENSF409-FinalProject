@@ -31,7 +31,7 @@ public class Hamper {
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
-s
+
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
         this.CLIENT = clientName;
