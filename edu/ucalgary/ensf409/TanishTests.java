@@ -60,7 +60,18 @@ public class TanishTests {
     //testing iventory class 
     @Test 
     public void testSetFoodlist(){
+        FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);
+        FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);
+
+        HashMap<Integer,FoodItem> foodList = new HashMap<Integer,FoodItem>();
+        foodList.put(testItem.getID(),testItem);
+        foodList.put(testItem2.getID(),testItem2);
+        Inventory.setFoodList(foodList);
         
+        HashMap<Integer,FoodItem> incomingList = Inventory.getFoodlist();
+
+        assertEquals("The actual item name did not match the expected item name", incomingList.get(1).getName(),testItem.getName());
+
     }
 
     // Test Creating a new hamper with negative person amounts
