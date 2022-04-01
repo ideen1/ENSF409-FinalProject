@@ -12,10 +12,13 @@ public class TanishTests {
     
     @Test 
     public void testAddHamper() {
-        int expectedlistsize = Request.getHampers().size() + 1;
 
-        Request.addHamper("Test client", 1, 1, 1, 1);
-        int actuallistsize = Request.getHampers().size();
+        Request request = new Request("test", LocalDate.now());
+
+        int expectedlistsize = request.getHampers().size() + 1;
+        
+        request.addHamper("Test client", 1, 1, 1, 1);
+        int actuallistsize = request.getHampers().size();
         
         assertEquals("The hamper array list did not get updated",expectedlistsize, actuallistsize);
         
@@ -25,9 +28,10 @@ public class TanishTests {
     public void testCreateOrderFile(){
         
         boolean orderGenarated = true;
+        Request request = new Request("test", LocalDate.now());
 
         try {
-            Request.createOrderFile();
+            request.createOrderFile();
 
         } catch (Exception e) {
 
@@ -39,9 +43,10 @@ public class TanishTests {
     @Test 
     public void testGenerateOrderForm(){
 
+        Request request = new Request("test", LocalDate.now());
         String expectedOrderString = "Some example order string we expect to get from order form";
 
-        Request.genarateOrderForm();
+        request.genarateOrderForm();
         StringBuilder actualOrderString = new StringBuilder();
         // convert txt created by genarateOrderForm method to a string and compare that to expectedOrderString
 
@@ -59,7 +64,7 @@ public class TanishTests {
 
     //testing iventory class 
     @Test 
-    public void testSetFoodlist(){
+    public void testSetFoodListAndGetFoodList(){
         FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);
         FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);
 
@@ -74,4 +79,16 @@ public class TanishTests {
 
     }
 
+    @Test
+    public void testAddDuplicateFoodItemID(){
+        FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);
+        FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);
+        FoodItem testItem3 = new FoodItem(1, "milk", 20, 60, 50, 70,2000);
+
+        Inventory.addFoodItem(testItem);
+        Inventory.addFoodItem(testItem2);
+        Inventory.addFoodItem(testItem3);
+        //will add more
+        
+    }
     }

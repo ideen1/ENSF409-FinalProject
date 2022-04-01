@@ -13,18 +13,18 @@ public class Inventory {
         Inventory.foodList = list;
     }
 
-    public void addFoodItem(FoodItem addFood){
-        this.foodList.put(addFood.getID(), addFood);
+    public static void addFoodItem(FoodItem addFood){
+        Inventory.foodList.put(addFood.getID(), addFood);
 
     }
-    public void removeFoodItem(FoodItem removeFood){
-        this.foodList.remove(removeFood.getID());
+    public static void removeFoodItem(FoodItem removeFood){
+        Inventory.foodList.remove(removeFood.getID());
     }
-    public void removeFoodItem(int ID){
-        this.foodList.remove(ID);
+    public static void removeFoodItem(int ID){
+        Inventory.foodList.remove(ID);
     }
-    public void getFood(int ID){
-        this.foodList.get(ID);
+    public static FoodItem getFood(int ID){
+        return Inventory.foodList.get(ID);
 
     }
 }

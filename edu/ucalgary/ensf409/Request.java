@@ -15,20 +15,20 @@ public class Request{
 
     }
 
-    public static void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+    public void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         Hamper addHamper = new Hamper(clientName, numAdultMales, numAdultFemales, numChildUnder8, numChildOver8);
         hampers.add(addHamper);
     }
 
-    public static void genarateOrderForm(){
+    public  void genarateOrderForm(){
 
     }
 
-    public static void createOrderFile(){
+    public void createOrderFile(){
 
     }
 
-    public static ArrayList<Hamper> getHampers(){
+    public ArrayList<Hamper> getHampers(){
         return hampers;
     }
 }
