@@ -14,12 +14,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Hamper {
-    private ArrayList<Person> people = new ArrayList<>();
+    private ArrayList<Person> people = new ArrayList<Person>();
 
+<<<<<<< HEAD
     private String client;
+=======
+    private final String CLIENT;
+>>>>>>> f63e86cde82d14bae93853cdfe0d61b99992883e
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
-    private boolean canBeFulfilled;
+    private boolean canBeFulfilled = false;
 
     private int totalNeedWG = 0;
     private int totalNeedFV = 0;
@@ -32,10 +36,17 @@ public class Hamper {
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
 
+<<<<<<< HEAD
     public Hamper(String client, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
         this.client = client;
         
+=======
+    public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+        // Set Client for Hamper
+        this.CLIENT = clientName;
+
+>>>>>>> f63e86cde82d14bae93853cdfe0d61b99992883e
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
             this.people.add(new Person(PersonType.ADULTMALE));
@@ -72,12 +83,29 @@ public class Hamper {
         }
     }
 
+    public void recalculateNutrients(){
+        this.totalNeedFV = 0;
+        this.totalNeedOther = 0;
+        this.totalNeedProtein = 0;
+        this.totalNeedWG = 0;
+        this.totalNeedCalories = 0;
+        calculateNeededNutrients();
+    }
+
     
     /** 
-     * @return Integer[]
+     * @return ArrayList<Person>
      */
-    public Integer[] getAllocatedItems() {
-        return (Integer[]) allocatedItems.toArray();
+    public ArrayList<Person> getPeople() {
+        return people;
+
+    }
+
+    /** 
+     * @return ArrayList<Integer>
+     */
+    public ArrayList<Integer> getAllocatedItems() {
+        return allocatedItems;
     }
 
     
@@ -142,6 +170,10 @@ public class Hamper {
      */
     public int getTotalNeedCalories() {
         return totalNeedCalories;
+    }
+
+    public String getClientName(){
+        return this.CLIENT;
     }
 
 }
