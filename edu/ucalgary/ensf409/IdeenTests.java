@@ -129,7 +129,7 @@ public class IdeenTests {
         
         assertEquals(0.05, nutrients.getPercentOther(), 0.05 - nutrients.getPercentOther());
         assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
-        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() )
+        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() );
 
     }
 

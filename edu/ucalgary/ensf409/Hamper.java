@@ -9,7 +9,9 @@
 
 package edu.ucalgary.ensf409;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
@@ -29,7 +31,7 @@ public class Hamper {
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
-
+s
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
         this.CLIENT = clientName;
