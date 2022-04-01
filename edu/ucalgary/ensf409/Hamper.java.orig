@@ -31,10 +31,17 @@ public class Hamper {
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
+<<<<<<< HEAD
 
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
+        this.client = clientName;
+=======
+s
+    public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+        // Set Client for Hamper
         this.CLIENT = clientName;
+>>>>>>> master
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -84,6 +91,7 @@ public class Hamper {
     
     /** 
      * @return ArrayList<Person>
+<<<<<<< HEAD
      */
     public ArrayList<Person> getPeople() {
         return people;
@@ -93,6 +101,17 @@ public class Hamper {
     /** 
      * @return ArrayList<Integer>
      */
+=======
+     */
+    public ArrayList<Person> getPeople() {
+        return people;
+
+    }
+
+    /** 
+     * @return ArrayList<Integer>
+     */
+>>>>>>> master
     public ArrayList<Integer> getAllocatedItems() {
         return allocatedItems;
     }
@@ -162,8 +181,14 @@ public class Hamper {
     }
 
     public String getClientName(){
+<<<<<<< HEAD
+        return this.client;
+    }
+
+}
+=======
         return this.CLIENT;
     }
 
-
 }
+>>>>>>> master
