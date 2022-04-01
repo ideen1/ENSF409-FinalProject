@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
 
-    private String client;
+    private final String CLIENT;
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;

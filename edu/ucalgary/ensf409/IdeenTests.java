@@ -110,5 +110,28 @@ public class IdeenTests {
     }
 
 
+    // Tests for NutrientValues
+    @Test
+    public void testNutritionValuesConstructor() {
+        
+        NutritionValues nutrients = new NutritionValues("TEST");
+
+        assertTrue("THe nutrition Class was not created", nutrients != null);
+    }
+
+    @Test
+    public void testNutritionValuesSetValues() {
+        
+        NutritionValues nutrients = new NutritionValues("TEST");
+        nutrients.setTotalNeedCalories(1000);
+        nutrients.setPercentOther(0.05);
+        
+        
+        assertEquals(0.05, nutrients.getPercentOther(), 0.05 - nutrients.getPercentOther());
+        assertEquals(expectVal1, hamper3.getAllocatedItems().get(0));
+        assertEquals(expectVal2, hamper3.getAllocatedItems().get(1));
+        assertEquals(expectVal3, hamper3.getAllocatedItems().get(2));
+    }
+
 	
 }
