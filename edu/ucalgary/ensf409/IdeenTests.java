@@ -128,9 +128,9 @@ public class IdeenTests {
         
         
         assertEquals(0.05, nutrients.getPercentOther(), 0.05 - nutrients.getPercentOther());
-        assertEquals(expectVal1, hamper3.getAllocatedItems().get(0));
-        assertEquals(expectVal2, hamper3.getAllocatedItems().get(1));
-        assertEquals(expectVal3, hamper3.getAllocatedItems().get(2));
+        assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
+        assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther() )
+
     }
 
 	
