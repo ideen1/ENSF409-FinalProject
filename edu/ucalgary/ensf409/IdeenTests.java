@@ -7,6 +7,9 @@ import static org.junit.Assert.*;
 public class IdeenTests {
     
     // Person Tests:
+    /**
+     * Test Basic Person Constructor to ensure that constructor is initilized
+     */
     @Test
     public void testPersonConstructor() {
         
