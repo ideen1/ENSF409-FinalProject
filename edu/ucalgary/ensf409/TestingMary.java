@@ -134,17 +134,6 @@ public class TestingMary {
 	}
 
 	/*
-	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in each Hamper to "true", and adds appropriate FoodItem objects to the 
-	 * allocatedItems field of each hamper.
-	 * inventoryCheckAlgorithm() checks that the missingCategory array is empty and creates a text file, "Order.txt"
-	 * which contains the order information.
-	 */
-	@Test
-	public void testCreateOrderFormCorrectlyCreatesOrderForm(){}
-
-	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
 	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
 	 * "true", the canBeFulfilled field in the first Hamper to "false", adds the missing food category to the 
