@@ -28,6 +28,8 @@ public class TestingMary {
 	hamper3.getPeople().get(6).getNutrition().setTotalNeedCalories(1000);
 	hamper3.getPeople().get(7).getNutrition().setTotalNeedCalories(1000);
 
+	hamper3.getPeople().get(0).getNutrition().setPercentWG(100);
+
 	hamper4.getPeople().get(0).getNutrition().setTotalNeedCalories(1500);
 
 	private Hamper[] hampers_good = {hamper1, hamper2};
@@ -120,25 +122,16 @@ public class TestingMary {
     
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in the first Hamper to "false", adds the missing food category to the 
-	 * missingCategory array, and continues to check the second hamper in the hampersToCheck array. 
+	 * inventoryCheckAlgorithm() calls fillHampers() which then adds the missing food category to the 
+	 * missingCategory array. 
 	 */
 	@Test
 	public void testFillHampersCorrectlyUpdatesMissingCategory(){
+		InventoryService check = new InventoryService(hampers_bad);
+		check.inventoryCheckAlgorithm();
 
+		assertTrue("The missingCategory HashMap<String, Boolean> was not correctly updated for WholeGrain ", check.getMissingCategory().get("WholeGrain"));
 	}
-
-	/*
-	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in each Hamper to "true", and adds appropriate FoodItem objects to the 
-	 * allocatedItems field of each hamper.
-	 * inventoryCheckAlgorithm() checks that the missingCategory array is empty and creates a text file, "Order.txt"
-	 * which contains the order information.
-	 */
-	@Test
-	public void testCreateOrderFormCorrectlyCreatesOrderForm(){}
 
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
