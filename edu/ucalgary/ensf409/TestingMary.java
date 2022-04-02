@@ -44,27 +44,7 @@ public class TestingMary {
     inventory.addFoodItem(testItem);                                        //Adding test item to Foodlist in Inventory
     inventory.addFoodItem(testItem2);                                       //Adding second test item to Foodlist in Inventory
     inventory.addFoodItem(testItem3);                                       //Adding third test item to Foodlist in Inventory
-
-	// inventory.removeFoodItem(testItem2);                                    //Removing item using FoodItem Argument
-    // inventory.removeFoodItem(1);                                            //Removing item using test item ID
-
-	/* What do I want to test?????
 	
-	 * 
-	 * fillHamper() should properly update the tmpUsed field in appropriate FoodItem obj, the canBeFulfilled 
-	 * and the allocatedItems fields in each Hamper, and the missingCategory filed if needed.
-	 * 
-	 * inventoryCheckAlgorithm() will use fillHamper() helper method in a loop, use checkHamperAvail(), and depending
-	 * the content of the missingCategory:
-	 * 	if empty:
-	 * 			update the inventory by deleting the FoodItem's that have "true" tmpUsed field
-	 * 			create an order form (.txt)
-	 * 	if !empty:
-	 * 			reset the tmpUsed field of all FoodItem's in the Inventory to "false"
-	 * 			throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
-	 * 			is short (missingCategory content)
-	 */
-//
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
 	 * getHampers() returns correct ArrayList<Hampers> that is stored as hampersToCheck.
