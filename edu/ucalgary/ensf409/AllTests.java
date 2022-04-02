@@ -19,7 +19,7 @@ import java.io.FileWriter;
 import java.util.HashMap;
 
 
-public class TanishTests {
+public class AllTests {
     // Person Tests:
     /**
      * Test Basic Person Constructor to ensure that object is initilized
