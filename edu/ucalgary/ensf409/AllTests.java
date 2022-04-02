@@ -306,7 +306,7 @@ public class AllTests {
         assertTrue("Item was not removed from the Food List using food item ID", Inventory.getFood(1) == null);
     }
 /*                                              Inventory service and FootItem Tests                                                        */
- private Hamper hamper1 = new Hamper("client1",1,0,0,0);
+private Hamper hamper1 = new Hamper("client1",1,0,0,0);
 	private Hamper hamper2 = new Hamper("client2", 0,0,0,1);
 
 	hamper1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
@@ -325,6 +325,8 @@ public class AllTests {
 	hamper3.getPeople().get(6).getNutrition().setTotalNeedCalories(1000);
 	hamper3.getPeople().get(7).getNutrition().setTotalNeedCalories(1000);
 
+	hamper3.getPeople().get(0).getNutrition().setPercentWG(100);
+
 	hamper4.getPeople().get(0).getNutrition().setTotalNeedCalories(1500);
 
 	private Hamper[] hampers_good = {hamper1, hamper2};
@@ -339,27 +341,7 @@ public class AllTests {
     inventory.addFoodItem(testItem);                                        //Adding test item to Foodlist in Inventory
     inventory.addFoodItem(testItem2);                                       //Adding second test item to Foodlist in Inventory
     inventory.addFoodItem(testItem3);                                       //Adding third test item to Foodlist in Inventory
-
-	// inventory.removeFoodItem(testItem2);                                    //Removing item using FoodItem Argument
-    // inventory.removeFoodItem(1);                                            //Removing item using test item ID
-
-	/* What do I want to test?????
 	
-	 * 
-	 * fillHamper() should properly update the tmpUsed field in appropriate FoodItem obj, the canBeFulfilled 
-	 * and the allocatedItems fields in each Hamper, and the missingCategory filed if needed.
-	 * 
-	 * inventoryCheckAlgorithm() will use fillHamper() helper method in a loop, use checkHamperAvail(), and depending
-	 * the content of the missingCategory:
-	 * 	if empty:
-	 * 			update the inventory by deleting the FoodItem's that have "true" tmpUsed field
-	 * 			create an order form (.txt)
-	 * 	if !empty:
-	 * 			reset the tmpUsed field of all FoodItem's in the Inventory to "false"
-	 * 			throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
-	 * 			is short (missingCategory content)
-	 */
-//
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
 	 * getHampers() returns correct ArrayList<Hampers> that is stored as hampersToCheck.
@@ -417,25 +399,16 @@ public class AllTests {
     
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in the first Hamper to "false", adds the missing food category to the 
-	 * missingCategory array, and continues to check the second hamper in the hampersToCheck array. 
+	 * inventoryCheckAlgorithm() calls fillHampers() which then adds the missing food category to the 
+	 * missingCategory array. 
 	 */
 	@Test
 	public void testFillHampersCorrectlyUpdatesMissingCategory(){
+		InventoryService check = new InventoryService(hampers_bad);
+		check.inventoryCheckAlgorithm();
 
+		assertTrue("The missingCategory HashMap<String, Boolean> was not correctly updated for WholeGrain ", check.getMissingCategory().get("WholeGrain"));
 	}
-
-	/*
-	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in each Hamper to "true", and adds appropriate FoodItem objects to the 
-	 * allocatedItems field of each hamper.
-	 * inventoryCheckAlgorithm() checks that the missingCategory array is empty and creates a text file, "Order.txt"
-	 * which contains the order information.
-	 */
-	@Test
-	public void testCreateOrderFormCorrectlyCreatesOrderForm(){}
 
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
