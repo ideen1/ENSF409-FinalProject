@@ -44,7 +44,7 @@ public class TestingMary {
     inventory.addFoodItem(testItem);                                        //Adding test item to Foodlist in Inventory
     inventory.addFoodItem(testItem2);                                       //Adding second test item to Foodlist in Inventory
     inventory.addFoodItem(testItem3);                                       //Adding third test item to Foodlist in Inventory
-	
+
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
 	 * getHampers() returns correct ArrayList<Hampers> that is stored as hampersToCheck.
@@ -104,25 +104,21 @@ public class TestingMary {
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
 	 * inventoryCheckAlgorithm() calls fillHampers() which then adds the missing food category to the 
 	 * missingCategory array. 
+	 * inventoryCheckAlgorithm() correclty throws the custom exception.
 	 */
-	@Test
-	public void testFillHampersCorrectlyUpdatesMissingCategory(){
+	@Test {expected = InventoryNotAvailableException.class}
+	public void testFillHampersCorrectlyUpdatesMissingCategoryAndThrowsException(){
 		InventoryService check = new InventoryService(hampers_bad);
-		check.inventoryCheckAlgorithm();
-
-		assertTrue("The missingCategory HashMap<String, Boolean> was not correctly updated for WholeGrain ", check.getMissingCategory().get("WholeGrain"));
+		boolean exception = false;
+		try {
+			check.inventoryCheckAlgorithm();
+		}
+		catch (InventoryNotAvailableException e){
+			exception = true;
+			assertTrue("The missingCategory HashMap<String, Boolean> was not correctly updated for WholeGrain ", check.getMissingCategory().get("WholeGrain"));
+		}
+		assertTrue("The custom exception was not thrown by inventoryCheckAlgroithm", exception);
+				
 	}
-
-	/*
-	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
-	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
-	 * "true", the canBeFulfilled field in the first Hamper to "false", adds the missing food category to the 
-	 * missingCategory array, and continues to check the second hamper in the hampersToCheck array. 
-	 * inventoryCheckAlgorithm() checks that the missingCategory array is not empty, resets the tmpUsed field of all
-	 * FoodItems in the inventory to "false" and throws the custom InventoryNotAvailableException with a message 
-	 * indicating which food categories are missing.
-	 */ 
-	@Test
-	public void inventoryCheckAlgorithmCorrectlyThrowsException(){}
 
 }
