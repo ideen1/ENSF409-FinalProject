@@ -20,6 +20,11 @@ public class NutritionValues {
     private  double totalNeedCalories;
 
     public NutritionValues(String type){
+
+        if (!type.equals(PersonType.ADULTFEMALE.toString()) && !type.equals(PersonType.ADULTMALE.toString()) &&
+            !type.equals(PersonType.CHILDOVER8.toString()) && !type.equals(PersonType.CHILDUNDER8.toString())){
+                throw new IllegalArgumentException("Must be valid person type");
+        }
         // TO DO : MUST BE POPULATED BY SQL QUERY
         this.totalNeedCalories = 0;
         this.percentFV = 0;
@@ -77,19 +82,19 @@ public class NutritionValues {
     }
 
     public double getAmountWG() {
-        return percentWG * totalNeedCalories;
+        return percentWG * totalNeedCalories / 100;
     }
 
     public double getAmountFV() {
-        return percentFV * totalNeedCalories;
+        return percentFV * totalNeedCalories / 100;
     }
 
     public double getAmountProtein() {
-        return percentProtein * totalNeedCalories;
+        return percentProtein * totalNeedCalories / 100;
     }
 
     public double getAmountOther() {
-        return percentOther * totalNeedCalories;
+        return percentOther * totalNeedCalories / 100;
     }
 
     public void setPercentWG(double percentWG) {

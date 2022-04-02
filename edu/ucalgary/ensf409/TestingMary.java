@@ -117,8 +117,7 @@ public class TestingMary {
 		assertTrue("The FoodItem's tmpUsed field was not correctly updated (1)", returnValue1);
 		assertTrue("The FoodItem's tmpUsed field was not correctly updated (2)", returnValue2);
 		assertTrue("The FoodItem's tmpUsed field was not correctly updated (3)", returnValue3);
-	}
-
+    
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers where the first hamper cannot be filled.
 	 * inventoryCheckAlgorithm() calls fillHampers() which then updates tmpUsed field in appropriate FoodItem objects to 
