@@ -24,8 +24,6 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     private JPanel midPanel = new JPanel();
     private JPanel footerPanel = new JPanel();
 
-
-
     public GUIViewController(){
         super("Hamper Application");
 
@@ -201,9 +199,9 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 int childover = 0;
                 Pattern stringPattern = Pattern.compile("[a-zA-Z\\s]*$");
                 Matcher matcher = stringPattern.matcher(clientName.getText());
-                if (!matcher.matches()){
+                if (!matcher.matches() || clientName.getText().equals("Client Name")){
                     valid = false;
-                    displayError("Client name must be a string!");
+                    displayError("Client name can only contain letters or spaces!");
                 }
 
                 try {
@@ -289,14 +287,13 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
 
     public void actionPerformed(ActionEvent event){
 
-        JButton clickSource = (JButton)event.getSource();
+
     }
     
     public void mouseClicked(MouseEvent event){
  
                 
     }
-    
 
     public void mouseEntered(MouseEvent event){
         
@@ -341,9 +338,5 @@ class JTextFieldPlaceHolder extends JTextField{
         
     }
     private String placeholder;
-  
-
-        
-
 
 }
