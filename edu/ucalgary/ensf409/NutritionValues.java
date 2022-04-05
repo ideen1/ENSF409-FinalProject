@@ -21,8 +21,8 @@ public class NutritionValues {
 
     public NutritionValues(String type){
 
-        if (!type.equals(PersonType.ADULTFEMALE.toString()) && !type.equals(PersonType.ADULTMALE.toString()) &&
-            !type.equals(PersonType.CHILDOVER8.toString()) && !type.equals(PersonType.CHILDUNDER8.toString())){
+        if (!type.equals("ADULTMALE") && !type.equals("ADULTFEMALE") &&
+            !type.equals("CHILDOVER8") && !type.equals("CHILDUNDER8")){
                 throw new IllegalArgumentException("Must be valid person type");
         }
         // TO DO : MUST BE POPULATED BY SQL QUERY

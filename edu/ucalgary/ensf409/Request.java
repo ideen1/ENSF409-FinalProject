@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Request{
 
-	private static ArrayList<Hamper> hampers = new ArrayList<Hamper>();
+	private ArrayList<Hamper> hampers = new ArrayList<Hamper>();
     private LocalDate date;
     private String nameRequest;
 
@@ -17,7 +17,7 @@ public class Request{
 
     }
 
-    public static void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+    public void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         if (numAdultFemales < 0 && numAdultMales < 0 && numChildOver8 < 0 && numChildUnder8 < 0){
             throw new InvalidParameterException("Number of people must not be below 0");
         }

@@ -29,6 +29,11 @@ public class Hamper {
     private int totalNeedOther = 0;
     private int totalNeedCalories = 0;
 
+    private int numAdultMales;
+    private int numAdultFemales;
+    private int numChildUnder8;
+    private int numChildOver8;
+
     /**
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
@@ -38,7 +43,10 @@ public class Hamper {
         // Set Client for Hamper
 
         this.CLIENT = clientName;
-
+        this.numAdultFemales = numAdultFemales;
+        this.numAdultMales = numAdultMales;
+        this.numChildOver8 = numChildOver8;
+        this.numChildUnder8 = numChildUnder8;
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -168,6 +176,23 @@ public class Hamper {
     public String getClientName(){
 
         return this.CLIENT;
+    }
+
+    public int getNumAdultMales() {
+        return numAdultMales;
+    }
+
+    public int getNumAdultFemales() {
+        return numAdultFemales;
+    }
+
+    public int getNumChildUnder8() {
+        return numChildUnder8;
+    }
+
+
+    public int getNumChildOver8() {
+        return numChildOver8;
     }
 
 }
