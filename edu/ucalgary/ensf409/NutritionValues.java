@@ -20,6 +20,7 @@ public class NutritionValues {
     private  double totalNeedCalories;
 
     public NutritionValues(String type){
+        
 
         if (!type.equals("ADULTMALE") && !type.equals("ADULTFEMALE") &&
             !type.equals("CHILDOVER8") && !type.equals("CHILDUNDER8")){

@@ -9,6 +9,8 @@ public class HamperApp {
     public static Inventory inventory;
     public static void main(String[] args) {
 
+        
+
         EventQueue.invokeLater(() -> {
             // Create App Window Frame
             GUIViewController mainScreen = new GUIViewController();  

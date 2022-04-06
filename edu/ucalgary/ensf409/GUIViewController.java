@@ -286,6 +286,9 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public void displayError(String error){
         JOptionPane.showMessageDialog(midPanel, error, "Invalid input", JOptionPane.ERROR_MESSAGE);
     }
+    public static void genericError(String error){
+        JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
+    }
 
     public void actionPerformed(ActionEvent event){
 
