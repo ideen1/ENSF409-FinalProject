@@ -9,12 +9,13 @@ public class HamperApp {
     public static Inventory inventory;
     public static void main(String[] args) {
 
-        // Pre GUI Initialization Checks
+        // START Pre GUI Initialization Checks
         // Test DB Connection
         if (!DBConnection.testDBConnection()){
-            GUIViewController.genericError("Could not connect to Data Base");
+            GUIViewController.genericError("Could not connect to Database");
         }
-        
+        // END Pre GUI Initialization Checks
+
 
         EventQueue.invokeLater(() -> {
             // Create App Window Frame

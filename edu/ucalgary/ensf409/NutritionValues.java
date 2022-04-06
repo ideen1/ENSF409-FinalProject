@@ -50,6 +50,7 @@ public class NutritionValues {
                 this.percentWG = Double.valueOf(results.getString("WholeGrains"));
                 this.percentProtein = Double.valueOf(results.getString("Protein"));
                 this.percentOther = Double.valueOf(results.getString("Other"));
+                
             } else{
                 GUIViewController.genericError("INTERNAL - No Table Data for PersonType");
             }

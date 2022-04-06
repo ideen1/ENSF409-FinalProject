@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class InventoryService{
 	private Hamper[] hampersToCheck;
-	private static Inventory inventory;
+	private static Inventory inventory = HamperApp.inventory;
 	private HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 	
 	public void inventoryCheckAlgorithm() {
