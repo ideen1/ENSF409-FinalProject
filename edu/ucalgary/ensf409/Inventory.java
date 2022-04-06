@@ -3,6 +3,7 @@ package edu.ucalgary.ensf409;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class Inventory {
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();

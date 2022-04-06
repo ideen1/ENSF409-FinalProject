@@ -65,6 +65,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public void GUILoadHome(){
         resetLayouts();
         JLabel title = new JLabel("Please select what you would like to do:");
+        JLabel inventorySize = new JLabel("There are " + HamperApp.inventory.getFoodlist().size() + " items in the inventory");
 
         JButton createOrder = new JButton("Create Order");
         createOrder.setVerticalAlignment(SwingConstants.CENTER);
@@ -75,12 +76,14 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 // Create new Request Order
                 HamperApp.currentRequest = new Request("Order", LocalDate.now());
                 GUIViewController.this.GUILoadOrder();
-
             }
         });
-        
+        JProgressBar progress = new JProgressBar();
         upperPanel.add(title);
         midPanel.add(createOrder);
+        midPanel.add(progress);
+        footerPanel.add(inventorySize);
+        
 
         reloadGUI();
     }
@@ -249,7 +252,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         pane.add(numChildOver8);
 
         upperPanel.add(title);
-        midPanel.add(pane, BorderLayout.CENTER);
+        midPanel.add(pane, BorderLayout.AFTER_LAST_LINE);
         footerPanel.add(back);
         footerPanel.add(save);
         reloadGUI();

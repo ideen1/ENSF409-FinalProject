@@ -16,7 +16,6 @@ public class HamperApp {
         }
         // END Pre GUI Initialization Checks
 
-
         EventQueue.invokeLater(() -> {
             // Create App Window Frame
             GUIViewController mainScreen = new GUIViewController();  
