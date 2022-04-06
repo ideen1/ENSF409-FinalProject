@@ -8,21 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
-    public static final String DBURL = "";
-    public static final String USERNAME = "";
-    public static final String PASSWORD = "";    
+    public static final String DBURL = "jdbc:mysql://localhost/food_inventory";
+    public static final String USERNAME = "student";
+    public static final String PASSWORD = "ensf";    
     
     private Connection dbConnect;
     private ResultSet results;
     
-    /*
-    public DBConnection(String url, String user, String pw){
-        // Database URL
-        this.DBURL = url;
-        //  Database credentials
-        this.USERNAME = user;
-        this.PASSWORD = pw;
-    }*/
 
 
 //Must create a connection to the database, no arguments, no return value    
@@ -37,13 +29,14 @@ public class DBConnection {
 
     try {
         this.dbConnect = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
-        } 
+    } 
     catch (SQLException e) {
         GUIViewController.genericError("Could not initialize Connection");
-        }
+    }
     }
 
-    public void prepareStatement(String query, String... args ){
+
+    public void preparedQuery(String query, String... args ){
 
         try {
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
@@ -76,6 +69,16 @@ public class DBConnection {
                 return null;
                 }
             }
+
+    public static boolean testDBConnection(){
+            try {
+                Connection dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+                return true;
+            } 
+            catch (SQLException e) {
+                return false;
+            }
+        }    
 
     
 }
