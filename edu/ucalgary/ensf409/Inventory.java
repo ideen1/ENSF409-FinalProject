@@ -3,7 +3,6 @@ package edu.ucalgary.ensf409;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class Inventory {
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();
@@ -46,9 +45,11 @@ public class Inventory {
         Inventory.foodList.put(addFood.getID(), addFood);
     }
     public static void removeFoodItem(FoodItem removeFood){
+        // DELETE FROM SQL AS WELL
         Inventory.foodList.remove(removeFood.getID());
     }
     public static void removeFoodItem(int ID){
+        // DELETE FROM SQL AS WELL
         Inventory.foodList.remove(ID);
     }
     public static FoodItem getFood(int ID){
