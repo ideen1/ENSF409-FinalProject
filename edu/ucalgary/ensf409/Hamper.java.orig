@@ -16,7 +16,9 @@ import java.util.Date;
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
 
+
     private final String CLIENT;
+
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;
@@ -27,21 +29,24 @@ public class Hamper {
     private int totalNeedOther = 0;
     private int totalNeedCalories = 0;
 
+    private int numAdultMales;
+    private int numAdultFemales;
+    private int numChildUnder8;
+    private int numChildOver8;
+
     /**
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
-<<<<<<< HEAD
 
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
-        this.client = clientName;
-=======
-s
-    public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
-        // Set Client for Hamper
+
         this.CLIENT = clientName;
->>>>>>> master
+        this.numAdultFemales = numAdultFemales;
+        this.numAdultMales = numAdultMales;
+        this.numChildOver8 = numChildOver8;
+        this.numChildUnder8 = numChildUnder8;
 
         // Add Adult Males
         for (int i = 0; i < numAdultMales; i++){
@@ -91,7 +96,6 @@ s
     
     /** 
      * @return ArrayList<Person>
-<<<<<<< HEAD
      */
     public ArrayList<Person> getPeople() {
         return people;
@@ -101,17 +105,6 @@ s
     /** 
      * @return ArrayList<Integer>
      */
-=======
-     */
-    public ArrayList<Person> getPeople() {
-        return people;
-
-    }
-
-    /** 
-     * @return ArrayList<Integer>
-     */
->>>>>>> master
     public ArrayList<Integer> getAllocatedItems() {
         return allocatedItems;
     }
@@ -181,14 +174,29 @@ s
     }
 
     public String getClientName(){
-<<<<<<< HEAD
-        return this.client;
-    }
 
-}
-=======
         return this.CLIENT;
     }
 
+<<<<<<< HEAD
+=======
+    public int getNumAdultMales() {
+        return numAdultMales;
+    }
+
+    public int getNumAdultFemales() {
+        return numAdultFemales;
+    }
+
+    public int getNumChildUnder8() {
+        return numChildUnder8;
+    }
+
+
+    public int getNumChildOver8() {
+        return numChildOver8;
+    }
+>>>>>>> aefb1fcfcf6e3fd8d0a8c1d3d51977426f911f4b
+
 }
->>>>>>> master
+

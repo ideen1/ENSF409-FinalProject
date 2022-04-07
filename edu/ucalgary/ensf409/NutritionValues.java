@@ -1,7 +1,7 @@
 /** NutritionValues.java 
- *  Java Class file for ENSF409 Final Project 202 - 
+ *  Java Class file for ENSF409 Final Project - 
  *  Winter 2022 - Group 5
- *  Copyright © 2022 I.B., T.D., M.G.
+ *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen
  *  @version 1.0
  *  @since 1.0
@@ -9,23 +9,57 @@
 
 package edu.ucalgary.ensf409;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * NutritionValues
  */
 public class NutritionValues {
-    private  double percentWG;
-    private  double percentFV;
-    private  double percentProtein;
-    private  double percentOther;
-    private  double totalNeedCalories;
+    private double percentWG;
+    private double percentFV;
+    private double percentProtein;
+    private double percentOther;
+    private double totalNeedCalories;
 
     public NutritionValues(String type){
-        // TO DO : MUST BE POPULATED BY SQL QUERY
-        this.totalNeedCalories = 0;
-        this.percentFV = 0;
-        this.percentWG = 0;
-        this.percentProtein = 0;
-        this.percentOther = 0;
+        
+        try {
+            DBConnection dbc = new DBConnection();
+            dbc.initializeConnection();
+            ResultSet results = null;
+
+            if (type.equals("ADULTMALE")){
+                results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Adult Male'");
+
+            } else if (type.equals("ADULTFEMALE")) {
+                results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Adult Female'");
+            } else if (type.equals("CHILDOVER8")){
+                results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Child over 8'");
+            } else if (type.equals("CHILDUNDER8")){
+                results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Child under 8'");
+            } else {
+
+                GUIViewController.genericError("INTERNAL - Invalid PersonType");
+            }
+
+            
+            if (results.next()){
+                this.totalNeedCalories = Double.valueOf(results.getString("Calories")) ;
+                this.percentFV = Double.valueOf(results.getString("FruitVeggies"));
+                this.percentWG = Double.valueOf(results.getString("WholeGrains"));
+                this.percentProtein = Double.valueOf(results.getString("Protein"));
+                this.percentOther = Double.valueOf(results.getString("Other"));
+                
+            } else{
+                GUIViewController.genericError("INTERNAL - No Table Data for PersonType");
+            }
+
+        } catch (SQLException e){
+            GUIViewController.genericError("Error retrieving Daily Client Needs from SQL");
+        }
+        
+        
 
     }
 
@@ -77,19 +111,19 @@ public class NutritionValues {
     }
 
     public double getAmountWG() {
-        return percentWG * totalNeedCalories;
+        return percentWG * totalNeedCalories / 100;
     }
 
     public double getAmountFV() {
-        return percentFV * totalNeedCalories;
+        return percentFV * totalNeedCalories / 100;
     }
 
     public double getAmountProtein() {
-        return percentProtein * totalNeedCalories;
+        return percentProtein * totalNeedCalories / 100;
     }
 
     public double getAmountOther() {
-        return percentOther * totalNeedCalories;
+        return percentOther * totalNeedCalories / 100;
     }
 
     public void setPercentWG(double percentWG) {

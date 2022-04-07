@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class InventoryService{
 	private Hamper[] hampersToCheck;
-	private static Inventory inventory;
+	private static Inventory inventory = HamperApp.inventory;
 	private HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 	
 	public void inventoryCheckAlgorithm() {
@@ -19,8 +19,8 @@ public class InventoryService{
 		 * 		create an order form (.txt)
 		 * else 
 		 * 		reset the tmpUsed field of all FoodItem's in the Inventory to "false"
-	 * 			throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
-	 * 			is short (missingCategory content)
+	 	 * 		throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
+	     * 		is short (missingCategory content)
 		 */
 	}
 	
