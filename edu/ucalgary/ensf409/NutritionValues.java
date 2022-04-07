@@ -22,6 +22,17 @@ public class NutritionValues {
     private double percentOther;
     private double totalNeedCalories;
 
+    
+
+    public NutritionValues(double percentWG, double percentFV, double percentProtein, double percentOther,
+            double totalNeedCalories) {
+        this.percentWG = percentWG;
+        this.percentFV = percentFV;
+        this.percentProtein = percentProtein;
+        this.percentOther = percentOther;
+        this.totalNeedCalories = totalNeedCalories;
+    }
+
     public NutritionValues(String type){
         
         try {

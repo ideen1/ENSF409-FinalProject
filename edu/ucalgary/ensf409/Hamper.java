@@ -15,19 +15,13 @@ import java.util.Date;
 
 public class Hamper {
     private ArrayList<Person> people = new ArrayList<Person>();
-
+    private NutritionValues totalNeeds;
 
     private final String CLIENT;
 
 
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;
-
-    private int totalNeedWG = 0;
-    private int totalNeedFV = 0;
-    private int totalNeedProtein = 0;
-    private int totalNeedOther = 0;
-    private int totalNeedCalories = 0;
 
     private int numAdultMales;
     private int numAdultFemales;
@@ -75,21 +69,25 @@ public class Hamper {
      * amount and type of people in people ArrayList
      */
     private void calculateNeededNutrients() {
+        
+
+        int totalNeedWG = 0;
+        int totalNeedFV = 0;
+        int totalNeedProtein = 0;
+        int totalNeedOther = 0;
+        int totalNeedCalories = 0;
         for (Person person: people){
-            this.totalNeedFV += person.getNutrition().getAmountFV();
-            this.totalNeedProtein += person.getNutrition().getAmountProtein();
-            this.totalNeedWG += person.getNutrition().getAmountWG();
-            this.totalNeedOther += person.getNutrition().getAmountOther();
-            this.totalNeedCalories += person.getNutrition().getTotalNeedCalories();
+            totalNeedFV += person.getNutrition().getAmountFV();
+            totalNeedProtein += person.getNutrition().getAmountProtein();
+            totalNeedWG += person.getNutrition().getAmountWG();
+            totalNeedOther += person.getNutrition().getAmountOther();
+            totalNeedCalories += person.getNutrition().getTotalNeedCalories();
         }
+        totalNeeds = new NutritionValues(totalNeedWG/totalNeedCalories, totalNeedFV/totalNeedCalories, totalNeedProtein/totalNeedCalories, totalNeedOther/totalNeedCalories, totalNeedCalories);
     }
 
     public void recalculateNutrients(){
-        this.totalNeedFV = 0;
-        this.totalNeedOther = 0;
-        this.totalNeedProtein = 0;
-        this.totalNeedWG = 0;
-        this.totalNeedCalories = 0;
+        totalNeeds = null;
         calculateNeededNutrients();
     }
 
@@ -137,40 +135,40 @@ public class Hamper {
     /** 
      * @return int
      */
-    public int getTotalNeedWG() {
-        return totalNeedWG;
+    public double getTotalNeedWG() {
+        return totalNeeds.getAmountWG();
     }
 
     
     /** 
      * @return int
      */
-    public int getTotalNeedFV() {
-        return totalNeedFV;
+    public double getTotalNeedFV() {
+        return totalNeeds.getAmountFV();
     }
 
     
     /** 
      * @return int
      */
-    public int getTotalNeedProtein() {
-        return totalNeedProtein;
+    public double getTotalNeedProtein() {
+        return totalNeeds.getAmountProtein();
     }
 
     
     /** 
      * @return int
      */
-    public int getTotalNeedOther() {
-        return totalNeedOther;
+    public double getTotalNeedOther() {
+        return totalNeeds.getAmountOther();
     }
 
     
     /** 
      * @return int
      */
-    public int getTotalNeedCalories() {
-        return totalNeedCalories;
+    public double getTotalNeedCalories() {
+        return totalNeeds.getTotalNeedCalories();
     }
 
     public String getClientName(){

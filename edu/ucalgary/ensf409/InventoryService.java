@@ -11,6 +11,7 @@ public class InventoryService{
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 
 	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
+	private static HashMap<Integer, NutritionValues> pwrSetNutrition = new HashMap<Integer, NutritionValues>();
 	private static ArrayList<Integer> tmpUsed = new ArrayList<Integer>();
 	private static int nextSetSize = 2;
 
@@ -31,11 +32,12 @@ public class InventoryService{
 
 		 for (Hamper hamper :  request.getHampers()){
 			 // Perform check for each hamper
+			 findOptimalFromSet(hamper);
 		 }
 	}
 
-	private void findOptimalFromSet(){
-		
+	private void findOptimalFromSet(Hamper hamper){
+		hamper.tot
 	}
 	
 	public static void nextPowerSet(){
@@ -49,7 +51,7 @@ public class InventoryService{
 		for (int[] item : generatePwrSet(data, nextSetSize)){
 			pwrSet.add(item);
 		}
-		System.out.println(pwrSet.size());
+		
 		nextSetSize++;
 	}
 	
