@@ -5,9 +5,13 @@ package edu.ucalgary.ensf409;
 import java.util.HashMap;
 
 public class InventoryService{
-	private Hamper[] hampersToCheck;
+	private static Hamper[] hampersToCheck;
 	private static Inventory inventory = HamperApp.inventory;
-	private HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
+	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
+
+	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
+	private static ArrayList<Integer> tmpUsed = new ArrayList<Integer>();
+	private static int nextSetSize = 2;
 	
 	public void inventoryCheckAlgorithm() {
 		
@@ -24,6 +28,50 @@ public class InventoryService{
 		 */
 	}
 	
+	public static void nextPowerSet(){
+		int[] data = new int[inventory.getFoodlist().size()];
+		
+		int i = 0 ;
+		for(Integer item: inventory.getFoodlist().keySet()){
+			data[i] = item;
+			i++;
+		}
+		pwrSet.add(generatePwrSet(data, nextSetSize));
+		nextSetSize++;
+	}
+	
+	public static ArrayList<int[]> generatePwrSet (int[] data, int setSizeNum){
+		
+		ArrayList<int[]> combinations = new ArrayList<int[]>();
+ 
+        pwrSetHelper(combinations, data, 0, data.length-1, 0, setSizeNum);
+		return combinations;
+	}
+	
+	private static void pwrSetHelper(ArrayList<int[]> combinations, int data[], int start, int end, int index, int r) {
+
+        if (index == r)
+        {
+			int[] tempList = new int[r];
+            for (int j=0; j<r; j++){
+				tempList[j] = data[j];
+				System.out.print(data[j]+" ");
+			}
+
+            System.out.println("");
+            return;
+        }
+ 
+        for (int i=start; i<=end && end-i+1 >= r-index; i++)
+        {
+            data[index] = arr[i];
+            pwrSetHelper(arr, data, i+1, end, index+1, r);
+        }
+	}
+	
+
+	// GUIViewController.genericError("");
+
 	// Helper methods
 	private void fillHampers() {
 		// used in a loop, helper method for inventoryCheckAlgorithm
@@ -31,11 +79,7 @@ public class InventoryService{
 		// updates missingCategory if missing anything for a hamper
 	}
 			
-	// Constructor
-	public InventoryService(Hamper[] hampers) {
-		hampersToCheck = hampers;
-		inventory = new Inventory();
-	}
+
 	
 }
 //
