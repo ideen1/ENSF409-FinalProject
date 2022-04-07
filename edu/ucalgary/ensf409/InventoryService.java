@@ -2,6 +2,7 @@
 
 package edu.ucalgary.ensf409;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryService{
@@ -36,36 +37,39 @@ public class InventoryService{
 			data[i] = item;
 			i++;
 		}
-		pwrSet.add(generatePwrSet(data, nextSetSize));
+		for (int[] item : generatePwrSet(data, nextSetSize)){
+			pwrSet.add(item);
+		}
 		nextSetSize++;
 	}
 	
-	public static ArrayList<int[]> generatePwrSet (int[] data, int setSizeNum){
+	public static ArrayList<int[]> generatePwrSet (int[] inputArray, int setSizeNum){
 		
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
- 
-        pwrSetHelper(combinations, data, 0, data.length-1, 0, setSizeNum);
+
+		int data[]= new int[setSizeNum];
+        pwrSetHelper(inputArray, data, 0, data.length-1, 0, setSizeNum, combinations);
 		return combinations;
 	}
 	
-	private static void pwrSetHelper(ArrayList<int[]> combinations, int data[], int start, int end, int index, int r) {
+	private static void pwrSetHelper(int[] inputArray, int data[], int start, int end, int index, int r, ArrayList<int[]> combinations) {
 
         if (index == r)
         {
 			int[] tempList = new int[r];
             for (int j=0; j<r; j++){
 				tempList[j] = data[j];
-				System.out.print(data[j]+" ");
+				// System.out.print(data[j]+" ");
 			}
-
-            System.out.println("");
+			combinations.add(tempList);
+            // System.out.println("");
             return;
         }
  
         for (int i=start; i<=end && end-i+1 >= r-index; i++)
         {
-            data[index] = arr[i];
-            pwrSetHelper(arr, data, i+1, end, index+1, r);
+            data[index] = inputArray[i];
+            pwrSetHelper(inputArray, data, i+1, end, index+1, r, combinations);
         }
 	}
 	
