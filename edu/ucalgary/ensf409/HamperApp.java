@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 public class HamperApp {
     public static Request currentRequest;
     public static Inventory inventory;
+    public static GUIViewController mainScreen;
     public static void main(String[] args) {
 
         // START Pre GUI Initialization Checks
@@ -18,7 +19,8 @@ public class HamperApp {
 
         EventQueue.invokeLater(() -> {
             // Create App Window Frame
-            GUIViewController mainScreen = new GUIViewController();  
+            mainScreen = new GUIViewController();  
+            
             // Set Frame to visible
             mainScreen.setVisible(true);   
             // Load Home by Default

@@ -292,6 +292,16 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public static void genericError(String error){
         JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
     }
+    public static void genericLoading(){
+        //JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
+        final JOptionPane optionPane = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+
+        final JDialog dialog = new JDialog();
+        dialog.setTitle("Message");
+        dialog.setModal(true);
+
+        dialog.setContentPane(optionPane);
+    }
 
     public void actionPerformed(ActionEvent event){
 

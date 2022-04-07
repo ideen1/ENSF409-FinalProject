@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryService{
-	private static Hamper[] hampersToCheck;
+	private static Request request;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 
 	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
 	private static ArrayList<Integer> tmpUsed = new ArrayList<Integer>();
 	private static int nextSetSize = 2;
+
 	
 	public void inventoryCheckAlgorithm() {
 		
@@ -27,6 +28,14 @@ public class InventoryService{
 	 	 * 		throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
 	     * 		is short (missingCategory content)
 		 */
+
+		 for (Hamper hamper :  request.getHampers()){
+			 // Perform check for each hamper
+		 }
+	}
+
+	private void findOptimalFromSet(){
+		
 	}
 	
 	public static void nextPowerSet(){
@@ -40,6 +49,7 @@ public class InventoryService{
 		for (int[] item : generatePwrSet(data, nextSetSize)){
 			pwrSet.add(item);
 		}
+		System.out.println(pwrSet.size());
 		nextSetSize++;
 	}
 	
@@ -48,7 +58,8 @@ public class InventoryService{
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
 
 		int data[]= new int[setSizeNum];
-        pwrSetHelper(inputArray, data, 0, data.length-1, 0, setSizeNum, combinations);
+        pwrSetHelper(inputArray, data, 0, inputArray.length-1, 0, setSizeNum, combinations);
+		
 		return combinations;
 	}
 	
@@ -59,10 +70,10 @@ public class InventoryService{
 			int[] tempList = new int[r];
             for (int j=0; j<r; j++){
 				tempList[j] = data[j];
-				// System.out.print(data[j]+" ");
+				 //System.out.print(data[j]+" ");
 			}
 			combinations.add(tempList);
-            // System.out.println("");
+             //System.out.println("");
             return;
         }
  

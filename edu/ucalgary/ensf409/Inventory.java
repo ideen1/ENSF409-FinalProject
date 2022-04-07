@@ -27,6 +27,7 @@ public class Inventory {
                 foodList.put(Integer.valueOf(results.getString("ItemID")) , newItem);
                 
             } 
+            InventoryService.nextPowerSet();
 
         } catch (SQLException e){
             GUIViewController.genericError("Error retrieving Food Inventory from Database");
