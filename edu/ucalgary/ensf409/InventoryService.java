@@ -2,12 +2,17 @@
 
 package edu.ucalgary.ensf409;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InventoryService{
 	private Hamper[] hampersToCheck;
 	private static Inventory inventory = HamperApp.inventory;
 	private HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
+	private ArrayList<ArrayList<Integer>> pwrSet = new ArrayList<ArrayList<Integer>>();
+	private ArrayList<Integer> tmpUsed = new ArrayList<Integer>();
+	private int setSize = 2;
+
 	
 	public void inventoryCheckAlgorithm() {
 		
@@ -23,6 +28,18 @@ public class InventoryService{
 	     * 		is short (missingCategory content)
 		 */
 	}
+	public void checkHamperNeeds(){
+
+	}
+
+	public void nextPowerSet(){
+		generate(in)
+		setSize++;
+	}
+	public ArrayList<ArrayList<Integer>> generate (int numOfItems, int setSizeNum){
+		return null;
+	}
+
 	
 	// Helper methods
 	private void fillHampers() {
