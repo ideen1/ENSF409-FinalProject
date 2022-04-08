@@ -37,6 +37,11 @@ Original Request
 Hamper 1: 1 Adult Female, 2 Child under 8
 Hamper 2: 1 Adult Male, 1 Child over 8
 
+
+//// print hamper
+//// for each Hamper, go through its allocated items list and
+
+
 Hamper 1 Items:
 34	Avocado, dozen
 35	Avocado, dozen

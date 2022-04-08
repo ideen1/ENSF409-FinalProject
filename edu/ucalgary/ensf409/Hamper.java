@@ -1,7 +1,7 @@
 /** Hamper.java 
  *  Java Class file for ENSF409 Final Project 202 - 
  *  Winter 2022 - Group 5
- *  Copyright © 2022 I.B., T.D., M.G.
+ *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen
  *  @version 1.0
  *  @since 1.0
@@ -19,8 +19,13 @@ public class Hamper {
 
     private final String CLIENT;
 
+///////////////////////////////////////////////////////////////////////////////////
 
-    private ArrayList<Integer> allocatedItems = new ArrayList<>();
+    private ArrayList<Integer> allocatedItems = new ArrayList<>(); // Can we store FoodItem here instead of just their ID's??
+    // private ArrayList<FoodItem> allocatedItems = new Arraylist<FoodItem>();
+
+///////////////////////////////////////////////////////////////////////////////////
+
     private boolean canBeFulfilled = false;
 
     private int numAdultMales;
