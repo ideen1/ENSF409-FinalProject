@@ -20,6 +20,8 @@ public class Hamper {
     private final String CLIENT;
 
 
+    private int optimalSet;
+    private double optimizationAmount = Integer.MAX_VALUE;
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
     private boolean canBeFulfilled = false;
 
@@ -63,6 +65,14 @@ public class Hamper {
         calculateNeededNutrients();
     }
 
+    public double getOptimizationAmount() {
+        return optimizationAmount;
+    }
+
+    public void setOptimizationAmount(double optimizationAmount) {
+        this.optimizationAmount = optimizationAmount;
+    }
+
     /**
      * calculateNeededNutrients()
      * Calculates total nutrients needed for Hamper based on
@@ -89,6 +99,10 @@ public class Hamper {
     public void recalculateNutrients(){
         totalNeeds = null;
         calculateNeededNutrients();
+    }
+
+    public NutritionValues getNutritionValues(){
+        return this.totalNeeds;
     }
 
     
@@ -192,6 +206,13 @@ public class Hamper {
 
     public int getNumChildOver8() {
         return numChildOver8;
+    }
+
+    public int getOptimalSet() {
+        return optimalSet;
+    } 
+    public void setOptimalSet(int optimal) {
+        this. optimalSet = optimal;
     }
 
 

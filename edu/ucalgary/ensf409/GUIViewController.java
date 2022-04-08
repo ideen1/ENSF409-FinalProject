@@ -234,8 +234,10 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 }
 
                 if (valid){
+                    GUIViewController.this.genericLoader("Creating Hamper");
                     HamperApp.currentRequest.addHamper(clientName.getText(), male, female, childunder, childover);;
                     GUIViewController.this.GUILoadOrder();
+                    GUIViewController.this.genericLoaderHide();
                 }
 
             }
@@ -291,16 +293,37 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public static void genericError(String error){
         JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
     }
-    public void genericLoader(){
+    public void genericLoader(String loadingMessage){
+        if (loadingPane !=null){
+            this.genericLoaderHide();
+        }
+        
         loadingPane = new JDialog();
-        loadingPane.setTitle("Message");
-        loadingPane.setModal(true);
+        JLabel label = new JLabel(loadingMessage);  
+        JPanel panel = new JPanel();
+        panel.add(label, BorderLayout.NORTH);
+        
+        loadingPane.setLocationRelativeTo(this);
+        loadingPane.setTitle("Loading...");
+        loadingPane.setLayout(new FlowLayout());
+        loadingPane.setSize(250,175);
+        loadingPane.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+        loadingPane.add(panel, BorderLayout.NORTH);
 
-        JOptionPane message = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-        loadingPane.setContentPane(message);
+        //loadingPane.setModal(true);
+        loadingPane.setVisible(true);
+        
     }
     public void genericLoaderHide(){
         loadingPane.dispose();
+        loadingPane.setModal(false);
+        loadingPane.removeAll();
+        
+        loadingPane.setVisible(false);
+        loadingPane.repaint();;
+        
+        
+        
     }
 
     public void actionPerformed(ActionEvent event){

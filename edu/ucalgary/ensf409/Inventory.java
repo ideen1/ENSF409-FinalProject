@@ -8,6 +8,7 @@ public class Inventory {
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();
     
     static {
+        HamperApp.mainScreen.genericLoader("Loading Inventory");
         // CODE to load food items from inventory
         try {
             DBConnection dbc = new DBConnection();
@@ -32,7 +33,7 @@ public class Inventory {
         } catch (SQLException e){
             GUIViewController.genericError("Error retrieving Food Inventory from Database");
         }
-
+        HamperApp.mainScreen.genericLoaderHide();
     }
     public static HashMap<Integer,FoodItem> getFoodlist(){
         return Inventory.foodList;
