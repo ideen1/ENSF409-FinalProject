@@ -23,6 +23,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     private JPanel upperPanel = new JPanel();
     private JPanel midPanel = new JPanel();
     private JPanel footerPanel = new JPanel();
+    private JDialog loadingPane;
 
     public GUIViewController(){
         super("Hamper Application");
@@ -290,15 +291,16 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public static void genericError(String error){
         JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
     }
-    public static void genericLoading(){
-        //JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
-        final JOptionPane optionPane = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    public void genericLoader(){
+        loadingPane = new JDialog();
+        loadingPane.setTitle("Message");
+        loadingPane.setModal(true);
 
-        final JDialog dialog = new JDialog();
-        dialog.setTitle("Message");
-        dialog.setModal(true);
-
-        dialog.setContentPane(optionPane);
+        JOptionPane message = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+        loadingPane.setContentPane(message);
+    }
+    public void genericLoaderHide(){
+        loadingPane.dispose();
     }
 
     public void actionPerformed(ActionEvent event){
