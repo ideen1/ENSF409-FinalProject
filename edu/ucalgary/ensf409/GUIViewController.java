@@ -63,6 +63,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     public void GUILoadHome(){
         resetLayouts();
         JLabel title = new JLabel("Please select what you would like to do:");
+        JLabel inventorySize = new JLabel("There are " + HamperApp.inventory.getFoodlist().size() + " items in the inventory");
 
         JButton createOrder = new JButton("Create Order");
         createOrder.setVerticalAlignment(SwingConstants.CENTER);
@@ -73,12 +74,14 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 // Create new Request Order
                 HamperApp.currentRequest = new Request("Order", LocalDate.now());
                 GUIViewController.this.GUILoadOrder();
-
             }
         });
-        
+        JProgressBar progress = new JProgressBar();
         upperPanel.add(title);
         midPanel.add(createOrder);
+        midPanel.add(progress);
+        footerPanel.add(inventorySize);
+        
 
         reloadGUI();
     }
@@ -247,7 +250,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         pane.add(numChildOver8);
 
         upperPanel.add(title);
-        midPanel.add(pane, BorderLayout.CENTER);
+        midPanel.add(pane, BorderLayout.AFTER_LAST_LINE);
         footerPanel.add(back);
         footerPanel.add(save);
         reloadGUI();
@@ -283,6 +286,19 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     }
     public void displayError(String error){
         JOptionPane.showMessageDialog(midPanel, error, "Invalid input", JOptionPane.ERROR_MESSAGE);
+    }
+    public static void genericError(String error){
+        JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
+    }
+    public static void genericLoading(){
+        //JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
+        final JOptionPane optionPane = new JOptionPane("Hello world", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+
+        final JDialog dialog = new JDialog();
+        dialog.setTitle("Message");
+        dialog.setModal(true);
+
+        dialog.setContentPane(optionPane);
     }
 
     public void actionPerformed(ActionEvent event){
