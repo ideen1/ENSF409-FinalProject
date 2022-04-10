@@ -19,7 +19,7 @@ public class Request{
 
     public void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         if (numAdultFemales < 0 && numAdultMales < 0 && numChildOver8 < 0 && numChildUnder8 < 0){
-            throw new InvalidParameterException("Number of people must not be below 0");
+            GUIViewController.genericError("Amount of people must be 0 or greater.");
         }
 
         Hamper addHamper = new Hamper(clientName, numAdultMales, numAdultFemales, numChildUnder8, numChildOver8);

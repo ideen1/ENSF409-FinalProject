@@ -47,12 +47,19 @@ public class Inventory {
         Inventory.foodList.put(addFood.getID(), addFood);
     }
     public static void removeFoodItem(FoodItem removeFood){
-        // DELETE FROM SQL AS WELL
-        Inventory.foodList.remove(removeFood.getID());
+        
+        removeFoodItem(removeFood.getID());
+
     }
     public static void removeFoodItem(int ID){
-        // DELETE FROM SQL AS WELL
+        // delete from list
         Inventory.foodList.remove(ID);
+
+        // Delete from SQL
+        DBConnection dbc = new DBConnection();
+        dbc.initializeConnection();
+        dbc.preparedQuery("DELETE FROM FOOD_INVENTORY WHERE ItemID = '?'", String.valueOf(ID));
+
     }
     public static FoodItem getFood(int ID){
         return Inventory.foodList.get(ID);

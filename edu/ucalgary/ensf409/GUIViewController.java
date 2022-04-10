@@ -77,10 +77,9 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 GUIViewController.this.GUILoadOrder();
             }
         });
-        JProgressBar progress = new JProgressBar();
+        
         upperPanel.add(title);
         midPanel.add(createOrder);
-        midPanel.add(progress);
         footerPanel.add(inventorySize);
         
 
@@ -122,6 +121,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                     valid = false;
                 }
                 if (valid){
+                    InventoryService.inventoryCheckAlgorithm();
                     GUIViewController.this.GUIDisplayForm();
                 }
 
