@@ -169,7 +169,7 @@ public class InventoryService{
 			for (int num : pwrSet.get(hamper.getOptimalSet())){
 				hamper.addAllocatedItem(num);
 				removeTempUsed(num);
-				HamperApp.inventory.removeFoodItem(num); // This needs to delete from SQL as well inside its function
+				HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
 
@@ -185,7 +185,8 @@ public class InventoryService{
 	}
 	private static void removeTempUsed(int num){
 		// DELETE FROM TMPUSED when tmp used = 1; set to 2
-		for (int num : pwrSet.get(hamper.getOptimalSet())){
+		for (Integer nums : tmpUsed.values()){
+			
 			hamper.addAllocatedItem(num);
 			
 		}
