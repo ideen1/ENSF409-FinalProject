@@ -88,23 +88,27 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
 
     public void GUILoadOrder(){
         resetLayouts();
-        JLabel title = new JLabel("List of All current Hampers");
+        JLabel title = new JLabel("List of all current Hampers");
 
         for (Hamper hamper : HamperApp.currentRequest.getHampers()){
             JPanel pane = new JPanel();
-            pane.setLayout(new FlowLayout());
+            JPanel paneDetails = new JPanel();
+            pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+            paneDetails.setLayout(new FlowLayout());
             pane.setBorder(BorderFactory.createLineBorder(Color.black));
-            JLabel clientName = new JLabel(hamper.getClientName());
+
+            JLabel clientName = new JLabel(hamper.getClientName() + ":");
             JLabel numAdultFemale = new JLabel("Adult Females: " + String.valueOf(hamper.getNumAdultFemales()));
             JLabel numAdultMale = new JLabel("Adult Males: " + String.valueOf(hamper.getNumAdultMales()));
             JLabel numChildUnder8 = new JLabel("Children Under 8: " + String.valueOf(hamper.getNumChildUnder8()));
             JLabel numChildOver8 = new JLabel("Children Over 8: " + String.valueOf(hamper.getNumChildOver8()));
 
             pane.add(clientName);
-            pane.add(numAdultFemale);
-            pane.add(numAdultMale);
-            pane.add(numChildUnder8);
-            pane.add(numChildOver8);
+            paneDetails.add(numAdultMale);
+            paneDetails.add(numAdultFemale);
+            paneDetails.add(numChildUnder8);
+            paneDetails.add(numChildOver8);
+            pane.add(paneDetails);
             midPanel.add(pane);
             
         }
@@ -151,7 +155,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         JLabel title = new JLabel("Add New Hamper:");
 
         JPanel pane = new JPanel();
-        pane.setLayout(new FlowLayout());
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         pane.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
@@ -210,24 +214,43 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
 
                 try {
                     male = Integer.parseInt(numAdultMale.getText());
+                    if (male < 0){
+                        valid = false;
+                        displayError(PersonType.ADULTMALE);
+                    }
                 } catch (Exception eevent ){
                     valid = false;
                     displayError(PersonType.ADULTMALE);
                 }
+
                 try {
                      female = Integer.parseInt(numAdultFemale.getText());
+                     if (female < 0){
+                        valid = false;
+                        displayError(PersonType.ADULTFEMALE);
+                    }
                 } catch (Exception eevent ){
                     valid = false;
                     displayError(PersonType.ADULTFEMALE);
                 }
+
                 try {
                      childunder = Integer.parseInt(numChildUnder8.getText());
+                     if (childunder < 0){
+                        valid = false;
+                        displayError(PersonType.CHILDUNDER8);
+                    }
                 } catch (Exception eevent ){
                     valid = false;
                     displayError(PersonType.CHILDUNDER8);
                 }
+
                 try {
                     childover = Integer.parseInt(numChildOver8.getText());
+                    if (childover < 0){
+                        valid = false;
+                        displayError(PersonType.CHILDOVER8);
+                    }
                 } catch (Exception eevent ){
                     valid = false;
                     displayError(PersonType.CHILDOVER8);
@@ -245,10 +268,10 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
             
         });
         
-        midPanel.add(hamperID);
+        pane.add(hamperID, BorderLayout.WEST);
         pane.add(clientName);
-        pane.add(numAdultFemale);
         pane.add(numAdultMale);
+        pane.add(numAdultFemale);
         pane.add(numChildUnder8);
         pane.add(numChildOver8);
 
