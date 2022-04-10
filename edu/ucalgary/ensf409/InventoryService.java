@@ -58,10 +58,12 @@ public class InventoryService {
 
 	private static void findOptimalFromSet(Hamper hamper){
 		pwrSetNutrition.size();
-		int i = 0;
+
 		int lastGoodSet = -1;
 		while (nextPowerSet()){
-			for (int[] set : pwrSet){
+			int i = 0; 
+			for (int[] set : pwrSet){ // Should be made into a loop that uses i
+
 				if (tmpUsed.get(i) != 2){
 					if (enoughNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i))){
 						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i)) ;
