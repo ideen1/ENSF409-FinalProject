@@ -121,6 +121,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                     valid = false;
                 }
                 if (valid){
+                    InventoryService.inventoryCheckAlgorithm();
                     GUIViewController.this.GUIDisplayForm();
                 }
 

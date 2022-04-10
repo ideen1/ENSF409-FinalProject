@@ -5,20 +5,21 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InventoryService{
-	private static Request request;
+public class InventoryService {
+	//private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 
 	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
 	private static HashMap<Integer, NutritionValues> pwrSetNutrition = new HashMap<Integer, NutritionValues>();
 	private static HashMap<Integer,Integer> tmpUsed = new HashMap<Integer,Integer>(); // 1:temp used, 2: permanent used
-	private static int nextSetSize = 2;
+	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
 	public static void inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
-		for (Hamper hamper :  request.getHampers()){
+
+		for (Hamper hamper : HamperApp.currentRequest.getHampers()){
 			// Perform check for each hamper
 			findOptimalFromSet(hamper);
 			try {
@@ -31,8 +32,10 @@ public class InventoryService{
 				allFulfilled = false;
 				break;
 			}
-			
+			// Convert best set and all sets with used food items to status 2(used).
+			tmpUsedUpdaterProtocal();
 		}
+		// If hampers are fiulfilled then fill them and move delete proper items
 		if (allFulfilled){
 			fillHampers();
 		}
@@ -54,17 +57,21 @@ public class InventoryService{
 	}
 
 	private static void findOptimalFromSet(Hamper hamper){
+		pwrSetNutrition.size();
 		int i = 0;
+		int lastGoodSet = -1;
 		while (nextPowerSet()){
 			for (int[] set : pwrSet){
-				if (tmpUsed.get(i) != 1 && tmpUsed.get(i) != 2){
+				if (tmpUsed.get(i) != 2){
 					if (enoughNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i))){
 						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i)) ;
 						if (deltaVal < hamper.getOptimizationAmount()){
 							hamper.setCanBeFulfilled(true);
 							hamper.setOptimizationAmount(deltaVal);
 							hamper.setOptimalSet(i);
+							tmpUsed.put(lastGoodSet, 0);
 							tmpUsed.put(i, 1);
+							lastGoodSet = i;
 						}
 					}
 				}
@@ -110,7 +117,7 @@ public class InventoryService{
 	 * Power sets ...
 	 */
 	public static boolean nextPowerSet(){
-		if ( nextSetSize > inventory.getFoodlist().size()){
+		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
 		}
 		HamperApp.mainScreen.genericLoader("Processing Combinations... Please Wait");
@@ -134,7 +141,7 @@ public class InventoryService{
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
 
 		int data[]= new int[setSizeNum];
-        pwrSetHelper(inputArray, data, 0, 20, 0, setSizeNum, combinations);
+        pwrSetHelper(inputArray, data, 0, inputArray.length - 1, 0, setSizeNum, combinations);
 		
 		return combinations;
 	}
@@ -148,7 +155,8 @@ public class InventoryService{
 				tempList[j] = data[j];
 				 //System.out.print(data[j]+" ");
 			}
-			combinations.add(tempList);
+			pwrSet.add(tempList);
+			calculateNutrientForSet(pwrSet.size() - 1);
              //System.out.println("");
             return;
         }
@@ -165,10 +173,9 @@ public class InventoryService{
 	// Helper methods
 	private static void fillHampers() {
 
-		for (Hamper hamper :  request.getHampers()){
+		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : pwrSet.get(hamper.getOptimalSet())){
 				hamper.addAllocatedItem(num);
-				removeTempUsed(num);
 				HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
@@ -183,16 +190,57 @@ public class InventoryService{
 		// delete all power sets that contain food values value
 
 	}
-	private static void removeTempUsed(int num){
-		// DELETE FROM TMPUSED when tmp used = 1; set to 2
-		for (Integer nums : tmpUsed.values()){
-			
-			hamper.addAllocatedItem(num);
-			
+
+	private static void tmpUsedUpdaterProtocal(){
+		int setThatWasPicked = -1;
+		for(HashMap.Entry<Integer, Integer> entry : tmpUsed.entrySet()){
+			if (entry.getValue() == 1){
+				setThatWasPicked = entry.getKey();
+				break;
+			}
 		}
+		int [] itemsInThatSet = pwrSet.get(setThatWasPicked);
+
+		for(HashMap.Entry<Integer, Integer> entry : tmpUsed.entrySet()){
+			for (int compare : pwrSet.get(entry.getValue()) ){
+				for (int to : itemsInThatSet){
+					if (compare == to){
+						tmpUsed.put(entry.getKey(), 2);
+					}
+				}
+				break;
+			}
+		}
+	}	
+
+	private static void calculateNutrientForSet(int set){
+		tmpUsed.put(set, 0);
+		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);
+		double amountWG = 0;
+		double amountFV = 0;
+		double amountProtein = 0;
+		double amountOther = 0;
+		double totalNeedCalories = 0;
+
+		for (int item : pwrSet.get(set) ){
+			totalNeedCalories += HamperApp.inventory.getFood(item).getCalories();
+			amountFV += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100;
+			amountWG += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100;
+			amountProtein += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getProteinContent() / 100;
+			amountOther += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100;
+		}
+		nutrition.setTotalNeedCalories(totalNeedCalories);
+		nutrition.setPercentFV(amountFV / totalNeedCalories);
+		nutrition.setPercentOther(amountOther / totalNeedCalories);
+		nutrition.setPercentProtein(amountProtein / totalNeedCalories);
+		nutrition.setPercentWG(amountWG / totalNeedCalories);
+		pwrSetNutrition.put(set, nutrition);
+
+		
 	}
-			
 }
+
+
 //
 //request = new Request();
 //hampers = request.getHampers();
