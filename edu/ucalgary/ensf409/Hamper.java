@@ -19,7 +19,6 @@ public class Hamper {
 
     private final String CLIENT;
 
-
     private int optimalSet;
     private double optimizationAmount = Integer.MAX_VALUE;
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
@@ -81,11 +80,11 @@ public class Hamper {
     private void calculateNeededNutrients() {
         
 
-        int totalNeedWG = 0;
-        int totalNeedFV = 0;
-        int totalNeedProtein = 0;
-        int totalNeedOther = 0;
-        int totalNeedCalories = 0;
+        double totalNeedWG = 0;
+        double totalNeedFV = 0;
+        double totalNeedProtein = 0;
+        double totalNeedOther = 0;
+        double totalNeedCalories = 0;
         for (Person person: people){
             totalNeedFV += person.getNutrition().getAmountFV();
             totalNeedProtein += person.getNutrition().getAmountProtein();
@@ -105,7 +104,6 @@ public class Hamper {
         return this.totalNeeds;
     }
 
-    
     /** 
      * @return ArrayList<Person>
      */
@@ -212,7 +210,7 @@ public class Hamper {
         return optimalSet;
     } 
     public void setOptimalSet(int optimal) {
-        this. optimalSet = optimal;
+        this.optimalSet = optimal;
     }
 
 

@@ -58,7 +58,7 @@ public class Inventory {
         // Delete from SQL
         DBConnection dbc = new DBConnection();
         dbc.initializeConnection();
-        dbc.preparedQuery("DELETE FROM FOOD_INVENTORY WHERE ItemID = '?'", String.valueOf(ID));
+        dbc.preparedQuery("DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?", String.valueOf(ID));
 
     }
     public static FoodItem getFood(int ID){
