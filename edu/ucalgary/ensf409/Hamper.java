@@ -1,7 +1,7 @@
 /** Hamper.java 
  *  Java Class file for ENSF409 Final Project 202 - 
  *  Winter 2022 - Group 5
- *  Copyright © 2022 I.B., T.D., M.G.
+ *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen
  *  @version 1.0
  *  @since 1.0
@@ -22,7 +22,7 @@ public class Hamper {
     private int optimalSet;
     private double optimizationAmount = Integer.MAX_VALUE;
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
-    private boolean canBeFulfilled = false;
+   private boolean canBeFulfilled = false;
 
     private int numAdultMales;
     private int numAdultFemales;
