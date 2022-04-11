@@ -34,12 +34,18 @@ public class InventoryService {
 			}
 			// Convert best set and all sets with used food items to status 2(used).
 			tmpUsedUpdaterProtocal();
+			/*
+			nextSetSize = 1;
+			pwrSet.clear();
+			pwrSetNutrition.clear();
+			tmpUsed.clear();
+			*/
 		}
 		// If hampers are fiulfilled then fill them and move delete proper items
 		if (allFulfilled){
 			fillHampers();
-		}
 
+		}
 
 		/*
 		 * fillHamper();
@@ -83,16 +89,19 @@ public class InventoryService {
 			if (hamper.canBeFulfilled()){
 				return;
 			}
+			//pwrSet.clear();
+			//pwrSetNutrition.clear();
+			//tmpUsed.clear();
 		}
 		hamper.setCanBeFulfilled(false);
 		
 	}
 
 	private static double compareNutritionRequirements(NutritionValues hamper, NutritionValues set){
-		double deltaFV =  hamper.getAmountFV() - set.getAmountFV();
-		double deltaWG =  hamper.getAmountWG() - set.getAmountWG();
-		double deltaProtein =  hamper.getAmountProtein() - set.getAmountProtein();
-		double deltaOther =  hamper.getAmountOther() - set.getAmountOther();
+		double deltaFV =  set.getAmountFV() - hamper.getAmountFV();
+		double deltaWG =  set.getAmountWG() - hamper.getAmountWG();
+		double deltaProtein =  set.getAmountProtein() - hamper.getAmountProtein();
+		double deltaOther =  set.getAmountOther() - hamper.getAmountOther();
 
 		return deltaFV + deltaOther + deltaProtein + deltaWG;
 
@@ -119,7 +128,7 @@ public class InventoryService {
 	 * Power sets ...
 	 */
 	public static boolean nextPowerSet(){
-		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
+		if ( nextSetSize - 1 > inventory.getFoodlist().size() || nextSetSize - 1 > 20){
 			return false;
 		}
 		HamperApp.mainScreen.genericLoader("Processing Combinations... Please Wait");
@@ -210,7 +219,7 @@ public class InventoryService {
 						tmpUsed.put(entry.getKey(), 2);
 					}
 				}
-				break;
+				//break;
 			}
 		}
 	}	
