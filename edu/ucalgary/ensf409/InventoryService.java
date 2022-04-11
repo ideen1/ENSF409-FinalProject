@@ -41,9 +41,12 @@ public class InventoryService {
 			tmpUsed.clear();
 			*/
 		}
-		// If hampers are fiulfilled then fill them and move delete proper items
+		// If hampers are fiulfilled then fill them and delete proper items
+		// Then create order file
 		if (allFulfilled){
 			fillHampers();
+			HamperApp.currentRequest.createOrderFile();
+			deleteFoodItems();
 
 		}
 
@@ -128,7 +131,7 @@ public class InventoryService {
 	 * Power sets ...
 	 */
 	public static boolean nextPowerSet(){
-		if ( nextSetSize - 1 > inventory.getFoodlist().size() || nextSetSize - 1 > 20){
+		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
 		}
 		HamperApp.mainScreen.genericLoader("Processing Combinations... Please Wait");
@@ -187,10 +190,8 @@ public class InventoryService {
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : pwrSet.get(hamper.getOptimalSet())){
 				hamper.addAllocatedItem(num);
-				HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
-
 
 		// used in a loop, helper method for inventoryCheckAlgorithm
 		// selects food items from the inventory and updates the tmpUsed in foodItems
@@ -200,6 +201,14 @@ public class InventoryService {
 		// delete those items from sql and hashmap
 		// delete all power sets that contain food values value
 
+	}
+
+	private static void deleteFoodItems(){
+		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
+			for (int num : pwrSet.get(hamper.getOptimalSet())){
+				HamperApp.inventory.removeFoodItem(num); 
+			}
+		}
 	}
 
 	private static void tmpUsedUpdaterProtocal(){

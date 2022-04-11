@@ -48,7 +48,6 @@ public class DBConnection {
             }
             myStmt.executeUpdate();
             
-            results.close();
             myStmt.close();
             }   
         catch (SQLException e) {

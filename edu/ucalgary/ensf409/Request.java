@@ -33,6 +33,7 @@ public class Request{
     // }
 
     public void createOrderFile() {
+
         try {
             String orderName = this.nameRequest;
             PrintWriter orderForm = new PrintWriter(orderName+".txt"); // A .txt file with the name of the request will be created.
@@ -44,48 +45,50 @@ public class Request{
             // Writing Original Request:
             for (int i = 0; i < hampers.size(); i++) {
             	Hamper hamp = hampers.get(i);
-            	orderForm.printf("Hamper %i: ", (i+1));
+            	orderForm.printf("Hamper %d: ", (i+1));
             	int male = hamp.getNumAdultMales();
             	int female = hamp.getNumAdultFemales();
             	int under8 = hamp.getNumChildUnder8();
             	int over8 = hamp.getNumChildOver8();
             	
             	if (male != 0) {
-            		orderForm.printf("%i Adult Male", male);
+            		orderForm.printf("%d Adult Male", male);
             	} 
             	if (female !=0) {
             		if (male != 0) {
             			orderForm.print(", ");
             		}
-            		orderForm.printf("%i Adult Female", female);
+            		orderForm.printf("%d Adult Female", female);
             	}
             	if (under8 !=0) {
             		if (male != 0 || female != 0) {
             			orderForm.print(", ");
             		}
-            		orderForm.printf("%i Child uner 8", under8);
+            		orderForm.printf("%d Child uner 8", under8);
             	}
             	if (over8 !=0) {
             		if (male != 0 || female != 0 || under8 != 0) {
             			orderForm.print(", ");
             		}
-            		orderForm.printf("%i Child over 8", over8);
+            		orderForm.printf("%d Child over 8", over8);
             	}
             	orderForm.println();
             }
             
             // Writing the food list:
             for (int i = 0; i < hampers.size(); i++) {
-            	orderForm.printf("\nHamper %i Items:\n", (i+1));
+            	orderForm.printf("\nHamper %d Items:\n", (i+1));
             	Hamper tmp = hampers.get(i);
             	for (int id : tmp.getAllocatedItems()) {
-            		orderForm.printf("%i\t%s\n", id, HamperApp.inventory.getFood(id).getName());
+                    System.out.println(HamperApp.inventory.getFood(id).getName()); 
+            		orderForm.printf("%d\t%s\n", id, HamperApp.inventory.getFood(id).getName());
             	}
             }
             orderForm.println();
             orderForm.close();
             
         } catch (Exception e) {
+            GUIViewController.genericError("Error writing order form to File");
             e.printStackTrace();
         }
     }
