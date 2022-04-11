@@ -24,10 +24,10 @@ public class Hamper {
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
    private boolean canBeFulfilled = false;
 
-    private int numAdultMales;
-    private int numAdultFemales;
-    private int numChildUnder8;
-    private int numChildOver8;
+    private int numAdultMales = 0;
+    private int numAdultFemales = 0;
+    private int numChildUnder8 = 0;
+    private int numChildOver8 = 0;
 
     /**
      * Hamper

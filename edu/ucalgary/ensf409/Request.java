@@ -1,8 +1,11 @@
-package edu.ucalgary.ensf409;
+//package edu.ucalgary.ensf409;
 
+import java.io.PrintWriter;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Request{
@@ -14,7 +17,6 @@ public class Request{
     public Request(String nameRequest, LocalDate date){
         this.nameRequest = nameRequest;
         this.date = date;
-
     }
 
     public void addHamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
@@ -26,64 +28,66 @@ public class Request{
         hampers.add(addHamper);
     }
 
-/* Example Order Form
-Example Food Bank
-Hamper Order Form
-
-Name:
-Date:
-
-Original Request
-Hamper 1: 1 Adult Female, 2 Child under 8
-Hamper 2: 1 Adult Male, 1 Child over 8
-
-
-//// print hamper
-//// for each Hamper, go through its allocated items list and
-
-
-Hamper 1 Items:
-34	Avocado, dozen
-35	Avocado, dozen
-54	Soy protein, 1 kg
-55	Turkey, whole
-56	Mixed nuts, 1 kg
-105	Teff flour, 2 kg
-142	Whey powder, large jar
-143	Oranges, bag
-145	Raisins, 40 g
-147	Lettuce, 1 head
-151	Peaches, crate
-
-
-Hamper 2 Items:
-51	Cantaloupe, dozen
-57	Lentils, 1 kg
-59	Tofu, 1 kg
-70	Banana, bunch 6
-86	Eggs, 1 kg
-92	Yam, 1 kg
-95	Lentils, 1 kg
-97	Protein shake, 10 cans
-98	Soy burger, 20
-101	Beyond Breakfast sausage
-103	Horse gram, 1 kg
-104	Green peas, 1 pound
-118	Frozen blueberries, 2100 g
-124	Tinned sardines, pack of 5
-134	Salmon, 5 filets
-139	Pearl barley, 1 pound
-146	Dates, container
-152	Peaches, crate
-169	Black fungus, 200 g
- */
-
-    public  void genarateOrderForm(){
+    // public  void genarateOrderForm(){
         
-    }
+    // }
 
-    public void createOrderFile(){
-
+    public void createOrderFile() {
+        try {
+            String orderName = this.nameRequest;
+            PrintWriter orderForm = new PrintWriter(orderName+".txt"); // A .txt file with the name of the request will be created.
+            
+            // First four lines of text: 
+            orderForm.print("Group 5 Food Bank\nHamper OrderForm\n\nName: "
+            		+ orderName + "\nDate: " + this.date.toString()+"\n\nOriginal Request\n");
+            
+            // Writing Original Request:
+            for (int i = 0; i < hampers.size(); i++) {
+            	Hamper hamp = hampers.get(i);
+            	orderForm.printf("Hamper %i: ", (i+1));
+            	int male = hamp.getNumAdultMales();
+            	int female = hamp.getNumAdultFemales();
+            	int under8 = hamp.getNumChildUnder8();
+            	int over8 = hamp.getNumChildOver8();
+            	
+            	if (male != 0) {
+            		orderForm.printf("%i Adult Male", male);
+            	} 
+            	if (female !=0) {
+            		if (male != 0) {
+            			orderForm.print(", ");
+            		}
+            		orderForm.printf("%i Adult Female", female);
+            	}
+            	if (under8 !=0) {
+            		if (male != 0 || female != 0) {
+            			orderForm.print(", ");
+            		}
+            		orderForm.printf("%i Child uner 8", under8);
+            	}
+            	if (over8 !=0) {
+            		if (male != 0 || female != 0 || under8 != 0) {
+            			orderForm.print(", ");
+            		}
+            		orderForm.printf("%i Child over 8", over8);
+            	}
+            	orderForm.println();
+            }
+            
+            // Writing the food list:
+            for (int i = 0; i < hampers.size(); i++) {
+            	orderForm.printf("\nHamper %i Items:\n", (i+1));
+            	Hamper tmp = hampers.get(i);
+            	for (int id : tmp.getAllocatedItems()) {
+            		orderForrm.printf("%i\t%s\n", id, HamperApp.inventory.getFood(id).getName());
+            	}
+            }
+            orderForm.println();
+            orderForm.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Hamper> getHampers(){
