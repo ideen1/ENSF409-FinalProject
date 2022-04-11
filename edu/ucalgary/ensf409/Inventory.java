@@ -8,6 +8,7 @@ public class Inventory {
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();
     
     static {
+        HamperApp.mainScreen.genericLoader("Loading Inventory");
         // CODE to load food items from inventory
         try {
             DBConnection dbc = new DBConnection();
@@ -32,7 +33,7 @@ public class Inventory {
         } catch (SQLException e){
             GUIViewController.genericError("Error retrieving Food Inventory from Database");
         }
-
+        HamperApp.mainScreen.genericLoaderHide();
     }
     public static HashMap<Integer,FoodItem> getFoodlist(){
         return Inventory.foodList;
@@ -46,12 +47,19 @@ public class Inventory {
         Inventory.foodList.put(addFood.getID(), addFood);
     }
     public static void removeFoodItem(FoodItem removeFood){
-        // DELETE FROM SQL AS WELL
-        Inventory.foodList.remove(removeFood.getID());
+        
+        removeFoodItem(removeFood.getID());
+
     }
     public static void removeFoodItem(int ID){
-        // DELETE FROM SQL AS WELL
+        // delete from list
         Inventory.foodList.remove(ID);
+
+        // Delete from SQL
+        DBConnection dbc = new DBConnection();
+        dbc.initializeConnection();
+        dbc.preparedQuery("DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?", String.valueOf(ID));
+
     }
     public static FoodItem getFood(int ID){
         return Inventory.foodList.get(ID);

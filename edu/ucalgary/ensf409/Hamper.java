@@ -19,14 +19,10 @@ public class Hamper {
 
     private final String CLIENT;
 
-///////////////////////////////////////////////////////////////////////////////////
-
-    private ArrayList<Integer> allocatedItems = new ArrayList<>(); // Can we store FoodItem here instead of just their ID's??
-    // private ArrayList<FoodItem> allocatedItems = new Arraylist<FoodItem>();
-
-///////////////////////////////////////////////////////////////////////////////////
-
-    private boolean canBeFulfilled = false;
+    private int optimalSet;
+    private double optimizationAmount = Integer.MAX_VALUE;
+    private ArrayList<Integer> allocatedItems = new ArrayList<>();
+   private boolean canBeFulfilled = false;
 
     private int numAdultMales;
     private int numAdultFemales;
@@ -68,6 +64,14 @@ public class Hamper {
         calculateNeededNutrients();
     }
 
+    public double getOptimizationAmount() {
+        return optimizationAmount;
+    }
+
+    public void setOptimizationAmount(double optimizationAmount) {
+        this.optimizationAmount = optimizationAmount;
+    }
+
     /**
      * calculateNeededNutrients()
      * Calculates total nutrients needed for Hamper based on
@@ -76,11 +80,11 @@ public class Hamper {
     private void calculateNeededNutrients() {
         
 
-        int totalNeedWG = 0;
-        int totalNeedFV = 0;
-        int totalNeedProtein = 0;
-        int totalNeedOther = 0;
-        int totalNeedCalories = 0;
+        double totalNeedWG = 0;
+        double totalNeedFV = 0;
+        double totalNeedProtein = 0;
+        double totalNeedOther = 0;
+        double totalNeedCalories = 0;
         for (Person person: people){
             totalNeedFV += person.getNutrition().getAmountFV();
             totalNeedProtein += person.getNutrition().getAmountProtein();
@@ -96,7 +100,10 @@ public class Hamper {
         calculateNeededNutrients();
     }
 
-    
+    public NutritionValues getNutritionValues(){
+        return this.totalNeeds;
+    }
+
     /** 
      * @return ArrayList<Person>
      */
@@ -197,6 +204,13 @@ public class Hamper {
 
     public int getNumChildOver8() {
         return numChildOver8;
+    }
+
+    public int getOptimalSet() {
+        return optimalSet;
+    } 
+    public void setOptimalSet(int optimal) {
+        this.optimalSet = optimal;
     }
 
 

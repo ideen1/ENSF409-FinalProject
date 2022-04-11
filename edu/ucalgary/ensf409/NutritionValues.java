@@ -42,7 +42,6 @@ public class NutritionValues {
 
             if (type.equals("ADULTMALE")){
                 results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Adult Male'");
-
             } else if (type.equals("ADULTFEMALE")) {
                 results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Adult Female'");
             } else if (type.equals("CHILDOVER8")){
@@ -50,7 +49,6 @@ public class NutritionValues {
             } else if (type.equals("CHILDUNDER8")){
                 results = dbc.customQuery("SELECT * FROM DAILY_CLIENT_NEEDS WHERE Client = 'Child under 8'");
             } else {
-
                 GUIViewController.genericError("INTERNAL - Invalid PersonType");
             }
 
