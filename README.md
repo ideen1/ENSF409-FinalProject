@@ -9,8 +9,8 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
 | Mary (Ga) Mo      | 10131867 | ga.mo@ucalgary.ca 		        | 
 
 # Usage:
--Default Database Connection information:
--Username: student
--Password: ensf
--Host: localhost
--Database: food_inventory
+- Default Database Connection information:
+- Username: student
+- Password: ensf
+- Host: localhost
+- Database: food_inventory
