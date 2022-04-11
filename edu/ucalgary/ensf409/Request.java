@@ -1,4 +1,4 @@
-//package edu.ucalgary.ensf409;
+package edu.ucalgary.ensf409;
 
 import java.io.PrintWriter;
 import java.security.InvalidParameterException;
@@ -79,7 +79,7 @@ public class Request{
             	orderForm.printf("\nHamper %i Items:\n", (i+1));
             	Hamper tmp = hampers.get(i);
             	for (int id : tmp.getAllocatedItems()) {
-            		orderForrm.printf("%i\t%s\n", id, HamperApp.inventory.getFood(id).getName());
+            		orderForm.printf("%i\t%s\n", id, HamperApp.inventory.getFood(id).getName());
             	}
             }
             orderForm.println();
