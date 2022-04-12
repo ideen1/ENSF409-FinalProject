@@ -268,9 +268,11 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
 
                 if (valid){
                     GUIViewController.this.genericLoader("Creating Hamper");
-                    HamperApp.currentRequest.addHamper(clientName.getText(), male, female, childunder, childover);;
-                    GUIViewController.this.GUILoadOrder();
-                    GUIViewController.this.genericLoaderHide();
+                    if (HamperApp.currentRequest.addHamper(clientName.getText(), male, female, childunder, childover)){
+                        GUIViewController.this.GUILoadOrder();
+                        GUIViewController.this.genericLoaderHide();
+                    }
+                    
                 }
 
             }
