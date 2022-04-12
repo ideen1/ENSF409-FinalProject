@@ -67,7 +67,7 @@ public class TestingMary {
 	 * 			throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
 	 * 			is short (missingCategory content)
 	 */
-//
+
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.
 	 * getHampers() returns correct ArrayList<Hampers> that is stored as hampersToCheck.

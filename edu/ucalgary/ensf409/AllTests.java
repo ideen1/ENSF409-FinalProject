@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class AllTests {
     // Person Tests:
     /**
-     * Test Basic Person Constructor to ensure that object is initilized
+     * Tests Basic Person Constructor to ensure that object is initilized
      */
     @Test
     public void testPersonConstructor() {
@@ -32,7 +32,7 @@ public class AllTests {
     }
 
     /**
-     * Test Basic Person nutritionValues to ensure that values are getting appropriate updates
+     * Tests Basic Person nutritionValues to ensure that values are getting appropriate updates
      */
     @Test
     public void testPersonNutrition() {
@@ -47,7 +47,7 @@ public class AllTests {
     }
 
     /**
-     * Test Creation of Hamper when there are 0 people
+     * Tests Creation of Hamper when there are 0 people
      */
     @Test
     public void testHamperConstructorWith0People() {
@@ -58,7 +58,7 @@ public class AllTests {
     }
 
     /**
-     * Test Creation of Hamper with 0 Adults and Only 1 child 
+     * Tests Creation of Hamper with 0 Adults and Only 1 child 
      */
     @Test
     public void testHamperConstructorWithOnly1Child() {
@@ -69,7 +69,7 @@ public class AllTests {
     }
 
     /**
-     * Test recalculate nutrition values function on Hamper
+     * Tests recalculate nutrition values function on Hamper
      */
     @Test
     public void testHamperRecalculationFunction() {
@@ -90,7 +90,7 @@ public class AllTests {
     }
 
     /**
-     * Test that the correct nurtrition values are returned for each family memeber type 
+     * Tests that the correct nurtrition values are returned for each family memeber type 
      * when there are multiple family memebers.
      */
     @Test
@@ -121,7 +121,7 @@ public class AllTests {
     }
 
     /**
-     * Ensure allocated items are returned appropriately 
+     * Ensures allocated items are returned appropriately 
      */
     @Test
     public void testHamperAddAllocatedItem() {
@@ -143,7 +143,7 @@ public class AllTests {
 
 
     /**
-     * Test Normal Constructor for Nutrition Values
+     * Tests Normal Constructor for Nutrition Values
      */
 
     @Test
@@ -161,7 +161,7 @@ public class AllTests {
     }
 
     /**
-     * Test that valid nutrition values are returned when they are modified through setters
+     * Tests that valid nutrition values are returned when they are modified through setters
      */
     @Test
     public void testNutritionValuesSetValues() {
@@ -305,8 +305,9 @@ public class AllTests {
         assertTrue("Item was not removed from the Food List using FoodItem as argument", Inventory.getFood(2) == null);
         assertTrue("Item was not removed from the Food List using food item ID", Inventory.getFood(1) == null);
     }
+
 /*                                              Inventory service and FootItem Tests                                                        */
-private Hamper hamper1 = new Hamper("client1",1,0,0,0);
+    private Hamper hamper1 = new Hamper("client1",1,0,0,0);
 	private Hamper hamper2 = new Hamper("client2", 0,0,0,1);
 
 	hamper1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);

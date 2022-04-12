@@ -4,9 +4,14 @@ package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
+/** Represents a service class which will be used to calculate the most efficient combinations
+ * of food items from the inventory for each of the requested hamper.
+ * @author 
+ * @version 1.11 
+ * @since 1.0
+*/
 public class InventoryService {
 	//private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
@@ -16,6 +21,9 @@ public class InventoryService {
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
+	/** ...
+	 * @return A boolean value ...
+	 */
 	public static boolean inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
 
