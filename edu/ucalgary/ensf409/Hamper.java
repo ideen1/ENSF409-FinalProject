@@ -19,7 +19,7 @@ public class Hamper {
 
     private final String CLIENT;
 
-    private int optimalSet;
+    private ArrayList<Integer> optimalSet = new ArrayList<>() ;
     private double optimizationAmount = Integer.MAX_VALUE;
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
    private boolean canBeFulfilled = false;
@@ -206,10 +206,10 @@ public class Hamper {
         return numChildOver8;
     }
 
-    public int getOptimalSet() {
+    public ArrayList<Integer> getOptimalSet() {
         return optimalSet;
     } 
-    public void setOptimalSet(int optimal) {
+    public void setOptimalSet(ArrayList<Integer> optimal) {
         this.optimalSet = optimal;
     }
 
