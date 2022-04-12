@@ -120,19 +120,19 @@ public class NutritionValues {
     }
 
     public double getAmountWG() {
-        return percentWG * totalNeedCalories / 100;
+        return Math.ceil(percentWG * totalNeedCalories / 100);
     }
 
     public double getAmountFV() {
-        return percentFV * totalNeedCalories / 100;
+        return Math.ceil(percentFV * totalNeedCalories / 100);
     }
 
     public double getAmountProtein() {
-        return percentProtein * totalNeedCalories / 100;
+        return Math.ceil(percentProtein * totalNeedCalories / 100);
     }
 
     public double getAmountOther() {
-        return percentOther * totalNeedCalories / 100;
+        return Math.ceil(percentOther * totalNeedCalories / 100);
     }
 
     public void setPercentWG(double percentWG) {

@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 
@@ -125,8 +126,17 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                     valid = false;
                 }
                 if (valid){
-                    InventoryService.inventoryCheckAlgorithm();
-                    GUIViewController.this.GUIDisplayForm();
+                    if (InventoryService.inventoryCheckAlgorithm()){
+                        // success
+                        GUIViewController.this.GUIDisplayFormConfirmation();
+
+                    } else{
+                        // InventoryNotAvailableException
+                        GUIViewController.this.GUIDisplayPostError();
+                    }
+                    
+
+                    
                 }
 
             }
@@ -258,9 +268,11 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
 
                 if (valid){
                     GUIViewController.this.genericLoader("Creating Hamper");
-                    HamperApp.currentRequest.addHamper(clientName.getText(), male, female, childunder, childover);;
-                    GUIViewController.this.GUILoadOrder();
-                    GUIViewController.this.genericLoaderHide();
+                    if (HamperApp.currentRequest.addHamper(clientName.getText(), male, female, childunder, childover)){
+                        GUIViewController.this.GUILoadOrder();
+                        GUIViewController.this.genericLoaderHide();
+                    }
+                    
                 }
 
             }
@@ -282,10 +294,45 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
-    public void GUIDisplayForm(){
+    public void GUIDisplayFormConfirmation(){
         resetLayouts();
         JLabel title = new JLabel("Order Form:");
         JLabel amount = new JLabel(HamperApp.currentRequest.getHampers().size() + " Total Hampers");
+        JLabel body = new JLabel("The order form has been succesfully created and placed in the working directory!");
+        
+        JButton home = new JButton("Home");
+        home.addActionListener(this);
+        home.setHorizontalAlignment(SwingConstants.CENTER);
+        home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                GUIViewController.this.GUILoadHome();
+
+            }
+        });
+        
+        upperPanel.add(title);
+        upperPanel.add(amount);
+        midPanel.add(body);
+        footerPanel.add(home);
+
+        reloadGUI();
+    }
+
+    public void GUIDisplayPostError(){
+        resetLayouts();
+        JLabel title = new JLabel("Could not fulfill order:");
+        JLabel amount = new JLabel(HamperApp.currentRequest.getHampers().size() + " Total Hampers");
+        JPanel errorBox = new JPanel();
+        errorBox.setLayout(new BoxLayout(errorBox, BoxLayout.Y_AXIS));
+        JLabel message1 = new JLabel("There were some shortages when attempting to fulfill the entire request. They have been highlighted below:");
+        errorBox.add(message1);
+        for (Map.Entry item:  InventoryService.getMissingCategory().entrySet()){
+            JLabel message = new JLabel("There was a shortage in the " + item.getKey() + " category");
+            errorBox.add(message);
+        }
+        // if true for category print
 
         
         JButton home = new JButton("Home");
@@ -302,6 +349,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         
         upperPanel.add(title);
         upperPanel.add(amount);
+        midPanel.add(errorBox);
         footerPanel.add(home);
 
         reloadGUI();

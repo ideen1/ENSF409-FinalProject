@@ -11,6 +11,12 @@ public class Inventory {
         HamperApp.mainScreen.genericLoader("Loading Inventory");
         // CODE to load food items from inventory
         try {
+            // DEBUGGING
+            double amountFV = 0;
+            double amountOther = 0;
+            double amountWG = 0;
+            double amountProtein = 0;
+
             DBConnection dbc = new DBConnection();
             dbc.initializeConnection();
             ResultSet results = dbc.customQuery("SELECT * FROM AVAILABLE_FOOD");;
@@ -25,9 +31,20 @@ public class Inventory {
                     Double.valueOf(results.getString("Other")), 
                     Double.valueOf(results.getString("Calories"))
                     );
+                    // DEBUG
+                    amountFV += newItem.getCalories() * newItem.getFruitVeggieContent()/100;
+                    amountWG += newItem.getCalories() * newItem.getGrainContent()/100;
+                    amountProtein+= newItem.getCalories() * newItem.getProteinContent()/100;
+                    amountOther += newItem.getCalories() * newItem.getOther()/100;
+
                 foodList.put(Integer.valueOf(results.getString("ItemID")) , newItem);
                 
             } 
+            System.out.println("Grain: " + amountWG);
+            System.out.println("Fruit: "+amountFV);
+            System.out.println("Protein: "+amountProtein);
+            System.out.println("Other: "+amountOther);
+            
             InventoryService.nextPowerSet();
 
         } catch (SQLException e){

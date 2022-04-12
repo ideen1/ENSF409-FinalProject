@@ -56,7 +56,7 @@ public class TanishTests {
         Request request = new Request("test", LocalDate.now());
         String expectedOrderString = "Some example order string we expect to get from order form";
 
-        request.genarateOrderForm();
+        request.createOrderFile();
         StringBuilder actualOrderString = new StringBuilder();
         //need to implement more
         // convert txt created by genarateOrderForm method to a string and compare that to expectedOrderString
@@ -79,18 +79,14 @@ public class TanishTests {
     @Test 
     public void testCreateHampersWithNegativePeople(){
         
-        
-        boolean exceptionThrown = false;
+        Request request = new Request("Test", LocalDate.now());
 
-        try {
-            Request.addHamper("Test", -1, 0, 0, -10);                           //Sending negative number of people into hamper
 
-        } catch (Exception e) {
+        boolean returnVal = request.addHamper("Test", -1, 0, 0, -10); //Sending negative number of people into hamper
 
-            exceptionThrown = true;
-        }
 
-        assertTrue("Create Hamper wth negative amounts of people did not throw an exception", exceptionThrown);
+
+        assertTrue("Create Hamper wth negative amounts of people did not throw an exception", returnVal);
     }
 
     /*                                              Testing iventory class                                                      */ 

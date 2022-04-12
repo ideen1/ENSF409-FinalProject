@@ -26,7 +26,7 @@ public class IdeenTests {
         NutritionValues nutrition = person.getNutrition();
 
         person.getNutrition().setTotalNeedCalories(2000);
-        person.getNutrition().setPercentFV(0.1);
+        person.getNutrition().setPercentFV(10);
         
         assertTrue("NutritionValues Object was not returned from person", nutrition != null);
         assertEquals(String.valueOf(200.0) , String.valueOf(nutrition.getAmountFV()));
@@ -62,12 +62,12 @@ public class IdeenTests {
         
         Hamper hamper2 = new Hamper("test", 1, 0, 0, 0);
         // Set total calories
-        //hamper1.getPeople().get(0).getNutrition().setTotalNeedCalories(2500);
-        assertNotEquals(2500, hamper2.getTotalNeedCalories());
+        hamper2.getPeople().get(0).getNutrition().setTotalNeedCalories(12500);
+        assertNotEquals(12500, hamper2.getTotalNeedCalories());
 
         // Recalculate Nutrient Amounts for hamper
         hamper2.recalculateNutrients();
-        assertEquals(2500, hamper2.getTotalNeedCalories(), 2500-hamper2.getTotalNeedCalories());
+        assertEquals(12500, hamper2.getTotalNeedCalories(), 12500-hamper2.getTotalNeedCalories());
 
         hamper2.getPeople().get(0).getNutrition().setTotalNeedCalories(10000);
         hamper2.recalculateNutrients();
@@ -154,10 +154,11 @@ public class IdeenTests {
         
         NutritionValues nutrients = new NutritionValues("ADULTMALE");
         nutrients.setTotalNeedCalories(1000);
-        nutrients.setPercentOther(0.05);
+        nutrients.setPercentOther(5);
+        nutrients.setPercentFV(0);
         
         
-        assertEquals(0.05, nutrients.getPercentOther(), 0.05 - nutrients.getPercentOther());
+        assertEquals(50, nutrients.getPercentOther(), 50 - nutrients.getPercentOther());
         assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
         assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther());
 

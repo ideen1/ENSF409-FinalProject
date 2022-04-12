@@ -5,18 +5,18 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 public class InventoryService {
 	//private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 
 	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
-	private static HashMap<Integer, NutritionValues> pwrSetNutrition = new HashMap<Integer, NutritionValues>();
-	private static HashMap<Integer,Integer> tmpUsed = new HashMap<Integer,Integer>(); // 1:temp used, 2: permanent used
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
-	public static void inventoryCheckAlgorithm() {
+	public static boolean inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
 
 		for (Hamper hamper : HamperApp.currentRequest.getHampers()){
@@ -33,14 +33,25 @@ public class InventoryService {
 				break;
 			}
 			// Convert best set and all sets with used food items to status 2(used).
-			tmpUsedUpdaterProtocal();
+			//tmpUsedUpdaterProtocal();
+			/*
+			nextSetSize = 1;
+			pwrSet.clear();
+			pwrSetNutrition.clear();
+			tmpUsed.clear();
+			*/
+			nextSetSize = 1;
+			pwrSet.clear();
 		}
-		// If hampers are fiulfilled then fill them and move delete proper items
+		// If hampers are fiulfilled then fill them and delete proper items
+		// Then create order file
 		if (allFulfilled){
 			fillHampers();
+			HamperApp.currentRequest.createOrderFile();
+			deleteFoodItems();
+			return true;
 		}
-
-
+		return false;
 		/*
 		 * fillHamper();
 		 * if missingCategory is empty
@@ -57,61 +68,83 @@ public class InventoryService {
 	}
 
 	private static void findOptimalFromSet(Hamper hamper){
-		pwrSetNutrition.size();
+		pwrSet.size();
 
 		int lastGoodSet = -1;
 		while (nextPowerSet()){
+			
 			int i = 0; 
 			for (int[] set : pwrSet){ // Should be made into a loop that uses i
-
-				if (tmpUsed.get(i) != 2){
-					if (enoughNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i))){
-						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), pwrSetNutrition.get(i)) ;
+				
+					NutritionValues nutrition = calculateNutrientForSet(i);
+					if (enoughNutritionRequirements(hamper.getNutritionValues(), nutrition)){
+						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), nutrition) ;
 						if (deltaVal < hamper.getOptimizationAmount()){
 							hamper.setCanBeFulfilled(true);
 							hamper.setOptimizationAmount(deltaVal);
-							hamper.setOptimalSet(i);
-							tmpUsed.put(lastGoodSet, 0);
-							tmpUsed.put(i, 1);
+							ArrayList<Integer> tempList = new ArrayList<Integer>();
+							for (int item: pwrSet.get(i)){
+								tempList.add(item);
+							}
+							hamper.setOptimalSet( tempList );
+
+							//tmpUsed.put(lastGoodSet, 0);
+							//tmpUsed.put(i, 1);
 							lastGoodSet = i;
 						}
 					}
-				}
+				
 				i++;
 			}
 			
-			if (hamper.canBeFulfilled()){
-				return;
-			}
+			
+			pwrSet.clear();
+			//pwrSetNutrition.clear();
+			//tmpUsed.clear();
+		
 		}
-		hamper.setCanBeFulfilled(false);
+		if (hamper.canBeFulfilled()){
+			return;
+		} else {
+			hamper.setCanBeFulfilled(false);
+			return;
+		}
+		
 		
 	}
 
 	private static double compareNutritionRequirements(NutritionValues hamper, NutritionValues set){
-		double deltaFV =  hamper.getAmountFV() - set.getAmountFV();
-		double deltaWG =  hamper.getAmountWG() - set.getAmountWG();
-		double deltaProtein =  hamper.getAmountProtein() - set.getAmountProtein();
-		double deltaOther =  hamper.getAmountOther() - set.getAmountOther();
+		double deltaFV =  set.getAmountFV() - hamper.getAmountFV();
+		double deltaWG =  set.getAmountWG() - hamper.getAmountWG();
+		double deltaProtein =  set.getAmountProtein() - hamper.getAmountProtein();
+		double deltaOther =  set.getAmountOther() - hamper.getAmountOther();
 
 		return deltaFV + deltaOther + deltaProtein + deltaWG;
 
 	}
 
 	private static boolean enoughNutritionRequirements(NutritionValues hamper, NutritionValues set){
+		// Clear previous shortage since we only care about reportaed shortage from biggest available set(last one)
+		missingCategory.clear();
+		
+		boolean enough = true;
 		if (set.getAmountFV() - hamper.getAmountFV() < 0 ){
-			return false;
+			missingCategory.put("Fruit/Veggies", true);
+			enough = false;
 		};
 		if (set.getAmountWG() - hamper.getAmountWG() < 0 ){
-			return false;
+			missingCategory.put("Wheat/Grains", true);
+			enough = false;
 		};
 		if (set.getAmountProtein() - hamper.getAmountProtein() < 0 ){
-			return false;
+			missingCategory.put("Protein", true);
+			enough = false;
 		};
 		if (set.getAmountOther() - hamper.getAmountOther() < 0 ){
-			return false;
+			missingCategory.put("Other", true);
+			enough = false;
 		};
-		return true;
+		return enough;
 
 	}
 	
@@ -155,11 +188,10 @@ public class InventoryService {
 			int[] tempList = new int[r];
             for (int j=0; j<r; j++){
 				tempList[j] = data[j];
-				 //System.out.print(data[j]+" ");
+
 			}
 			pwrSet.add(tempList);
-			calculateNutrientForSet(pwrSet.size() - 1);
-             //System.out.println("");
+
             return;
         }
  
@@ -170,18 +202,16 @@ public class InventoryService {
         }
 	}
 	
-	// GUIViewController.genericError("");
+
 
 	// Helper methods
 	private static void fillHampers() {
 
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
-			for (int num : pwrSet.get(hamper.getOptimalSet())){
+			for (int num : hamper.getOptimalSet()){
 				hamper.addAllocatedItem(num);
-				HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
-
 
 		// used in a loop, helper method for inventoryCheckAlgorithm
 		// selects food items from the inventory and updates the tmpUsed in foodItems
@@ -193,30 +223,18 @@ public class InventoryService {
 
 	}
 
-	private static void tmpUsedUpdaterProtocal(){
-		int setThatWasPicked = -1;
-		for(HashMap.Entry<Integer, Integer> entry : tmpUsed.entrySet()){
-			if (entry.getValue() == 1){
-				setThatWasPicked = entry.getKey();
-				break;
+	private static void deleteFoodItems(){
+		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
+			for (int num : hamper.getOptimalSet()){
+				//HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
-		int [] itemsInThatSet = pwrSet.get(setThatWasPicked);
+	}
 
-		for(HashMap.Entry<Integer, Integer> entry : tmpUsed.entrySet()){
-			for (int compare : pwrSet.get(entry.getValue()) ){
-				for (int to : itemsInThatSet){
-					if (compare == to){
-						tmpUsed.put(entry.getKey(), 2);
-					}
-				}
-				break;
-			}
-		}
-	}	
 
-	private static void calculateNutrientForSet(int set){
-		tmpUsed.put(set, 0);
+
+	private static NutritionValues calculateNutrientForSet(int set){
+
 		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);
 		double amountWG = 0;
 		double amountFV = 0;
@@ -225,22 +243,27 @@ public class InventoryService {
 		double totalNeedCalories = 0;
 
 		for (int item : pwrSet.get(set) ){
-			totalNeedCalories += HamperApp.inventory.getFood(item).getCalories();
-			amountFV += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100;
-			amountWG += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100;
-			amountProtein += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getProteinContent() / 100;
-			amountOther += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100;
+			totalNeedCalories += Math.ceil( HamperApp.inventory.getFood(item).getCalories());
+			amountFV += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100);
+			amountWG += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100);
+			amountProtein += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getProteinContent() / 100);
+			amountOther += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100);
 		}
 		nutrition.setTotalNeedCalories(totalNeedCalories);
 		nutrition.setPercentFV(amountFV / totalNeedCalories);
 		nutrition.setPercentOther(amountOther / totalNeedCalories);
 		nutrition.setPercentProtein(amountProtein / totalNeedCalories);
 		nutrition.setPercentWG(amountWG / totalNeedCalories);
-		pwrSetNutrition.put(set, nutrition);
-
+		// pwrSetNutrition.put(set, nutrition);
+		return nutrition;
 		
 	}
+	public static HashMap<String, Boolean> getMissingCategory(){
+		return missingCategory;
+	}
 }
+
+
 
 
 //
