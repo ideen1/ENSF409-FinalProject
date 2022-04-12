@@ -45,7 +45,7 @@ public class Request{
             // Writing Original Request:
             for (int i = 0; i < hampers.size(); i++) {
             	Hamper hamp = hampers.get(i);
-            	orderForm.printf("Hamper %d: ", (i+1));
+            	orderForm.printf("Hamper %d(%s): ", (i+1), hamp.getClientName());
             	int male = hamp.getNumAdultMales();
             	int female = hamp.getNumAdultFemales();
             	int under8 = hamp.getNumChildUnder8();
@@ -77,10 +77,10 @@ public class Request{
             
             // Writing the food list:
             for (int i = 0; i < hampers.size(); i++) {
-            	orderForm.printf("\nHamper %d Items:\n", (i+1));
-            	Hamper tmp = hampers.get(i);
+                Hamper tmp = hampers.get(i);
+            	orderForm.printf("\nHamper %d(%s) Items:\n", (i+1), tmp.getClientName());
+            	
             	for (int id : tmp.getAllocatedItems()) {
-                    System.out.println(HamperApp.inventory.getFood(id).getName()); 
             		orderForm.printf("%d\t%s\n", id, HamperApp.inventory.getFood(id).getName());
             	}
             }

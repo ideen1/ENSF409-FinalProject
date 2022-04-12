@@ -16,7 +16,7 @@ public class InventoryService {
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
-	public static void inventoryCheckAlgorithm() {
+	public static boolean inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
 
 		for (Hamper hamper : HamperApp.currentRequest.getHampers()){
@@ -49,10 +49,9 @@ public class InventoryService {
 			fillHampers();
 			HamperApp.currentRequest.createOrderFile();
 			deleteFoodItems();
-			
-
+			return true;
 		}
-
+		return false;
 		/*
 		 * fillHamper();
 		 * if missingCategory is empty
