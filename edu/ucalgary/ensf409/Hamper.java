@@ -22,7 +22,7 @@ public class Hamper {
     private int optimalSet;
     private double optimizationAmount = Integer.MAX_VALUE;
     private ArrayList<Integer> allocatedItems = new ArrayList<>();
-   private boolean canBeFulfilled = false;
+    private boolean canBeFulfilled = false;
 
     private int numAdultMales = 0;
     private int numAdultFemales = 0;
@@ -33,7 +33,6 @@ public class Hamper {
      * Hamper
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
-
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         // Set Client for Hamper
 
@@ -64,6 +63,9 @@ public class Hamper {
         calculateNeededNutrients();
     }
 
+    /**
+     * @return double
+     */
     public double getOptimizationAmount() {
         return optimizationAmount;
     }
@@ -78,8 +80,6 @@ public class Hamper {
      * amount and type of people in people ArrayList
      */
     private void calculateNeededNutrients() {
-        
-
         double totalNeedWG = 0;
         double totalNeedFV = 0;
         double totalNeedProtein = 0;
@@ -100,6 +100,9 @@ public class Hamper {
         calculateNeededNutrients();
     }
 
+    /**
+     * @return NutritionValues
+     */
     public NutritionValues getNutritionValues(){
         return this.totalNeeds;
     }
@@ -109,7 +112,6 @@ public class Hamper {
      */
     public ArrayList<Person> getPeople() {
         return people;
-
     }
 
     /** 
@@ -118,7 +120,6 @@ public class Hamper {
     public ArrayList<Integer> getAllocatedItems() {
         return allocatedItems;
     }
-
     
     /** 
      * @param allocatedItems
@@ -127,92 +128,104 @@ public class Hamper {
         this.allocatedItems.add(allocatedItems);
     }
 
-
     /** 
      * @return boolean
      */
     public boolean canBeFulfilled() {
         return canBeFulfilled;
     }
-
     
     /** 
+     * This method updates the canBeFulfilled field 
      * @param canBeFulfilled
      */
     public void setCanBeFulfilled(boolean canBeFulfilled) {
         this.canBeFulfilled = canBeFulfilled;
     }
-
     
     /** 
-     * @return int
+     * @return double
      */
     public double getTotalNeedWG() {
         return totalNeeds.getAmountWG();
     }
-
     
     /** 
-     * @return int
+     * @return double
      */
     public double getTotalNeedFV() {
         return totalNeeds.getAmountFV();
     }
 
-    
     /** 
-     * @return int
+     * @return double
      */
     public double getTotalNeedProtein() {
         return totalNeeds.getAmountProtein();
     }
-
     
     /** 
-     * @return int
+     * @return double
      */
     public double getTotalNeedOther() {
         return totalNeeds.getAmountOther();
     }
-
     
     /** 
-     * @return int
+     * @return double
      */
     public double getTotalNeedCalories() {
         return totalNeeds.getTotalNeedCalories();
     }
 
+    /** 
+     * @return String
+     */
     public String getClientName(){
 
         return this.CLIENT;
     }
 
-
+    /** 
+     * @return int
+     */
     public int getNumAdultMales() {
         return numAdultMales;
     }
 
+    /** 
+     * @return int
+     */
     public int getNumAdultFemales() {
         return numAdultFemales;
     }
 
+    /** 
+     * @return int
+     */
     public int getNumChildUnder8() {
         return numChildUnder8;
     }
 
-
+    /** 
+     * @return int
+     */
     public int getNumChildOver8() {
         return numChildOver8;
     }
 
+    /** 
+     * @return int
+     */
     public int getOptimalSet() {
         return optimalSet;
     } 
+    
+    /** 
+     * @param optimal
+     */
     public void setOptimalSet(int optimal) {
         this.optimalSet = optimal;
     }
-
-
 }
 
