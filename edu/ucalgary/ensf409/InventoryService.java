@@ -70,6 +70,7 @@ public class InventoryService {
 
 		int lastGoodSet = -1;
 		while (nextPowerSet()){
+			
 			int i = 0; 
 			for (int[] set : pwrSet){ // Should be made into a loop that uses i
 
@@ -206,7 +207,7 @@ public class InventoryService {
 	private static void deleteFoodItems(){
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : pwrSet.get(hamper.getOptimalSet())){
-				HamperApp.inventory.removeFoodItem(num); 
+				//HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
 	}
@@ -243,11 +244,11 @@ public class InventoryService {
 		double totalNeedCalories = 0;
 
 		for (int item : pwrSet.get(set) ){
-			totalNeedCalories += HamperApp.inventory.getFood(item).getCalories();
-			amountFV += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100;
-			amountWG += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100;
-			amountProtein += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getProteinContent() / 100;
-			amountOther += HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100;
+			totalNeedCalories += Math.ceil( HamperApp.inventory.getFood(item).getCalories());
+			amountFV += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100);
+			amountWG += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100);
+			amountProtein += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getProteinContent() / 100);
+			amountOther += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100);
 		}
 		nutrition.setTotalNeedCalories(totalNeedCalories);
 		nutrition.setPercentFV(amountFV / totalNeedCalories);
