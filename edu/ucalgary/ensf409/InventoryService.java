@@ -75,7 +75,7 @@ public class InventoryService {
 			
 			int i = 0; 
 			for (int[] set : pwrSet){ // Should be made into a loop that uses i
-
+				
 					NutritionValues nutrition = calculateNutrientForSet(i);
 					if (enoughNutritionRequirements(hamper.getNutritionValues(), nutrition)){
 						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), nutrition) ;
@@ -124,19 +124,27 @@ public class InventoryService {
 	}
 
 	private static boolean enoughNutritionRequirements(NutritionValues hamper, NutritionValues set){
+		// Clear previous shortage since we only care about reportaed shortage from biggest available set(last one)
+		missingCategory.clear();
+		
+		boolean enough = true;
 		if (set.getAmountFV() - hamper.getAmountFV() < 0 ){
-			return false;
+			missingCategory.put("Fruit/Veggies", true);
+			enough = false;
 		};
 		if (set.getAmountWG() - hamper.getAmountWG() < 0 ){
-			return false;
+			missingCategory.put("Wheat/Grains", true);
+			enough = false;
 		};
 		if (set.getAmountProtein() - hamper.getAmountProtein() < 0 ){
-			return false;
+			missingCategory.put("Protein", true);
+			enough = false;
 		};
 		if (set.getAmountOther() - hamper.getAmountOther() < 0 ){
-			return false;
+			missingCategory.put("Other", true);
+			enough = false;
 		};
-		return true;
+		return enough;
 
 	}
 	
@@ -250,7 +258,12 @@ public class InventoryService {
 		return nutrition;
 		
 	}
+	public static HashMap<String, Boolean> getMissingCategory(){
+		return missingCategory;
+	}
 }
+
+
 
 
 //

@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 
@@ -323,7 +324,12 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         JLabel amount = new JLabel(HamperApp.currentRequest.getHampers().size() + " Total Hampers");
         JPanel errorBox = new JPanel();
         errorBox.setLayout(new BoxLayout(errorBox, BoxLayout.Y_AXIS));
-        JLabel message1 = new JLabel("There were some shortages when attempting to fulfill the entire request\nThey have been highlighted below:");
+        JLabel message1 = new JLabel("There were some shortages when attempting to fulfill the entire request. They have been highlighted below:");
+        errorBox.add(message1);
+        for (Map.Entry item:  InventoryService.getMissingCategory().entrySet()){
+            JLabel message = new JLabel("There was a shortage in the " + item.getKey() + " category");
+            errorBox.add(message);
+        }
         // if true for category print
 
         
@@ -341,6 +347,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         
         upperPanel.add(title);
         upperPanel.add(amount);
+        midPanel.add(errorBox);
         footerPanel.add(home);
 
         reloadGUI();
