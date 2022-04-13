@@ -166,6 +166,13 @@ public class IdeenTests {
 
     }
 
+    /**
+     * Test whether the algorithm chooses the optimal combination of items when more items actual causes less nutrient waste
+     * For simplicity, we only test one of the nutrient categories
+     * Fruit1 + Fruit2 = 2000
+     * Fruit 3 = 2200
+     * Clearly It should pick Fruit1+2 for the optimal combination
+     */
     @Test
     public void testInventoryServiceWithOptimizedValues(){
         Hamper hamper1 = new Hamper("testClient",1,1,0,0);
