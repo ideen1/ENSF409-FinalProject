@@ -6,36 +6,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
-/** Represents a service class which will be used to calculate the most efficient combinations
- * of food items from the inventory for each of the requested hamper.
- * @author 
+/** Represents a service class which will be used to calculate the most efficient combination
+ * of food items from the inventory for each of the requested hampers.
+ * Winter 2022 - Group 5
+ * Copyright © 2022 I.B., T.D., M.M.
+ * @author Ideen, Tanish, Mary
  * @version 1.11 
  * @since 1.0
 */
 public class InventoryService {
-	//private static Request request = HamperApp.currentRequest;
+	// private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
 
-	private static ArrayList<int[]> pwrSet = new ArrayList<int []>();
+	private static ArrayList<int[]> pwrSet = new ArrayList<int[]>();
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
+
 	/** ...
 	 * @return A boolean value ...
 	 */
 	public static boolean inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
 
-		for (Hamper hamper : HamperApp.currentRequest.getHampers()){
+		for (Hamper hamper : HamperApp.currentRequest.getHampers()) {
 			// Perform check for each hamper
 			findOptimalFromSet(hamper);
 			try {
-				if (!hamper.canBeFulfilled()){
+				if (!hamper.canBeFulfilled()) {
 					throw new InventoryNotAvailableException();
 					
 				}
-			} catch(InventoryNotAvailableException e){
+			} catch (InventoryNotAvailableException e) {
 				GUIViewController.genericError("InventoryNotAvailableException");
 				allFulfilled = false;
 				break;
@@ -71,8 +74,6 @@ public class InventoryService {
 	 	 * 		throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
 	     * 		is short (missingCategory content)
 		 */
-
-		 
 	}
 
 	private static void findOptimalFromSet(Hamper hamper){
@@ -157,7 +158,7 @@ public class InventoryService {
 	}
 	
 	/**
-	 * Power sets ...
+	 * @return A boolean value representing ................
 	 */
 	public static boolean nextPowerSet(){
 		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
@@ -179,6 +180,13 @@ public class InventoryService {
 		return true;
 	}
 	
+	/** Generates power sets of different food combinaions 
+	 * @param inputArray An array of integers containing the id numbers of all food items in the inventory
+	 * @param setSizeNum The number of food items to be included in each combination i.e. size of the integer arrays contained in the 
+	 * ArrayList to be returned
+	 * @return An ArrayList containing integer arrays of the given size that each represent a different combination of food items from 
+	 * the inventory with their id numbers
+	 */
 	public static ArrayList<int[]> generatePwrSet (int[] inputArray, int setSizeNum){
 		
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
@@ -210,8 +218,6 @@ public class InventoryService {
         }
 	}
 	
-
-
 	// Helper methods
 	private static void fillHampers() {
 
@@ -220,15 +226,6 @@ public class InventoryService {
 				hamper.addAllocatedItem(num);
 			}
 		}
-
-		// used in a loop, helper method for inventoryCheckAlgorithm
-		// selects food items from the inventory and updates the tmpUsed in foodItems
-		// updates missingCategory if missing anything for a hamper
-		// Loop through hampers
-		// for each hamper, add food items from its optimal set, 
-		// delete those items from sql and hashmap
-		// delete all power sets that contain food values value
-
 	}
 
 	private static void deleteFoodItems(){
@@ -239,8 +236,6 @@ public class InventoryService {
 		}
 	}
 
-
-
 	private static NutritionValues calculateNutrientForSet(int set){
 
 		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);
@@ -250,7 +245,7 @@ public class InventoryService {
 		double amountOther = 0;
 		double totalNeedCalories = 0;
 
-		for (int item : pwrSet.get(set) ){
+		for (int item : pwrSet.get(set)){
 			totalNeedCalories += Math.ceil( HamperApp.inventory.getFood(item).getCalories());
 			amountFV += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getFruitVeggieContent() / 100);
 			amountWG += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getGrainContent() / 100);
@@ -266,18 +261,14 @@ public class InventoryService {
 		return nutrition;
 		
 	}
+
+	/** Gets the missingCategory HashMap containing the missing category information
+	 * @return A HashMap containing the missing category information
+	 */
 	public static HashMap<String, Boolean> getMissingCategory(){
 		return missingCategory;
 	}
 }
-
-
-
-
-//
-//request = new Request();
-//hampers = request.getHampers();
-//check = new InventoryService(hampers);
 
 
 
