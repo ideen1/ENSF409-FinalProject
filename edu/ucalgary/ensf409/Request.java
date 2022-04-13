@@ -49,6 +49,16 @@ public class Request{
         return true;
     }
 
+    /** addHamper()
+     * @param hamper A hamper object passed in as a full value
+	 * @return A boolean value representing whether or not the hamper was successfully added to the request
+	 */
+    public boolean addHamper(Hamper hamper){
+    
+        hampers.add(hamper);
+        return true;
+    }
+
     /** createOrderFile
      * Creates a text file with the name of the request that lists out the details of the request 
      */
