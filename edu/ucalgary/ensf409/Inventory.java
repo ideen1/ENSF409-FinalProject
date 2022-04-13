@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Inventory {
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();
     
-    static {
+    public static void loadInventory() {
         HamperApp.mainScreen.genericLoader("Loading Inventory");
         // CODE to load food items from inventory
         try {
