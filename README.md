@@ -19,7 +19,9 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
     - Host: localhost
     - Database: food_inventory
 
-# Warning:
+# Warnings:
+- Our GUI controller is designed in such a way that it dynamically monitors the program, even in testing
+    - Please click "Ok" on any pop ups that occur during JUnit testing
 - During order processing, this program can take 30-40 seconds per hamper depending on your machine.
-- This is due to very lengthy and complex arithmatic (orders of ~2^20).
-- Multiple loading screens will appear during this process. Please wait for the loading screens to disappear on their own before continuing
+    - This is due to very lengthy and complex arithmatic (orders of ~2^20).
+    - Multiple loading screens will appear during this process. Please wait for the loading screens to disappear on their own before continuing
