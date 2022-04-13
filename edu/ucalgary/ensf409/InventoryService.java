@@ -1,4 +1,4 @@
-/** *InventoryService*.java 
+/** InventoryService.java 
  * Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
  * Represents a service class which will be used to calculate the most 
  * efficient combination of food items from the inventory for each of 
@@ -25,13 +25,13 @@ public class InventoryService {
 	/// We need to calculate nutrition values for each set <-- Needs to be done
 
 	/** 
-	 * *getID*
+	 * getID
 	 * Gets the food item's id number
 	 * @return An integer representing the food item's id number in the inventory
 	 */
 
-	/** *inventoryCheckAlgorithm*
-	 * 
+	/** inventoryCheckAlgorithm
+	 * Does ...................................
 	 * @return A boolean value ...
 	 */
 	public static boolean inventoryCheckAlgorithm() {
@@ -162,10 +162,7 @@ public class InventoryService {
 
 	}
 	
-	/**
-	 * @return A boolean value representing ................
-	 */
-	public static boolean nextPowerSet(){
+	private static boolean nextPowerSet(){
 		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
 		}
@@ -185,7 +182,9 @@ public class InventoryService {
 		return true;
 	}
 	
-	/** Generates power sets of different food combinaions 
+	/** 
+	 * generatePwrSet
+	 * Generates power sets of different food combinaions 
 	 * @param inputArray An array of integers containing the id numbers of all food items in the inventory
 	 * @param setSizeNum The number of food items to be included in each combination i.e. size of the integer arrays contained in the 
 	 * ArrayList to be returned
@@ -201,6 +200,7 @@ public class InventoryService {
 		
 		return combinations;
 	}
+	
 	private static void pwrSetHelper(int[] inputArray, int data[], int start, int end, int index, int r, ArrayList<int[]> combinations) {
 		//System.out.println(combinations.size());
         if (index == r)
@@ -263,7 +263,9 @@ public class InventoryService {
 		
 	}
 
-	/** Gets the missingCategory HashMap containing the missing category information
+	/** 
+	 * getMissingCategory
+	 * Gets the missingCategory HashMap containing the missing category information
 	 * @return A HashMap containing the missing category information
 	 */
 	public static HashMap<String, Boolean> getMissingCategory(){

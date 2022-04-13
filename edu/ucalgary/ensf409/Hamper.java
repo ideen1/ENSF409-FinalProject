@@ -30,12 +30,12 @@ public class Hamper {
     private int numChildOver8 = 0;
 
     /**
-     * Hamper
+     * Hamper constructor
      * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
      */
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
+        
         // Set Client for Hamper
-
         this.CLIENT = clientName;
         this.numAdultFemales = numAdultFemales;
         this.numAdultMales = numAdultMales;
