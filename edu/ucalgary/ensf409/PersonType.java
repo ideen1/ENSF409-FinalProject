@@ -12,19 +12,19 @@ package edu.ucalgary.ensf409;
 public enum PersonType {
     CHILDUNDER8{
         private final NutritionValues NUTRITION = new NutritionValues("CHILDUNDER8");
-        public  NutritionValues getNutrition(){return this.nutrition;}
+        public  NutritionValues getNutrition(){return this.NUTRITION;}
     },
     CHILDOVER8{
         private final NutritionValues NUTRITION = new NutritionValues("CHILDOVER8");
-        public  NutritionValues getNutrition(){return this.nutrition;}
+        public  NutritionValues getNutrition(){return this.NUTRITION;}
     },
     ADULTFEMALE{
         private final NutritionValues NUTRITION = new NutritionValues("ADULTFEMALE");
-        public  NutritionValues getNutrition(){return this.nutrition;}
+        public  NutritionValues getNutrition(){return this.NUTRITION;}
     },
     ADULTMALE{
         private final NutritionValues NUTRITION = new NutritionValues("ADULTMALE");
-        public  NutritionValues getNutrition(){return this.nutrition;}
+        public  NutritionValues getNutrition(){return this.NUTRITION;}
     };
     public abstract NutritionValues getNutrition();
     
