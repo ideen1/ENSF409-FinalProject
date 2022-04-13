@@ -17,5 +17,5 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
 
 # Warning:
 - During order processing, This program can take 30-40 seconds per hamper depending on your machine.
-- This is due to very lengthy and complex arithmatic.
-- Multiple loading screens will appear during this. Please wait for the loading screens to disappear on their own
+- This is due to some lengthy and complex arithmetic operations.
+- Multiple loading screens will appear during the operation. Please wait for the loading screens to disappear on their own.
