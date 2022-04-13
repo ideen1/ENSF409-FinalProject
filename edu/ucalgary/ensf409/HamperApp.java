@@ -19,18 +19,19 @@ public class HamperApp {
         }
         // END Pre GUI Initialization Checks
 
-        // Load Inventory
-        Inventory.loadInventory();
+        
         
         EventQueue.invokeLater(() -> {
             // Create App Window Frame
             mainScreen = new GUIViewController();  
-            
+            Inventory.loadInventory(); 
             // Set Frame to visible
             mainScreen.setVisible(true);   
             // Load Home by Default
             mainScreen.GUILoadHome();
-
+            
         });
+        
+
     }
 }
