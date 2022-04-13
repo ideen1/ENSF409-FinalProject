@@ -28,10 +28,12 @@ public class DBConnection {
     public void initializeConnection(){
 
     try {
-        this.dbConnect = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
+        this.dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
     } 
     catch (SQLException e) {
         GUIViewController.genericError("Could not initialize Connection");
+        System.out.println("HAMPER APP - SQL DEBUG FOR TA's: ");
+        System.out.println(e.toString());
     }
     }
 
@@ -52,6 +54,8 @@ public class DBConnection {
             }   
         catch (SQLException e) {
             GUIViewController.genericError("Error processing prepared statement");
+            System.out.println("HAMPER APP - SQL DEBUG FOR TA's: ");
+            System.out.println(e.toString());
             }
         }
 
@@ -65,6 +69,8 @@ public class DBConnection {
                 }   
             catch (SQLException e) {
                 GUIViewController.genericError("Error processing custom query");
+                System.out.println("HAMPER APP - SQL DEBUG FOR TA's: ");
+                System.out.println(e.toString());
                 return null;
                 }
             }
@@ -75,6 +81,8 @@ public class DBConnection {
                 return true;
             } 
             catch (SQLException e) {
+                System.out.println("HAMPER APP - SQL DEBUG FOR TA's: ");
+                System.out.println(e.toString());
                 return false;
             }
         }    
