@@ -12,7 +12,7 @@ import org.junit.*;
 public class TestingMary {
 
 	private Hamper HAMPER1 = new Hamper("client1",1,0,0,0);
-	private Hamper HAMPER2 = new Hamper("client2", 0,0,0,1);
+	private Hamper HAMPER2 = new Hamper("client2",0,0,0,1);
 
 	HAMPER1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
 
@@ -132,6 +132,7 @@ public class TestingMary {
 	 * getHampers() returns correct ArrayList<Hampers> that is stored as hampersToCheck.
 	 * getInventory() returns the correct Inventory that is stored as inventory. 
 	 */
+
 	@Test
 	public void testGetters(){
 		
