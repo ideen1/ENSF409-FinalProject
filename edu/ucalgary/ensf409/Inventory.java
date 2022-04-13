@@ -45,7 +45,6 @@ public class Inventory {
             System.out.println("Protein: "+amountProtein);
             System.out.println("Other: "+amountOther);
             
-            InventoryService.nextPowerSet();
 
         } catch (SQLException e){
             GUIViewController.genericError("Error retrieving Food Inventory from Database");
