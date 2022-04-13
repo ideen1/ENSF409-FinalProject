@@ -18,6 +18,7 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
     - Password: ensf
     - Host: localhost
     - Database: food_inventory
+- Since Database connections across different platforms can at times cause connection issues, the program will print SQL errors in the event that TA's need to modify DB Connection information for their specfic environment. The only information that may need to be modified can be found in DBConnection.java (lines 11-13).
 
 # Warnings:
 - Our GUI controller is designed in such a way that it dynamically monitors the program, even in testing
