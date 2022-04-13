@@ -10,7 +10,7 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
 
 # Usage:
 - Default Database Connection information:
-- Username: student
+- - Username: student
 - Password: ensf
 - Host: localhost
 - Database: food_inventory
