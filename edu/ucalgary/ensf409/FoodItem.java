@@ -3,7 +3,9 @@
 package edu.ucalgary.ensf409;
 
 /** Represents a food item stored in inventory.
- * @author 
+ * Winter 2022 - Group 5
+ * Copyright © 2022 I.B., T.D., M.M.
+ * @author Ideen, Tanish, Mary 
  * @version 1.6
  * @since 1.0
 */
@@ -53,7 +55,9 @@ public class FoodItem{
 	 */
 	public double getCalories() { return this.CAL; }
 	
-	
+
+	// Constructor
+
 	/** FoodItem constructor - fills the info field of the food item
 	 * @param id The food item's id number in the inventory
 	 * @param name The food item's description including the name and quantity
