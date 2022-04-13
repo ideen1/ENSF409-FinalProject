@@ -4,6 +4,8 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 public class IdeenTests {
     
     // Person Tests:
@@ -162,6 +164,42 @@ public class IdeenTests {
         assertEquals(0.0, nutrients.getPercentFV(), 0.00 - nutrients.getPercentFV());
         assertEquals(50, nutrients.getAmountOther(), 50 - nutrients.getAmountOther());
 
+    }
+
+    @Test
+    public void testInventoryServiceWithOptimizedValues(){
+        Hamper hamper1 = new Hamper("testClient",1,1,0,0);
+        HamperApp.currentRequest = new Request("testRequest", LocalDate.now());
+        HamperApp.mainScreen = new GUIViewController();  
+
+	    hamper1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
+        hamper1.getPeople().get(0).getNutrition().setPercentFV(25);
+        hamper1.getPeople().get(0).getNutrition().setPercentWG(0);
+        hamper1.getPeople().get(0).getNutrition().setPercentProtein(0);
+        hamper1.getPeople().get(0).getNutrition().setPercentOther(0);
+        hamper1.getPeople().get(1).getNutrition().setTotalNeedCalories(2000);
+        hamper1.getPeople().get(1).getNutrition().setPercentFV(25);
+        hamper1.getPeople().get(1).getNutrition().setPercentWG(0);
+        hamper1.getPeople().get(1).getNutrition().setPercentProtein(0);
+        hamper1.getPeople().get(1).getNutrition().setPercentOther(0);
+        hamper1.recalculateNutrients();
+        HamperApp.currentRequest.addHamper(hamper1);
+
+
+        FoodItem goodItem = new FoodItem(1, "Fruit1", 100, 0, 0, 0, 1000);       //Creating an example test item
+        FoodItem goodItem2 = new FoodItem(2, "Fruit2", 100, 0, 0, 0, 1000);     //Creating a second example test item
+        FoodItem ineffcientItem = new FoodItem(3, "Fruit3", 100, 0, 0, 0, 2200);      //Creating a third example test item
+
+        // Food Items Fruit1 and Fruit2 should be picked since they create less waste.
+
+        Inventory.addFoodItem(goodItem);                                        //Adding test item to Foodlist in Inventory
+        Inventory.addFoodItem(goodItem2);                                       //Adding second test item to Foodlist in Inventory
+        Inventory.addFoodItem(ineffcientItem);                                       //Adding third test item to Foodlist in Inventory
+
+        InventoryService.inventoryCheckAlgorithm();
+
+        Integer[] expectedIDs = {1,2};
+        assertArrayEquals(expectedIDs, HamperApp.currentRequest.getHampers().get(0).getAllocatedItems().toArray());
     }
 
 
