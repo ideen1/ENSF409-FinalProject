@@ -1,4 +1,13 @@
-// InventoryService.java
+/** *InventoryService*.java 
+ * Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
+ * Represents a service class which will be used to calculate the most 
+ * efficient combination of food items from the inventory for each of 
+ * the requested hampers.
+ * Copyright © 2022 I.B., T.D., M.M.
+ * @author Ideen, Tanish, Mary
+ * @version 1.11 
+ * @since 1.0
+ */
 
 package edu.ucalgary.ensf409;
 
@@ -6,25 +15,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
-/** Represents a service class which will be used to calculate the most efficient combination
- * of food items from the inventory for each of the requested hampers.
- * Winter 2022 - Group 5
- * Copyright © 2022 I.B., T.D., M.M.
- * @author Ideen, Tanish, Mary
- * @version 1.11 
- * @since 1.0
-*/
 public class InventoryService {
 	// private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
-
 	private static ArrayList<int[]> pwrSet = new ArrayList<int[]>();
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
 
-	/** ...
+	/** 
+	 * *getID*
+	 * Gets the food item's id number
+	 * @return An integer representing the food item's id number in the inventory
+	 */
+
+	/** *inventoryCheckAlgorithm*
+	 * 
 	 * @return A boolean value ...
 	 */
 	public static boolean inventoryCheckAlgorithm() {
@@ -121,7 +128,6 @@ public class InventoryService {
 		
 		
 	}
-
 	private static double compareNutritionRequirements(NutritionValues hamper, NutritionValues set){
 		double deltaFV =  set.getAmountFV() - hamper.getAmountFV();
 		double deltaWG =  set.getAmountWG() - hamper.getAmountWG();
@@ -131,7 +137,6 @@ public class InventoryService {
 		return deltaFV + deltaOther + deltaProtein + deltaWG;
 
 	}
-
 	private static boolean enoughNutritionRequirements(NutritionValues hamper, NutritionValues set){
 		// Clear previous shortage since we only care about reportaed shortage from biggest available set(last one)
 		missingCategory.clear();
@@ -196,7 +201,6 @@ public class InventoryService {
 		
 		return combinations;
 	}
-	
 	private static void pwrSetHelper(int[] inputArray, int data[], int start, int end, int index, int r, ArrayList<int[]> combinations) {
 		//System.out.println(combinations.size());
         if (index == r)
@@ -217,7 +221,6 @@ public class InventoryService {
             pwrSetHelper(inputArray, data, i+1, end, index+1, r, combinations);
         }
 	}
-	
 	// Helper methods
 	private static void fillHampers() {
 
@@ -227,7 +230,6 @@ public class InventoryService {
 			}
 		}
 	}
-
 	private static void deleteFoodItems(){
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : hamper.getOptimalSet()){
@@ -235,7 +237,6 @@ public class InventoryService {
 			}
 		}
 	}
-
 	private static NutritionValues calculateNutrientForSet(int set){
 
 		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);

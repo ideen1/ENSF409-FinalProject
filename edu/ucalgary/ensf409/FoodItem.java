@@ -1,14 +1,15 @@
-// FoodItem.java
+/** *FoodItem*.java 
+ *  Java Class file for ENSF409 Final Project 2022 - 
+ *  Winter 2022 - Group 5
+ *  Represents a food item stored in inventory. 
+ *  Copyright © 2022 I.B., T.D., M.M.
+ *  @author Ideen, Tanish, Mary 
+ *  @version 1.6
+ *  @since 1.0
+ */
 
 package edu.ucalgary.ensf409;
 
-/** Represents a food item stored in inventory.
- * Winter 2022 - Group 5
- * Copyright © 2022 I.B., T.D., M.M.
- * @author Ideen, Tanish, Mary 
- * @version 1.6
- * @since 1.0
-*/
 public class FoodItem{
 	private final int ID;
 	private final String NAME;
@@ -20,45 +21,58 @@ public class FoodItem{
 	
 	// Getters
 
-	/** Gets the food item's id number
+	/** 
+	 * *getID*
+	 * Gets the food item's id number
 	 * @return An integer representing the food item's id number in the inventory
 	 */
 	public int getID() { return this.ID; }
 
-	/** Gets the food item's description
+	/** 
+	 * *getName*
+	 * Gets the food item's description
 	 * @return A string represeting the name and quantity of the food item
 	 */
 	public String getName() { return this.NAME; }
 	
-	/** Gets the food item's Fruit and Vegetable content
+	/** 
+	 * *getFruitVeggieContent*
+	 * Gets the food item's Fruit and Vegetable content
 	 * @return A number (double) representing the food item's fruit and vegetable nutritional content
 	 */
 	public double getFruitVeggieContent() { return this.FVC; }
 	
-	/** Gets the food item's Grain content
+	/** 
+	 * *getGrainContent*
+	 * Gets the food item's Grain content
 	 * @return A number (double) representing the food item's grain nutritional content
 	 */
 	public double getGrainContent() { return this.GC; }
 	
-	/** Gets the food item's Protein content
+	/** 
+	 * *getProteinContent*
+	 * Gets the food item's Protein content
 	 * @return A number (double) representing the food item's protein nutritional content
 	 */
 	public double getProteinContent() { return PC; }
 	
-	/** Gets the food item's Other content
+	/** 
+	 * *getOther*
+	 * Gets the food item's Other content
 	 * @return A number (double) representing the food item's "other" nutritional content
 	 */
 	public double getOther() { return this.OTHER; }
 
-	/** Gets the food item's calories
+	/** 
+	 * *getCalories*
+	 * Gets the food item's calories
 	 * @return A number (double) representing the food item's calories
 	 */
 	public double getCalories() { return this.CAL; }
 	
-
-	// Constructor
-
-	/** FoodItem constructor - fills the info field of the food item
+	/** 
+	 * *FoodItem* constructor
+	 * Fills the info field of the food item
 	 * @param id The food item's id number in the inventory
 	 * @param name The food item's description including the name and quantity
 	 * @param fruitVeggieContent The food item's fruit and vegetable nutritional content
