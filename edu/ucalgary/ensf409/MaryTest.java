@@ -25,9 +25,26 @@ public class MaryTest {
     }
 
     /* 
+     * Tests generatePwrSet()
+     * The static method is called with an array of integers and the size of the set
+     * as arguments. When the given size is smaller than or equal to the size of the
+     * integer array, the method will create an ArrayList of integer arrays containing 
+     * different combinations of the given integers. Otherwise ... ?
+     * give error when size is 0 or bigger than the size of the given integer array
+     */
+    @Test
+    public void testGeneratePwrSet() {
+        int[] input = {0,1,2};
+        ArrayList<int[]> result = InventoryService.generatePwrSet(input, 0);
+    }
+
+    /* 
      * Tests getMissingCategory()
-     * 
-     * */
+     * A reuqest is created with a hamper and a FoodItem is created with sufficient caloric content
+     * to fill the hamper but insufficient fruit and vegetable content.
+     * getMissingCategory() method is expected to return a HashMap that contains a key
+     * "Fruit/Veggies" and a boolean value true to indicate the insufficient category.
+     */
     @Test
     public void testGetMissingCategory() {
         Hamper hamper1 = new Hamper("testClient",1,1,0,0);

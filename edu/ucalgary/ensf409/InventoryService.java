@@ -71,17 +71,6 @@ public class InventoryService {
 			return true;
 		}
 		return false;
-		/*
-		 * fillHamper();
-		 * if missingCategory is empty
-		 * 		for all food items stored in each Hamper's allocatedItems // OR // all the FoodItem whose used field is true
-		 * 			Inventory.deleteFoodItem(usedItem)
-		 * 		create an order form (.txt)
-		 * else 
-		 * 		reset the tmpUsed field of all FoodItem's in the Inventory to "false"
-	 	 * 		throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
-	     * 		is short (missingCategory content)
-		 */
 	}
 
 	private static void findOptimalFromSet(Hamper hamper){
@@ -162,7 +151,7 @@ public class InventoryService {
 
 	}
 	
-	private static boolean nextPowerSet(){
+	public static boolean nextPowerSet(){
 		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
 		}
@@ -191,8 +180,10 @@ public class InventoryService {
 	 * @return An ArrayList containing integer arrays of the given size that each represent a different combination of food items from 
 	 * the inventory with their id numbers
 	 */
-	public static ArrayList<int[]> generatePwrSet (int[] inputArray, int setSizeNum){
+	private static ArrayList<int[]> generatePwrSet (int[] inputArray, int setSizeNum){
 		
+
+
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
 
 		int data[]= new int[setSizeNum];
@@ -202,7 +193,7 @@ public class InventoryService {
 	}
 	
 	private static void pwrSetHelper(int[] inputArray, int data[], int start, int end, int index, int r, ArrayList<int[]> combinations) {
-		//System.out.println(combinations.size());
+
         if (index == r)
         {
 			int[] tempList = new int[r];
@@ -233,7 +224,7 @@ public class InventoryService {
 	private static void deleteFoodItems(){
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : hamper.getOptimalSet()){
-				//HamperApp.inventory.removeFoodItem(num); 
+				HamperApp.inventory.removeFoodItem(num); 
 			}
 		}
 	}
