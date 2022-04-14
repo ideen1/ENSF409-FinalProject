@@ -4,6 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.beans.Transient;
+import java.time.LocalDate;
 
 public class MaryTest {
     
@@ -64,7 +65,7 @@ public class MaryTest {
         hamper1.recalculateNutrients();
         HamperApp.currentRequest.addHamper(hamper1);
 
-        FoodItem insuffcientItem = new FoodItem(1, "Fruit", 40, 0, 0, 0, 5200);
+        FoodItem insuffcientItem = new FoodItem(1, "Fruit", 20, 0, 0, 0, 5000);
 
         Inventory.addFoodItem(insuffcientItem);  
 
