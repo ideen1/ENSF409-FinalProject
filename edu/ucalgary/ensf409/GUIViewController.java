@@ -30,7 +30,8 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         super("Hamper Application");
 
         setSize(1000,500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
+        
         
     }
     

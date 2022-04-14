@@ -18,16 +18,20 @@ public class HamperApp {
             GUIViewController.genericError("Could not connect to Database");
         }
         // END Pre GUI Initialization Checks
+
+        
         
         EventQueue.invokeLater(() -> {
             // Create App Window Frame
             mainScreen = new GUIViewController();  
-            
+            Inventory.loadInventory(); 
             // Set Frame to visible
             mainScreen.setVisible(true);   
             // Load Home by Default
             mainScreen.GUILoadHome();
-
+            
         });
+        
+
     }
 }

@@ -86,7 +86,6 @@ public class InventoryService {
 	private static void findOptimalFromSet(Hamper hamper){
 		pwrSet.size();
 
-		int lastGoodSet = -1;
 		while (nextPowerSet()){
 			
 			int i = 0; 
@@ -106,7 +105,7 @@ public class InventoryService {
 
 							//tmpUsed.put(lastGoodSet, 0);
 							//tmpUsed.put(i, 1);
-							lastGoodSet = i;
+
 						}
 					}
 				

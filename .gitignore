@@ -24,3 +24,5 @@ hs_err_pid*
 
 # Mac Files
 *.DS_Store
+.vscode/launch.json
+edu/ucalgary/ensf409/IdeenTODO.txt
