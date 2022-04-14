@@ -21,8 +21,8 @@ This repository contains our ENSF 409 final project for the Winter 2022 term.
 - Since Database connections across different platforms can at times cause connection issues, the program will print SQL errors in the event that TA's need to modify DB Connection information for their specfic environment. The only information that may need to be modified can be found in DBConnection.java (lines 11-13).
 
 # Warnings:
-- Our GUI controller is designed in such a way that it dynamically monitors the program, even in testing
-    - Please click "Ok" on any pop ups that occur during JUnit testing
+- Our GUI controller is designed in a way such that it dynamically monitors the program, even in testing.
+    - Please click "Ok" on any pop ups that occur during JUnit testing.
 - During order processing, this program can take 30-40 seconds per hamper depending on your machine.
-    - This is due to very lengthy and complex arithmatic (orders of ~2^20).
-    - Multiple loading screens will appear during this process. Please wait for the loading screens to disappear on their own before continuing
+    - This is due to a very lengthy and complex arithmetic operation (orders of ~2^20).
+    - Multiple loading screens will appear during this process. Please wait for the loading screens to disappear on their own before continuing.

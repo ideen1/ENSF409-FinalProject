@@ -10,17 +10,101 @@ import java.util.HashMap;
 import org.junit.*;
 
 public class TestingMary {
-
-	private Hamper HAMPER1 = new Hamper("client1",1,0,0,0);
-	private Hamper HAMPER2 = new Hamper("client2",0,0,0,1);
-
-	HAMPER1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
-
-    HAMPER2.getPeople().get(0).getNutrition().setTotalNeedCalories(1000);
+	/*
+	Methods to be tested:
 	
+
+	// need a request with one hamper that can be fulfilled
+	// and another with hampers that cannot all be fulfilled
+	// good request will return true
+	// bad request will return false
+	public static boolean inventoryCheckAlgorithm() {
+		boolean allFulfilled = true;
+
+		for (Hamper hamper : HamperApp.currentRequest.getHampers()) {
+			// Perform check for each hamper
+			findOptimalFromSet(hamper);
+			try {
+				if (!hamper.canBeFulfilled()) {
+					throw new InventoryNotAvailableException();
+				}
+			} catch (InventoryNotAvailableException e) {
+				GUIViewController.genericError("InventoryNotAvailableException");
+				allFulfilled = false;
+				break;
+			}
+			
+			nextSetSize = 1;
+			pwrSet.clear();
+		}
+		// If hampers are fiulfilled then fill them and delete proper items
+		// Then create order file
+		if (allFulfilled){
+			fillHampers();
+			HamperApp.currentRequest.createOrderFile();
+			deleteFoodItems();
+			return true;
+		}
+		return false;
+	}
+
+	// this method checks if a new set of food combination with bigger size should be generated
+	// need a request with a hamper that can be fulfilled with two food items, but cannot be fulfilled with one food item
+	// should return true
+	// a request with a hamper that can be fulfilled with one food item
+	// should return false
+	public static boolean nextPowerSet(){
+		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
+			return false;
+		}
+		HamperApp.mainScreen.genericLoader("Processing Combinations... Please Wait");
+		int[] data = new int[inventory.getFoodlist().size()];
+		
+		int i = 0 ;
+		for(Integer item: inventory.getFoodlist().keySet()){
+			data[i] = item;
+			i++;
+		}
+		for (int[] item : generatePwrSet(data, nextSetSize)){
+			pwrSet.add(item);
+		}
+		HamperApp.mainScreen.genericLoaderHide();
+		nextSetSize++;
+		return true;
+	}
+	
+	// create an examle inputArray with integers and see if the method will create 
+	// correct sets with the specified size
+	public static ArrayList<int[]> generatePwrSet (int[] inputArray, int setSizeNum){
+		
+		ArrayList<int[]> combinations = new ArrayList<int[]>();
+
+		int data[]= new int[setSizeNum];
+        pwrSetHelper(inputArray, data, 0, inputArray.length - 1, 0, setSizeNum, combinations);
+		
+		return combinations;
+	}
+
+	// this method returns the missing category array
+	// need a request with hampers can cannot all be fulfilled
+	// need to know which category will be insufficient from the inventory
+	// the returned hashmap should contain all categories, and missing
+	// category(ies) will have a true boolean value
+	public static HashMap<String, Boolean> getMissingCategory(){
+		return missingCategory;
+	}
+	 */
+
+	private final Hamper HAMPER1 = new Hamper("client1",1,0,0,0);
+	private final Hamper HAMPER2 = new Hamper("client2",0,0,0,1);
+
 	private final Hamper HAMPER3 = new Hamper("client3-cannotBeFilled", 2,2,2,2);
 	private final Hamper HAMPER4 = new Hamper("client4-canBeFilled", 0,0,1,0);
 
+	HAMPER1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
+    
+	HAMPER2.getPeople().get(0).getNutrition().setTotalNeedCalories(1000);
+	
 	HAMPER3.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
 	HAMPER3.getPeople().get(1).getNutrition().setTotalNeedCalories(3000);
     HAMPER3.getPeople().get(2).getNutrition().setTotalNeedCalories(2500);
@@ -47,26 +131,6 @@ public class TestingMary {
 
 	// inventory.removeFoodItem(testItem2);                                    //Removing item using FoodItem Argument
     // inventory.removeFoodItem(1);                                            //Removing item using test item ID
-
-	/* What do I want to test?????
-	hamper1.getPeople().get(0).getNutrition().setTotalNeedCalories(3000);
-
-    hamper2.getPeople().get(0).getNutrition().setTotalNeedCalories(1000);
-	
-	 * 
-	 * fillHamper() should properly update the tmpUsed field in appropriate FoodItem obj, the canBeFulfilled 
-	 * and the allocatedItems fields in each Hamper, and the missingCategory filed if needed.
-	 * 
-	 * inventoryCheckAlgorithm() will use fillHamper() helper method in a loop, use checkHamperAvail(), and depending
-	 * the content of the missingCategory:
-	 * 	if empty:
-	 * 			update the inventory by deleting the FoodItem's that have "true" tmpUsed field
-	 * 			create an order form (.txt)
-	 * 	if !empty:
-	 * 			reset the tmpUsed field of all FoodItem's in the Inventory to "false"
-	 * 			throw the custom exception InventoryNotAvailableException, with a message indicating which food category 
-	 * 			is short (missingCategory content)
-	 */
 
 	/*
 	 * InventoryService(Hamper[]) is called with a list of hampers that can all be filled.

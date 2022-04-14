@@ -1,4 +1,13 @@
-// InventoryService.java
+/** InventoryService.java 
+ * Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
+ * Represents a service class which will be used to calculate the most 
+ * efficient combination of food items from the inventory for each of 
+ * the requested hampers.
+ * Copyright © 2022 I.B., T.D., M.M.
+ * @author Ideen, Tanish, Mary
+ * @version 1.11 
+ * @since 1.0
+ */
 
 package edu.ucalgary.ensf409;
 
@@ -6,25 +15,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
-/** Represents a service class which will be used to calculate the most efficient combination
- * of food items from the inventory for each of the requested hampers.
- * Winter 2022 - Group 5
- * Copyright © 2022 I.B., T.D., M.M.
- * @author Ideen, Tanish, Mary
- * @version 1.11 
- * @since 1.0
-*/
 public class InventoryService {
 	// private static Request request = HamperApp.currentRequest;
 	private static Inventory inventory = HamperApp.inventory;
 	private static HashMap<String, Boolean> missingCategory = new HashMap<String, Boolean>();
-
 	private static ArrayList<int[]> pwrSet = new ArrayList<int[]>();
 	private static int nextSetSize = 1;
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
 
-	/** ...
+	/** 
+	 * getID
+	 * Gets the food item's id number
+	 * @return An integer representing the food item's id number in the inventory
+	 */
+
+	/** inventoryCheckAlgorithm
+	 * Does ...................................
 	 * @return A boolean value ...
 	 */
 	public static boolean inventoryCheckAlgorithm() {
@@ -120,7 +127,6 @@ public class InventoryService {
 		
 		
 	}
-
 	private static double compareNutritionRequirements(NutritionValues hamper, NutritionValues set){
 		double deltaFV =  set.getAmountFV() - hamper.getAmountFV();
 		double deltaWG =  set.getAmountWG() - hamper.getAmountWG();
@@ -130,7 +136,6 @@ public class InventoryService {
 		return deltaFV + deltaOther + deltaProtein + deltaWG;
 
 	}
-
 	private static boolean enoughNutritionRequirements(NutritionValues hamper, NutritionValues set){
 		// Clear previous shortage since we only care about reportaed shortage from biggest available set(last one)
 		missingCategory.clear();
@@ -156,10 +161,7 @@ public class InventoryService {
 
 	}
 	
-	/**
-	 * @return A boolean value representing ................
-	 */
-	public static boolean nextPowerSet(){
+	private static boolean nextPowerSet(){
 		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
 		}
@@ -179,7 +181,9 @@ public class InventoryService {
 		return true;
 	}
 	
-	/** Generates power sets of different food combinaions 
+	/** 
+	 * generatePwrSet
+	 * Generates power sets of different food combinaions 
 	 * @param inputArray An array of integers containing the id numbers of all food items in the inventory
 	 * @param setSizeNum The number of food items to be included in each combination i.e. size of the integer arrays contained in the 
 	 * ArrayList to be returned
@@ -216,7 +220,6 @@ public class InventoryService {
             pwrSetHelper(inputArray, data, i+1, end, index+1, r, combinations);
         }
 	}
-	
 	// Helper methods
 	private static void fillHampers() {
 
@@ -226,7 +229,6 @@ public class InventoryService {
 			}
 		}
 	}
-
 	private static void deleteFoodItems(){
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : hamper.getOptimalSet()){
@@ -234,7 +236,6 @@ public class InventoryService {
 			}
 		}
 	}
-
 	private static NutritionValues calculateNutrientForSet(int set){
 
 		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);
@@ -261,7 +262,9 @@ public class InventoryService {
 		
 	}
 
-	/** Gets the missingCategory HashMap containing the missing category information
+	/** 
+	 * getMissingCategory
+	 * Gets the missingCategory HashMap containing the missing category information
 	 * @return A HashMap containing the missing category information
 	 */
 	public static HashMap<String, Boolean> getMissingCategory(){

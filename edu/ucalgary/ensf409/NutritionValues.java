@@ -76,7 +76,7 @@ public class NutritionValues {
      * getPercentWG
      * Returns Percent of Wheat Grain for PersonType
      * @param 1,2,3
-     * @return
+     * @return A number (double) representing the Whole Grain need for the person type in percentage
      * @since 1.0
      */
     public double getPercentWG() {
