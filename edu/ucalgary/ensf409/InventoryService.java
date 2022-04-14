@@ -31,7 +31,8 @@ public class InventoryService {
 	 */
 
 	/** inventoryCheckAlgorithm
-	 * Does ...................................
+	 * Checks if all the hampers in the request can be fulfilled by the food items from 
+	 * the inventory
 	 * @return A boolean value ...
 	 */
 	public static boolean inventoryCheckAlgorithm() {
