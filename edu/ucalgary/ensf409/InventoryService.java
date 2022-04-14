@@ -24,11 +24,6 @@ public class InventoryService {
 
 	/// We need to calculate nutrition values for each set <-- Needs to be done
 
-	/** 
-	 * getID
-	 * Gets the food item's id number
-	 * @return An integer representing the food item's id number in the inventory
-	 */
 
 	/** inventoryCheckAlgorithm
 	 * Checks if all the hampers in the request can be fulfilled by the food items from 
