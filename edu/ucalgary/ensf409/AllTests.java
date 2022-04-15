@@ -24,6 +24,12 @@ import java.util.HashMap;
 
 public class AllTests {
     
+    @Before
+    public void setUp() {
+        Inventory.testMode = true;
+
+    }
+
       /*
      * Tests FoodItem class's getters
      */
@@ -146,7 +152,7 @@ public class AllTests {
         assertArrayEquals(expectedIDs, HamperApp.currentRequest.getHampers().get(0).getAllocatedItems().toArray());
         Inventory.getFoodlist().clear();
     }
-    
+
     /* 
      * Tests getMissingCategory()
      * A reuqest is created with a hamper and a FoodItem is created with sufficient caloric content

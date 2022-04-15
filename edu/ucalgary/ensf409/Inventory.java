@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class Inventory {
+    public static boolean testMode = false;
     static private HashMap<Integer,FoodItem> foodList = new HashMap<Integer, FoodItem>();
     
     public static void loadInventory() {
@@ -71,10 +72,14 @@ public class Inventory {
         // delete from list
         Inventory.foodList.remove(ID);
 
-        // Delete from SQL
-        DBConnection dbc = new DBConnection();
-        dbc.initializeConnection();
-        dbc.preparedQuery("DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?", String.valueOf(ID));
+        
+        if (testMode == false){
+            // Delete from SQL
+            DBConnection dbc = new DBConnection();
+            dbc.initializeConnection();
+            dbc.preparedQuery("DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?", String.valueOf(ID));
+        }
+        
 
     }
     public static FoodItem getFood(int ID){
