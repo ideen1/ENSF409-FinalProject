@@ -111,18 +111,28 @@ public class NutritionValues {
     }
 
     /**
-     * getTotalNeedCalories
-     * @return percent of Protein for PersonType
+     * getTotalNeedCalories()
+     * @return A number (double) representing the caloric needs for PersonType
      * @since 1.0
      */
     public double getTotalNeedCalories() {
         return totalNeedCalories;
     }
 
+    /**
+     * getTotalNeedAmountWG()
+     * @return A number (double) representing the percentage of whole grain nutritional needs for PersonType
+     * @since 1.0
+     */
     public double getAmountWG() {
         return Math.ceil(percentWG * totalNeedCalories / 100);
     }
 
+    /**
+     * getTotalNeedAmountFV()
+     * @return A number (double) representing the percentage of fruit and vegetable nutritional needs for PersonType
+     * @since 1.0
+     */
     public double getAmountFV() {
         return Math.ceil(percentFV * totalNeedCalories / 100);
     }
