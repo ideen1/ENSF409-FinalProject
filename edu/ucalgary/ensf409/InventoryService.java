@@ -58,7 +58,8 @@ public class InventoryService {
 			deleteFoodItems();
 			return true;
 		}
-		
+		pwrSet.clear();
+		nextSetSize = 1;
 		Inventory.resetUsage();
 		return false;
 	}
