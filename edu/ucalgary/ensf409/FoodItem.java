@@ -18,6 +18,7 @@ public class FoodItem{
 	private final double PC;
 	private final double OTHER;
 	private final double CAL;
+	private int usageStatus = 0; // 0: Not Used, 1: Used by current Hamper, 2: Used for good
 	
 	// Getters
 
@@ -27,6 +28,14 @@ public class FoodItem{
 	 * @return An integer representing the food item's id number in the inventory
 	 */
 	public int getID() { return this.ID; }
+
+	public int getUsageStatus() {
+		return usageStatus;
+	}
+
+	public void setUsageStatus(int usageStatus) {
+		this.usageStatus = usageStatus;
+	}
 
 	/** 
 	 * *getName*
@@ -91,5 +100,6 @@ public class FoodItem{
 		this.OTHER = other;
 		this.CAL = calories;
 	}
+
 	
 }

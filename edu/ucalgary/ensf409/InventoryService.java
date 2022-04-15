@@ -46,6 +46,7 @@ public class InventoryService {
 				allFulfilled = false;
 				break;
 			}
+			Inventory.finalizeTemps();
 			// Convert best set and all sets with used food items to status 2(used).
 			//tmpUsedUpdaterProtocal();
 			/*
@@ -65,6 +66,8 @@ public class InventoryService {
 			deleteFoodItems();
 			return true;
 		}
+		
+		Inventory.resetUsage();
 		return false;
 	}
 
@@ -75,7 +78,13 @@ public class InventoryService {
 			
 			int i = 0; 
 			for (int[] set : pwrSet){ // Should be made into a loop that uses i
-				
+				boolean noConflicts = true;
+					for (int item : set){
+						if (Inventory.getFood(item).getUsageStatus() == 2){
+							noConflicts = false;
+						}
+					}
+					if (noConflicts){
 					NutritionValues nutrition = calculateNutrientForSet(i);
 					if (enoughNutritionRequirements(hamper.getNutritionValues(), nutrition)){
 						double deltaVal = compareNutritionRequirements(hamper.getNutritionValues(), nutrition) ;
@@ -83,24 +92,23 @@ public class InventoryService {
 							hamper.setCanBeFulfilled(true);
 							hamper.setOptimizationAmount(deltaVal);
 							ArrayList<Integer> tempList = new ArrayList<Integer>();
+							Inventory.removeTemps();
 							for (int item: pwrSet.get(i)){
 								tempList.add(item);
+								Inventory.getFood(item).setUsageStatus(1);
 							}
 							hamper.setOptimalSet( tempList );
 
-							//tmpUsed.put(lastGoodSet, 0);
-							//tmpUsed.put(i, 1);
 
 						}
 					}
+				}
 				
 				i++;
 			}
 			
 			
 			pwrSet.clear();
-			//pwrSetNutrition.clear();
-			//tmpUsed.clear();
 		
 		}
 		if (hamper.canBeFulfilled()){

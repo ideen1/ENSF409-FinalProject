@@ -85,4 +85,23 @@ public class Inventory {
     public static FoodItem getFood(int ID){
         return Inventory.foodList.get(ID);
     }
+    public static void removeTemps(){
+        for(FoodItem item: foodList.values()){
+            if (item.getUsageStatus() == 1){
+                item.setUsageStatus(0);
+            }
+        }
+    }
+    public static void finalizeTemps(){
+        for(FoodItem item: foodList.values()){
+            if (item.getUsageStatus() == 1){
+                item.setUsageStatus(2);
+            }
+        }
+    }
+    public static void resetUsage(){
+        for(FoodItem item: foodList.values()){
+            item.setUsageStatus(0);
+        }
+    }
 }
