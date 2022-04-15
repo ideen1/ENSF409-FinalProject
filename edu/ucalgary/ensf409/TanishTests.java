@@ -13,6 +13,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -53,11 +54,12 @@ public class TanishTests {
 
     // Testing the generated .txt file and its contents with expected string
     @Test 
-    public void testGenerateOrderForm(){
+    public void testGenerateOrderForm() throws FileNotFoundException{
 
         String expectedOrderString = "Group 5 Food Bank\nHamper OrderForm\n\nName: TestName\nDate: 2022-4-12\n\nOriginal Request\nHamper 1(Client1): 1 Adult Male, %d Adult Female, %d Child uner 8, %d Child over 8"+
         "\nHamper 1(Client1) Items:\n1\teggs\n2\tbread\n3\tapples\n4\tmilk\n5\tbananas\n6\tbeans\n";
-        LocalDate fixedDate = 2022-4-12;
+        String Date = "2022-4-12";
+        LocalDate fixedDate = LocalDate.parse(Date);
 
 
         Request request = new Request("TestName",fixedDate);
