@@ -56,6 +56,8 @@ public class InventoryService {
 			fillHampers();
 			HamperApp.currentRequest.createOrderFile();
 			deleteFoodItems();
+			pwrSet.clear();
+			nextSetSize = 1;
 			return true;
 		}
 		pwrSet.clear();
@@ -291,7 +293,7 @@ public class InventoryService {
 			amountOther += Math.ceil( HamperApp.inventory.getFood(item).getCalories() * HamperApp.inventory.getFood(item).getOther() / 100);
 		}
 		nutrition.setTotalNeedCalories(totalNeedCalories);
-		nutrition.setPercentFV(amountFV / totalNeedCalories);
+		nutrition.setPercentFV( amountFV / totalNeedCalories);
 		nutrition.setPercentOther(amountOther / totalNeedCalories);
 		nutrition.setPercentProtein(amountProtein / totalNeedCalories);
 		nutrition.setPercentWG(amountWG / totalNeedCalories);

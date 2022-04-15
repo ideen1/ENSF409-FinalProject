@@ -135,7 +135,7 @@ public class NutritionValues {
      * @since 1.0
      */
     public double getAmountWG() {
-        return Math.ceil(percentWG * totalNeedCalories / 100);
+        return percentWG * totalNeedCalories / 100;
     }
 
     /**
@@ -144,7 +144,7 @@ public class NutritionValues {
      * @since 1.0
      */
     public double getAmountFV() {
-        return Math.ceil(percentFV * totalNeedCalories / 100);
+        return percentFV * totalNeedCalories / 100;
     }
 
     /**
@@ -153,7 +153,7 @@ public class NutritionValues {
      * @since 1.0
      */
     public double getAmountProtein() {
-        return Math.ceil(percentProtein * totalNeedCalories / 100);
+        return percentProtein * totalNeedCalories / 100;
     }
 
     /**
@@ -162,7 +162,7 @@ public class NutritionValues {
      * @since 1.0
      */
     public double getAmountOther() {
-        return Math.ceil(percentOther * totalNeedCalories / 100);
+        return percentOther * totalNeedCalories / 100;
     }
 
     /**
