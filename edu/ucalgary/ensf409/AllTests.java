@@ -3,7 +3,7 @@
  *  Winter 2022 - Group 5
  *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen, Tanish, Mary
- *  @version 1.0
+ *  @version 1.12
  *  @since 1.0
  */
 
@@ -30,7 +30,7 @@ public class AllTests {
 
     }
 
-      /*
+    /*
      * Tests FoodItem class's getters
      */
     @Test
@@ -192,7 +192,12 @@ public class AllTests {
         assertTrue("The getMissingCategory() method did not return the correct missing category information.", result);
     }
 
-    //Testing addHamper method 
+    /**
+     *Test whehter or not a test hamper has been add to the hamper list or not
+     *this is done by first getting the size of the current hamper and then adding 1,
+     *next a hamper is created then add to the list, the size of the hamper is compared to 
+     *the expected size
+     */  
     @Test 
     public void testAddHamper() {
         Inventory.getFoodlist().clear();
@@ -209,7 +214,10 @@ public class AllTests {
         assertEquals("The hamper array list did not get updated",expectedlistsize, actuallistsize);
     }
 
-    //Testing the createOrderFile method
+    /**
+     *this test check if the creatOrderFile method works without any excpetions
+     *
+     */
     @Test 
     public void testCreateOrderFile(){
         Inventory.getFoodlist().clear();
@@ -230,7 +238,12 @@ public class AllTests {
         assertTrue("Order file could not be created because of exception", orderGenarated);
     }
 
-    // Testing the generated .txt file and its contents with expected string
+    /**
+     *This test compared a expected string with a string that has been created in the order file, 
+     *this is done by first replicating the program just enought to create a order.txt file without 
+     * using the actual databases. An example hamper is made the the order.txt file is create,
+     * a scanner then scans the order.txt file line by line and converts it into a string in java.
+     */
     @Test 
     public void testGenerateOrderForm() throws FileNotFoundException{
         Inventory.getFoodlist().clear();
@@ -299,7 +312,10 @@ public class AllTests {
         assertEquals("The actual string did not match the expected string",expectedOrderString, actualOrderString);
     }
 
-    //Testing same clients with different requests 
+    /**
+     *This test check what happens if two hampers with the same client name is created,
+     * this test should create two different hamper and not overwrite the first one.
+     */ 
     @Test
     public void TesttwoHampersWithSameClient(){
         Inventory.getFoodlist().clear();
@@ -314,7 +330,10 @@ public class AllTests {
         assertTrue("The second client request didn't get made", request.getHampers().get(1) != null);
     }
 
-    // Test Creating a new hamper with negative person amounts
+    /**
+     * an example hamper is create with negative number of people, 
+     * test will check that the method doesnt allow it
+     */
     @Test 
     public void testCreateHampersWithNegativePeople(){
         Inventory.getFoodlist().clear();
@@ -331,9 +350,11 @@ public class AllTests {
         assertTrue("Create Hamper wth negative amounts of people did not throw an exception", returnVal);
     }
 
-    /*                                              Testing iventory class                                                      */ 
+    /*                                              Testing inventory class                                                      */ 
 
-    //Testing setter and getter if a FoodItem list is already provided 
+    /**
+    * Testing setter and getter if a FoodItem list is already provided  
+    */
     @Test 
     public void testSetFoodListAndGetFoodList(){
         Inventory.getFoodlist().clear();
@@ -354,7 +375,10 @@ public class AllTests {
 
     }
 
-    //Testing the addFoodItem method and testing for items with duplicate ID that get added to list
+
+    /**
+    * Testing the addFoodItem method and testing for items with duplicate ID that get added to list
+    */
     @Test
     public void testAddDuplicateFoodItemID(){
         Inventory.getFoodlist().clear();
@@ -373,7 +397,10 @@ public class AllTests {
         assertFalse("Duplicate Food Item did not replace food item with same ID number ",testItem == Inventory.getFood(1));
     }
 
-    //Testing the removeFoodItem methods from inventory class
+
+    /**
+    * Testing the removeFoodItem methods from inventory class
+    */
     @Test
     public void testRemoveFoodItem(){
         Inventory.getFoodlist().clear();

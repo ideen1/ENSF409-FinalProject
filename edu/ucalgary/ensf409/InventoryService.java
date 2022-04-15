@@ -28,7 +28,7 @@ public class InventoryService {
 	/** inventoryCheckAlgorithm
 	 * Checks if all the hampers in the request can be fulfilled by the food items from 
 	 * the inventory
-	 * @return A boolean value ...
+	 * @return A boolean value representing whether or not the hampers could be fulfilled
 	 */
 	public static boolean inventoryCheckAlgorithm() {
 		boolean allFulfilled = true;
@@ -47,18 +47,10 @@ public class InventoryService {
 				break;
 			}
 			Inventory.finalizeTemps();
-			// Convert best set and all sets with used food items to status 2(used).
-			//tmpUsedUpdaterProtocal();
-			/*
-			nextSetSize = 1;
-			pwrSet.clear();
-			pwrSetNutrition.clear();
-			tmpUsed.clear();
-			*/
 			nextSetSize = 1;
 			pwrSet.clear();
 		}
-		// If hampers are fiulfilled then fill them and delete proper items
+		// If hampers are fulfilled then fill them and delete proper items
 		// Then create order file
 		if (allFulfilled){
 			fillHampers();
@@ -70,7 +62,11 @@ public class InventoryService {
 		Inventory.resetUsage();
 		return false;
 	}
-
+	/**
+	 *@return void 
+	 *@param hamper Hamper object to access peoples nutrition values
+	 *This methods finds the most optimal set from the power that waste the least amount of food fo the hamper
+	 */
 	private static void findOptimalFromSet(Hamper hamper){
 		pwrSet.size();
 
@@ -109,7 +105,6 @@ public class InventoryService {
 			
 			
 			pwrSet.clear();
-		
 		}
 		if (hamper.canBeFulfilled()){
 			return;
@@ -117,9 +112,14 @@ public class InventoryService {
 			hamper.setCanBeFulfilled(false);
 			return;
 		}
-		
-		
 	}
+
+	/** helper method is called to compare the power set items to the hamper request items to find optimal set 
+	 * @return double value is return 
+	 * @param hamper object of NutritionValues for hampers
+	 * @param set object of NutritionValues for power sets
+	 *compares the two nutrition values of hamper and powers sets
+	 */
 	private static double compareNutritionRequirements(NutritionValues hamper, NutritionValues set){
 		double deltaFV =  set.getAmountFV() - hamper.getAmountFV();
 		double deltaWG =  set.getAmountWG() - hamper.getAmountWG();
@@ -127,10 +127,16 @@ public class InventoryService {
 		double deltaOther =  set.getAmountOther() - hamper.getAmountOther();
 
 		return deltaFV + deltaOther + deltaProtein + deltaWG;
-
 	}
+
+	/**
+	 * @return boolen type
+	 * @param hamper object of NutritionValues for hampers
+	 * @param set object of NutritionValues for power sets 
+	 *this helper methoed checks if the power set meets the requirements of the hamper regardless if its optimal or not
+	 */
 	private static boolean enoughNutritionRequirements(NutritionValues hamper, NutritionValues set){
-		// Clear previous shortage since we only care about reportaed shortage from biggest available set(last one)
+		// Clear previous shortage since we only care about reported shortage from biggest available set(last one)
 		missingCategory.clear();
 		
 		boolean enough = true;
@@ -153,7 +159,12 @@ public class InventoryService {
 		return enough;
 
 	}
-	
+	/**
+	 *@return boolean type 
+	 *method checks if the next power set is available or not and return true or false,
+	 * if false, the next power set will not be run,
+	 * uf true, next power set if run until it reachs the inventory size
+	 */
 	public static boolean nextPowerSet(){
 		if ( nextSetSize - 1 > inventory.getFoodlist().size()){
 			return false;
@@ -189,7 +200,7 @@ public class InventoryService {
 		// to see if the size is ever bigger than the inputArray.size
 		// if (setSizeNum > inputArray.length) {
 		// 	GUIViewController.genericError("generatePwrSetError - size out of bound");
-		 //}
+		//}
 
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
 
@@ -199,6 +210,17 @@ public class InventoryService {
 		return combinations;
 	}
 	
+	/**
+	 * Calculates the sets recursively, helping the previous generatePwrSet function
+	 *@return void 
+	 *@param inputArray data array going in
+	 *@param data Temporary array used by the function
+	 *@param start	Start Index of data
+	 *@param end ending index of the data
+	 *@param index current index position(since we are recursing)
+	 *@param r the size of the sets
+	 *@param combinations 
+	 */
 	private static void pwrSetHelper(int[] inputArray, int data[], int start, int end, int index, int r, ArrayList<int[]> combinations) {
 
         if (index == r)
@@ -209,7 +231,6 @@ public class InventoryService {
 
 			}
 			pwrSet.add(tempList);
-
             return;
         }
  
@@ -219,7 +240,12 @@ public class InventoryService {
             pwrSetHelper(inputArray, data, i+1, end, index+1, r, combinations);
         }
 	}
-	// Helper methods
+
+	/**
+	 * Goes through each Hamper and tranfers the final optimal set items to the permanently allocated items
+	 * @return void 
+	 * adds items found from the optimal set to the hamper 
+	 */
 	private static void fillHampers() {
 
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
@@ -228,6 +254,12 @@ public class InventoryService {
 			}
 		}
 	}
+
+	/**
+	 * Deletes a specific food item from the Inventory List and the Database
+	 * @return void 
+	 * removes items from the inventory after being added to the hamper 
+	 */
 	private static void deleteFoodItems(){
 		for (Hamper hamper :  HamperApp.currentRequest.getHampers()){
 			for (int num : hamper.getOptimalSet()){
@@ -235,6 +267,12 @@ public class InventoryService {
 			}
 		}
 	}
+
+	/**
+	 * Calculates the nutritional values for a given set and returns them
+	 * @return return a NutritionValue type  
+	 * @param set  ID of set to calculate NutritionaValues for
+	 */
 	private static NutritionValues calculateNutrientForSet(int set){
 
 		NutritionValues nutrition = new NutritionValues(0, 0, 0, 0, 0);
@@ -262,17 +300,27 @@ public class InventoryService {
 	}
 
 	/** 
-	 * getMissingCategory
+	 * getMissingCategory()
 	 * Gets the missingCategory HashMap containing the missing category information
-	 * @return A HashMap containing the missing category information
+	 * @return A HashMap<String, Boolean> containing the missing category information
 	 */
 	public static HashMap<String, Boolean> getMissingCategory(){
 		return missingCategory;
 	}
 
+	/** 
+	 * getPwrSet()
+	 * Gets the pwrSet - for testing purposes
+	 * @return An ArrayList<int[]> that contains all possible combinations of integers in an array of a given size
+	 */
 	public static ArrayList<int[]> getPwrSet() {
 		return pwrSet;
 	}
+
+	/**
+	 * resetNextSize()
+	 * Resets the nextSetSize to 1 - for testing purposes
+	 */
 	public static void resetNextSize(){
 		nextSetSize = 1;
 	}

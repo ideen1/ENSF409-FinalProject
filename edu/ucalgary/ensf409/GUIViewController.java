@@ -1,3 +1,12 @@
+/** GUIViewController.java
+ *  Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
+ *  Represents controllers for the GUI Interface and manages page changes
+ *  Copyright © 2022 I.B., T.D., M.M.
+ *  @author Ideen, Tanish, Mary 
+ *  @version 1.9
+ *  @since 1.4
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.awt.BorderLayout;
@@ -26,6 +35,10 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
     private JPanel footerPanel = new JPanel();
     private JDialog loadingPane;
 
+    /**
+    * Constructor for GUIViewCOntroller 
+    * Creates new GUI Object and sets default values
+    */
     public GUIViewController(){
         super("Hamper Application");
 
@@ -34,7 +47,11 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         
     }
     
-
+    /**
+     * reloadGUI()
+     * Reloads the JPanel Boxes be removing them from the JFrame, readding them and finally re-rendering them.
+     * @return void
+     */
     public void reloadGUI(){
         this.remove(upperPanel);
         this.remove(midPanel);
@@ -52,6 +69,12 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         
     }
 
+    /**
+     * resetsLayouts()
+     * Resets JPanel contents by removing all children and resetting layout.
+     * Prepares panels for future additions of objects
+     * @return void
+     */
     public void resetLayouts(){
         upperPanel.removeAll();
         midPanel.removeAll();
@@ -62,6 +85,13 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         footerPanel.setLayout(new FlowLayout());
     }
 
+    /**
+    * GUILoadHome()
+    * Loads the Home View on the main JFrame Object
+    * and adds all the required display / user input elements
+    * to the view.
+    * @return void
+    */
     public void GUILoadHome(){
         resetLayouts();
         JLabel title = new JLabel("Please select what you would like to do:");
@@ -87,6 +117,13 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
+    /**
+    * GUILoadOrder()
+    * Loads the Order View on the main JFrame Object
+    * and adds all the required display / user input elements
+    * to the view.
+    * @return void
+    */
     public void GUILoadOrder(){
         resetLayouts();
         JLabel title = new JLabel("List of all current Hampers");
@@ -135,8 +172,6 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                         GUIViewController.this.GUIDisplayPostError();
                     }
                     
-
-                    
                 }
 
             }
@@ -160,6 +195,13 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
+    /**
+    * GUIAddHamperBox()
+    * Loads the Add Hamper View on the main JFrame Object
+    * and adds all the required display / user input elements
+    * to the view.
+    * @return void
+    */
     public void GUIAddHamperBox(){
         resetLayouts();
         JLabel title = new JLabel("Add New Hamper:");
@@ -217,6 +259,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                 int childover = 0;
                 Pattern stringPattern = Pattern.compile("[a-zA-Z\\s]*$");
                 Matcher matcher = stringPattern.matcher(clientName.getText());
+                // BEGIN ERROR CHECKING
                 if (!matcher.matches() || clientName.getText().equals("Client Name")){
                     valid = false;
                     displayError("Client name can only contain letters or spaces!");
@@ -274,6 +317,7 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
                     }
                     
                 }
+                // END ERROR CHECKING
 
             }
 
@@ -294,6 +338,14 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
+    /**
+    * GUIDisplayFormConfirmation()
+    * Loads the Confirmation View on the main JFrame Object
+    * and adds all the required display / user input elements
+    * to the view.
+    * @return void
+    * 
+    */
     public void GUIDisplayFormConfirmation(){
         resetLayouts();
         JLabel title = new JLabel("Order Form:");
@@ -320,6 +372,14 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
+    /**
+    * GUILoadOrder()
+    * Loads the Error View on the main JFrame Object
+    * and adds all the required display / user input elements
+    * to the view after an unsuccesful process order sequence.
+    * @return void
+    * 
+    */
     public void GUIDisplayPostError(){
         resetLayouts();
         JLabel title = new JLabel("Could not fulfill order:");
@@ -355,15 +415,42 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         reloadGUI();
     }
 
+    /**
+    * displayError(PersonType error)
+    * Displays an error to the GUI for a specific PersonType
+    * @return void
+    * @param type A PersonType that specifies which field the error is gonna be for
+    */
     public void displayError(PersonType type){
         JOptionPane.showMessageDialog(midPanel, type.toString() + " must be a number!", "Invalid input", JOptionPane.ERROR_MESSAGE);
     }
+
+    /**
+    * displayError(String error)
+    * Displays an error to the GUI with the specified text
+    * @return void
+    * @param error  astring that contains the error message
+    */
     public void displayError(String error){
         JOptionPane.showMessageDialog(midPanel, error, "Invalid input", JOptionPane.ERROR_MESSAGE);
     }
+
+    /**
+    * genericError(String error)
+    * Displays a generic warning message to user with the string provided
+    * @return void
+    * @param error A string that contains the warning message
+    */
     public static void genericError(String error){
         JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.WARNING_MESSAGE);
     }
+
+    /**
+    * genericLoader(String loadingMessage)
+    * Displays a generic loading screen with a message from provided string
+    * @return void
+    * @param loadingMessage A string that contain the loading message
+    */
     public void genericLoader(String loadingMessage){
         if (loadingPane !=null){
             this.genericLoaderHide();
@@ -381,10 +468,16 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         loadingPane.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
         loadingPane.add(panel, BorderLayout.NORTH);
 
-        //loadingPane.setModal(true);
         loadingPane.setVisible(true);
         
     }
+
+    /**
+    * genericLoaderHide()
+    * Hides a previous loading screen if it was present
+    * @return void
+    *   
+    */
     public void genericLoaderHide(){
         loadingPane.dispose();
         loadingPane.setModal(false);
@@ -393,38 +486,96 @@ public class GUIViewController extends JFrame implements ActionListener, MouseLi
         loadingPane.setVisible(false);
         loadingPane.repaint();;
         
-        
-        
     }
 
+    /**
+    * actionPerformed(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using ActionListeners 
+    * and nested classes)
+    * @return void
+    * @param event an event that occured due to the user interacting with the app
+    */
     public void actionPerformed(ActionEvent event){
 
 
     }
     
+    /**
+    * mouseClicked(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using MouseListeners  
+    * and nested classes)
+    * @return void
+    * @param event a mouse event that occured due to the user interacting with the app
+    */
     public void mouseClicked(MouseEvent event){
  
                 
     }
 
+    /**
+    * mouseEntered(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using MouseListeners  
+    * and nested classes)
+    * @return void
+    * @param event a mouse event that occured due to the user interacting with the app
+    */
     public void mouseEntered(MouseEvent event){
         
     }
 
+    /**
+    * mouseExited(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using MouseListeners 
+    * and nested classes)
+    * @return void
+    * @param event a mouse event that occured due to the user interacting with the app
+    */
     public void mouseExited(MouseEvent event){
         
     }
 
+    /**
+    * mousePressed(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using MouseListeners 
+    * and nested classes)
+    * @return void
+    * @param event a mouse event that occured due to the user interacting with the app
+    */
     public void mousePressed(MouseEvent event){
         
     }
 
+    /**
+    * mouseReleased(ActionEvent event)
+    * Handles the specified actions 
+    * (We do not handle actions here, we handle them 
+    * directly under each Object using MouseListeners 
+    * and nested classes)
+    * @return void
+    * @param event a mouse event that occured due to the user interacting with the app
+    */
     public void mouseReleased(MouseEvent event){
         
     }
     
 }
 
+/**
+    * JTextFieldPlaceHolder
+    * Special Local Class that extends a standard JTextField
+    * but adds the functionality of a grey placeholder when the field is empty
+    *
+    */
 class JTextFieldPlaceHolder extends JTextField{
     public JTextFieldPlaceHolder(String placeholder){
         super(placeholder, 15);
