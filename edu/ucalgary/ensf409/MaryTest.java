@@ -49,15 +49,30 @@ public class MaryTest {
         int[] arr3 = {1, 2};
         expected2.add(arr3);
     
-        assertTrue("The nextPowerSet() method did not return the correct boolean value. (1)", InventoryService.nextPowerSet());
+        boolean t = InventoryService.nextPowerSet();
+        assertTrue("The nextPowerSet() method did not return the correct boolean value. (1)", t);
         ArrayList<int[]> result1 = InventoryService.getPwrSet();
-        assertEquals("The getPwrSet() method did not retun the correct ArrayList<int[]>. (1)", expected1, result1);
+        
+        assertEquals("The getPwrSet() method did not return the correct ArrayList<int[]>. (1)(index 0, 0)", result1.get(0)[0], arr1[0]);
+        assertEquals("The getPwrSet() method did not return the correct ArrayList<int[]>. (2)(index 1, 0)", result1.get(1)[0], arr2[0]);
+
+        // result1.forEach(arr -> {assertEqual(ar);});
+        // assertTrue("The getPwrSet() method did not retun the correct ArrayList<int[]>. (1)", result1.contains(arr1));
         
         assertTrue("The nextPowerSet() method did not return the correct boolean value. (2)", InventoryService.nextPowerSet());
         ArrayList<int[]> result2 = InventoryService.getPwrSet();
-        assertEquals("The getPwrSet() method did not retun the correct ArrayList<int[]>. (2)", expected2, result2);
-        assertFalse("The nextPowerSet() method did not return the correct boolean value. (3)", InventoryService.nextPowerSet());
+        assertEquals(1, result2.size());
+        assertEquals("The getPwrSet() method did not return the correct ArrayList<int[]>. (2)(index 0, 0)", result2.get(0)[0], arr3[0]);
+        assertEquals("The getPwrSet() method did not return the correct ArrayList<int[]>. (2)(index 0, 1)", result2.get(0)[1], arr3[1]);
+        
+        boolean pass = false;
+        try {
+            result2.get(1);
+        } catch (NullPointerException e) {
+            pass = true;
+        }
 
+        assertTrue("The getPwrSet() method did not return the correct ArrayList<int[]>. (2)(index 1, 0)", pass);
     }
 
     /* 
