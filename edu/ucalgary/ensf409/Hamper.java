@@ -1,6 +1,5 @@
 /** Hamper.java 
- *  Java Class file for ENSF409 Final Project 202 - 
- *  Winter 2022 - Group 5
+ *  Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
  *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen
  *  @version 1.0
@@ -30,8 +29,12 @@ public class Hamper {
     private int numChildOver8 = 0;
 
     /**
-     * Hamper constructor
-     * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
+     * Hamper() constructor
+     * @param client The name of the client for whom the hamper is made
+     * @param numAdultMales The number of male adults to be considered for the hamper
+     * @param numAdultFemales The number of female adults to be considered for the hamper
+     * @param numChildUnder8 The number of children under the age of 8 to be considered for the hamper
+     * @param numChildOver8 The number of children over the age of 8 to be considered for the hamper
      */
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         
@@ -64,21 +67,24 @@ public class Hamper {
     }
 
     /**
-     * @return double
+     * getOptimizationAmount()
+     * Gets the optimization amount
+     * @return A number (double) that represents the optimization amount for the hamper
      */
     public double getOptimizationAmount() {
         return optimizationAmount;
     }
 
+    /**
+     * setOptimizationAmount()
+     * Sets the optimiation amount
+     * @param optimizationAmount
+     * @return void
+     */
     public void setOptimizationAmount(double optimizationAmount) {
         this.optimizationAmount = optimizationAmount;
     }
 
-    /**
-     * calculateNeededNutrients()
-     * Calculates total nutrients needed for Hamper based on
-     * amount and type of people in people ArrayList
-     */
     private void calculateNeededNutrients() {
         double totalNeedWG = 0;
         double totalNeedFV = 0;
@@ -95,26 +101,38 @@ public class Hamper {
         totalNeeds = new NutritionValues(totalNeedWG/totalNeedCalories, totalNeedFV/totalNeedCalories, totalNeedProtein/totalNeedCalories, totalNeedOther/totalNeedCalories, totalNeedCalories);
     }
 
+    /**
+     * recalculateNutrients()
+     * Calculates total nutrients needed for the hamper based on
+     * the amount and type of people included in the hamper 
+     *@return no return type
+     */
     public void recalculateNutrients(){
         totalNeeds = null;
         calculateNeededNutrients();
     }
 
     /**
-     * @return NutritionValues
+     * getNutritionValues()
+     * Gets the total needed nutrition values of the hamper
+     * @return NutritionValues object
      */
     public NutritionValues getNutritionValues(){
         return this.totalNeeds;
     }
 
     /** 
-     * @return ArrayList<Person>
+     * getPeople()
+     * Gets the composition of people in the hamper
+     * @return ArrayList<Person> that contains all people included in the hamper
      */
     public ArrayList<Person> getPeople() {
         return people;
     }
 
     /** 
+     * getAllocatedItems()
+     * Gets all the food items that have been allocated to the hamper
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getAllocatedItems() {
@@ -122,7 +140,10 @@ public class Hamper {
     }
     
     /** 
-     * @param allocatedItems
+     * addAllocatedItem()
+     * Adds a food item from the inventory to the hamper
+     * @param allocatedItems The food item from the inventory that is being allocated to the hamper
+     * @return void
      */
     public void addAllocatedItem(Integer allocatedItems) {
         this.allocatedItems.add(allocatedItems);
@@ -223,6 +244,7 @@ public class Hamper {
     
     /** 
      * @param optimal
+     * @return void
      */
     public void setOptimalSet(ArrayList<Integer> optimal) {
         this.optimalSet = optimal;
