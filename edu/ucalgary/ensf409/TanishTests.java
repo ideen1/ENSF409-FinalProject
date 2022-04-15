@@ -23,6 +23,9 @@ public class TanishTests {
     //Testing addHamper method 
     @Test 
     public void testAddHamper() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
 
         Request request = new Request("test", LocalDate.now());
 
@@ -37,6 +40,9 @@ public class TanishTests {
     //Testing the createOrderFile method
     @Test 
     public void testCreateOrderFile(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         boolean orderGenarated = true;
         Request request = new Request("test", LocalDate.now());
@@ -55,34 +61,59 @@ public class TanishTests {
     // Testing the generated .txt file and its contents with expected string
     @Test 
     public void testGenerateOrderForm() throws FileNotFoundException{
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
 
-        String expectedOrderString = "Group 5 Food Bank\nHamper OrderForm\n\nName: TestName\nDate: 2022-4-12\n\nOriginal Request\nHamper 1(Client1): 1 Adult Male, %d Adult Female, %d Child uner 8, %d Child over 8"+
-        "\nHamper 1(Client1) Items:\n1\teggs\n2\tbread\n3\tapples\n4\tmilk\n5\tbananas\n6\tbeans\n";
-        String Date = "2022-4-12";
+        HamperApp.mainScreen = new GUIViewController();  
+        String expectedOrderString = "Group 5 Food Bank\nHamper OrderForm\n\nName: TestName\nDate: 2022-04-12\n\nOriginal Request\nHamper 1(Client1): 1 Adult Male, 1 Adult Female, 1 Child under 8, 1 Child over 8\n\nHamper 1(Client1) Items:\n1\teggs\n2\tbread\n3\tapples\n4\tmilk\n5\tbananas\n6\tbeans\n\n";
+        String Date = "2022-04-12";
         LocalDate fixedDate = LocalDate.parse(Date);
 
 
-        Request request = new Request("TestName",fixedDate);
-        request.addHamper("Client1", 1, 1, 1, 1);
+        HamperApp.currentRequest = new Request("TestName",fixedDate);
+        Hamper hamperToTest = new Hamper("Client1", 1, 1, 1, 1);
+        hamperToTest.getPeople().get(0).getNutrition().setTotalNeedCalories(2000);
+        hamperToTest.getPeople().get(0).getNutrition().setPercentFV(25);
+        hamperToTest.getPeople().get(0).getNutrition().setPercentWG(25);
+        hamperToTest.getPeople().get(0).getNutrition().setPercentProtein(25);
+        hamperToTest.getPeople().get(0).getNutrition().setPercentOther(25);
+        hamperToTest.getPeople().get(1).getNutrition().setTotalNeedCalories(2000);
+        hamperToTest.getPeople().get(1).getNutrition().setPercentFV(25);
+        hamperToTest.getPeople().get(1).getNutrition().setPercentWG(25);
+        hamperToTest.getPeople().get(1).getNutrition().setPercentProtein(25);
+        hamperToTest.getPeople().get(1).getNutrition().setPercentOther(25);
+        hamperToTest.getPeople().get(2).getNutrition().setTotalNeedCalories(2000);
+        hamperToTest.getPeople().get(2).getNutrition().setPercentFV(25);
+        hamperToTest.getPeople().get(2).getNutrition().setPercentWG(25);
+        hamperToTest.getPeople().get(2).getNutrition().setPercentProtein(25);
+        hamperToTest.getPeople().get(2).getNutrition().setPercentOther(25);
+        hamperToTest.getPeople().get(3).getNutrition().setTotalNeedCalories(2000);
+        hamperToTest.getPeople().get(3).getNutrition().setPercentFV(25);
+        hamperToTest.getPeople().get(3).getNutrition().setPercentWG(25);
+        hamperToTest.getPeople().get(3).getNutrition().setPercentProtein(25);
+        hamperToTest.getPeople().get(3).getNutrition().setPercentOther(25);
+        hamperToTest.recalculateNutrients();
+        HamperApp.currentRequest.addHamper(hamperToTest);
+
         
-        FoodItem testItem = new FoodItem(1, "eggs", 0, 0, 100, 0,2100);       //Creating an example test item
-        FoodItem testItem2 = new FoodItem(2, "bread", 0, 100, 0, 0,1500);       //Creating a second example test item
+        FoodItem testItem = new FoodItem(1, "eggs", 0, 0, 100, 0,1000);       //Creating an example test item
+        FoodItem testItem2 = new FoodItem(2, "bread", 0, 100, 0, 0,2000);       //Creating a second example test item
         FoodItem testItem3 = new FoodItem(3, "apples", 100, 0, 0, 0,1000);   //Creating a third example test item
-        FoodItem testItem4 = new FoodItem(4, "milk", 0, 0, 0, 100,1700);        //Creating a fourth example test item
+        FoodItem testItem4 = new FoodItem(4, "milk", 0, 0, 0, 100,2000);        //Creating a fourth example test item
         FoodItem testItem5 = new FoodItem(5, "bananas", 100, 0, 0, 0,1300);     //Creating a fifth example test item
-        FoodItem testItem6 = new FoodItem(6, "beans", 0, 0, 100, 0,1900);       //Creating a sixth example test item
+        FoodItem testItem6 = new FoodItem(6, "beans", 0, 0, 100, 0,1000);       //Creating a sixth example test item
 
         HashMap<Integer,FoodItem> foodList = new HashMap<Integer,FoodItem>();   //Creating a food list to provide setter
-        foodList.put(testItem.getID(),testItem);                                //Adding test item to food list
-        foodList.put(testItem2.getID(),testItem2);                              //Adding second test item to food list
-        foodList.put(testItem3.getID(),testItem);                               //Adding third test item to food list
-        foodList.put(testItem4.getID(),testItem2);                              //Adding fourth test item to food list
-        foodList.put(testItem5.getID(),testItem);                               //Adding fifth test item to food list
-        foodList.put(testItem6.getID(),testItem2);                              //Adding sixth test item to food list
-        Inventory.setFoodList(foodList);                                        //sets custom food list
-        
+        Inventory.addFoodItem(testItem);                               //Adding test item to food list
+        Inventory.addFoodItem(testItem2);                            //Adding second test item to food list
+        Inventory.addFoodItem(testItem3);                               //Adding third test item to food list
+        Inventory.addFoodItem(testItem4);                           //Adding fourth test item to food list
+        Inventory.addFoodItem(testItem5);                               //Adding fifth test item to food list
+        Inventory.addFoodItem(testItem6);                            //Adding sixth test item to food list
+
+
         InventoryService.inventoryCheckAlgorithm();                             // runs algorithm and finds optimal hamper
-        request.createOrderFile();                                              // creates a order.txt file
 
         File file = new File("TestName.txt");                             //import order.txt into java
         Scanner scan = new Scanner(file);                                       //scanner for order.txt file
@@ -91,7 +122,7 @@ public class TanishTests {
         while(scan.hasNextLine()){                                              //goes through order.txt file line by line
             actualOrderString = actualOrderString.concat(scan.nextLine()+"\n"); //adds content from each line into a string
         }
-        actualOrderString = actualOrderString.trim();                           //trims extra white spaces
+
 
         assertEquals("The actual string did not match the expected string",expectedOrderString, actualOrderString);
     }
@@ -99,6 +130,10 @@ public class TanishTests {
     //Testing same clients with different requests 
     @Test
     public void TesttwoHampersWithSameClient(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         Request request = new Request("test", LocalDate.now());
         request.addHamper("client 1", 1, 1, 1, 1);                              //Adding a client to Hamper
         request.addHamper("client 1", 2, 2, 2, 2);                              //Adding same client to Hamper with a new request
@@ -110,6 +145,9 @@ public class TanishTests {
     // Test Creating a new hamper with negative person amounts
     @Test 
     public void testCreateHampersWithNegativePeople(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Request request = new Request("Test", LocalDate.now());
 
@@ -126,6 +164,10 @@ public class TanishTests {
     //Testing setter and getter if a FoodItem list is already provided 
     @Test 
     public void testSetFoodListAndGetFoodList(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);       //Creating an example test item
         FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);     //Creating a second example test item
 
@@ -143,6 +185,10 @@ public class TanishTests {
     //Testing the addFoodItem method and testing for items with duplicate ID that get added to list
     @Test
     public void testAddDuplicateFoodItemID(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);       //Creating an example test item
         FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);     //Creating a second example test item
         FoodItem testItem3 = new FoodItem(1, "milk", 20, 60, 50, 70,2000);      //Creating a third example test item
@@ -158,6 +204,10 @@ public class TanishTests {
     //Testing the removeFoodItem methods from inventory class
     @Test
     public void testRemoveFoodItem(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+        
         FoodItem testItem = new FoodItem(1, "eggs", 30, 10, 20, 45,1000);       //Creating an example test item
         FoodItem testItem2 = new FoodItem(2, "bread", 34, 12, 27, 42,1023);     //Creating a second example test item
         FoodItem testItem3 = new FoodItem(3, "milk", 20, 60, 50, 70,2000);      //Creating a third example test item

@@ -94,7 +94,7 @@ public class Request{
             		if (male != 0 || female != 0) {
             			orderForm.print(", ");
             		}
-            		orderForm.printf("%d Child uner 8", under8);
+            		orderForm.printf("%d Child under 8", under8);
             	}
             	if (over8 !=0) {
             		if (male != 0 || female != 0 || under8 != 0) {

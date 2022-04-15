@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
-    public static final String DBURL = "jdbc:mysql://localhost/food_inventory";
+    public static final String DBURL = "jdbc:mysql://10.0.0.11/FOOD_INVENTORY";
     public static final String USERNAME = "student";
     public static final String PASSWORD = "ensf";    
     

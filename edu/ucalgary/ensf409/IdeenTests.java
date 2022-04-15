@@ -5,6 +5,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class IdeenTests {
     
@@ -14,6 +15,9 @@ public class IdeenTests {
      */
     @Test
     public void testPersonConstructor() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Person person = new Person(PersonType.ADULTMALE);
         assertTrue("The person constructor did not initialize an Object", person != null);
@@ -24,6 +28,9 @@ public class IdeenTests {
      */
     @Test
     public void testPersonNutrition() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         Person person = new Person(PersonType.ADULTFEMALE);
         NutritionValues nutrition = person.getNutrition();
 
@@ -39,6 +46,9 @@ public class IdeenTests {
      */
     @Test
     public void testHamperConstructorWith0People() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Hamper hamper1 = new Hamper("test", 0, 0, 0, 0);
         
@@ -50,6 +60,9 @@ public class IdeenTests {
      */
     @Test
     public void testHamperConstructorWithOnly1Child() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Hamper hamper1 = new Hamper("test", 0, 0, 0, 1);
         
@@ -61,6 +74,9 @@ public class IdeenTests {
      */
     @Test
     public void testHamperRecalculationFunction() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Hamper hamper2 = new Hamper("test", 1, 0, 0, 0);
         // Set total calories
@@ -83,6 +99,9 @@ public class IdeenTests {
      */
     @Test
     public void testHamperCalculateNutrientsForFamily() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Hamper hamper1 = new Hamper("test", 1, 1, 2, 2);
         // Set total calories
@@ -113,6 +132,9 @@ public class IdeenTests {
      */
     @Test
     public void testHamperAddAllocatedItem() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         Hamper hamper3 = new Hamper("test", 1, 1, 1, 1);
         hamper3.addAllocatedItem(1);
@@ -136,8 +158,11 @@ public class IdeenTests {
 
     @Test
     public void testNutritionValuesConstructorWithInvalidType() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         boolean exceptionThrown = false;
-        
         try{
             NutritionValues nutrients = new NutritionValues("TEENMALE");
         } catch(Exception e){
@@ -153,6 +178,9 @@ public class IdeenTests {
      */
     @Test
     public void testNutritionValuesSetValues() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
         
         NutritionValues nutrients = new NutritionValues("ADULTMALE");
         nutrients.setTotalNeedCalories(1000);
@@ -175,6 +203,10 @@ public class IdeenTests {
      */
     @Test
     public void testInventoryServiceWithOptimizedValues(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+        
         Hamper hamper1 = new Hamper("testClient",1,1,0,0);
         HamperApp.currentRequest = new Request("testRequest", LocalDate.now());
         HamperApp.mainScreen = new GUIViewController();  
@@ -207,6 +239,7 @@ public class IdeenTests {
 
         Integer[] expectedIDs = {1,2};
         assertArrayEquals(expectedIDs, HamperApp.currentRequest.getHampers().get(0).getAllocatedItems().toArray());
+        Inventory.getFoodlist().clear();
     }
 
 

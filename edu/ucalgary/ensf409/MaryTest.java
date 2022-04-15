@@ -14,6 +14,10 @@ public class MaryTest {
      */
     @Test
     public void testFoodItemGetters(){
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         FoodItem cucumber = new FoodItem(1111, "cucumber", 100, 0, 2, 5, 10);
 
         assertEquals("The getID() method did not return the correct id number of the food item.", 1111, cucumber.getID());
@@ -22,7 +26,7 @@ public class MaryTest {
         assertEquals("The getGrainContent() method did not return the correct grain content of the food item.", 0, cucumber.getGrainContent(), 0-cucumber.getGrainContent());
         assertEquals("The getProteinContent() method did not return the correct protein content of the food item.", 2, cucumber.getProteinContent(), 2-cucumber.getProteinContent());
         assertEquals("The getOtherContent() method did not return the correct other content of the food item.", 5, cucumber.getOther(), 5-cucumber.getOther());
-        assertEquals("The getCalories() method did not return the correct calory of the food item.", 2, cucumber.getCalories(), 2-cucumber.getCalories());
+        assertEquals("The getCalories() method did not return the correct calory of the food item.", 10, cucumber.getCalories(), 10-cucumber.getCalories());
 
     }
 
@@ -33,11 +37,15 @@ public class MaryTest {
      */
     @Test
     public void testNextPowerSet() {
-        // InventoryService test = new InventoryService();
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         FoodItem food1 = new FoodItem(1, "Fruit", 20, 0, 0, 0, 5000);
         FoodItem food2 = new FoodItem(2, "Fruit", 15, 0, 0, 0, 4000);
         Inventory.addFoodItem(food1); 
         Inventory.addFoodItem(food2); 
+        HamperApp.mainScreen = new GUIViewController();  
 
         ArrayList<int[]> expected1 = new ArrayList<>();
         int[] arr1 = {1};
@@ -48,7 +56,7 @@ public class MaryTest {
         ArrayList<int[]> expected2 = new ArrayList<>();
         int[] arr3 = {1, 2};
         expected2.add(arr3);
-    
+        
         boolean t = InventoryService.nextPowerSet();
         assertTrue("The nextPowerSet() method did not return the correct boolean value. (1)", t);
         ArrayList<int[]> result1 = InventoryService.getPwrSet();
@@ -58,7 +66,7 @@ public class MaryTest {
 
         // result1.forEach(arr -> {assertEqual(ar);});
         // assertTrue("The getPwrSet() method did not retun the correct ArrayList<int[]>. (1)", result1.contains(arr1));
-        
+        InventoryService.getPwrSet().clear();
         assertTrue("The nextPowerSet() method did not return the correct boolean value. (2)", InventoryService.nextPowerSet());
         ArrayList<int[]> result2 = InventoryService.getPwrSet();
         assertEquals(1, result2.size());
@@ -68,7 +76,7 @@ public class MaryTest {
         boolean pass = false;
         try {
             result2.get(1);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             pass = true;
         }
 
@@ -84,6 +92,10 @@ public class MaryTest {
      */
     @Test
     public void testGetMissingCategory() {
+        Inventory.getFoodlist().clear();
+        InventoryService.getPwrSet().clear();
+        InventoryService.resetNextSize();
+
         Hamper hamper1 = new Hamper("testClient",1,1,0,0);
         HamperApp.currentRequest = new Request("testRequest", LocalDate.now());
         HamperApp.mainScreen = new GUIViewController();  

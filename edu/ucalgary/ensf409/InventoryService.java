@@ -179,9 +179,9 @@ public class InventoryService {
 		
 		
 		// to see if the size is ever bigger than the inputArray.size
-		// if (setSizeNum > inputArray.size) {
+		// if (setSizeNum > inputArray.length) {
 		// 	GUIViewController.genericError("generatePwrSetError - size out of bound");
-		// }
+		 //}
 
 		ArrayList<int[]> combinations = new ArrayList<int[]>();
 
@@ -262,9 +262,12 @@ public class InventoryService {
 		return missingCategory;
 	}
 
-	// public static ArrayList<int[]> getPwrSet() {
-	// 	return pwrSet;
-	// }
+	public static ArrayList<int[]> getPwrSet() {
+		return pwrSet;
+	}
+	public static void resetNextSize(){
+		nextSetSize = 1;
+	}
 }
 
 
