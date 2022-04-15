@@ -29,9 +29,24 @@ public class Hamper {
     private int numChildUnder8 = 0;
     private int numChildOver8 = 0;
 
+    /** 
+	 * FoodItem() constructor
+	 * Fills the info field of the food item
+	 * @param id The food item's id number in the inventory
+	 * @param name The food item's description including the name and quantity
+	 * @param fruitVeggieContent The food item's fruit and vegetable nutritional content
+	 * @param grainContent The food item's grain nutrional content
+	 * @param proteinContent The food item's protein nutrional content
+	 * @param other The food item's other nutrional content
+	 * @param calories The food item's caloric nutrional content
+	 */ 
     /**
-     * Hamper constructor
-     * @param client,numAdultMales,numAdultFemales,numChildUnder8,numChildOver8
+     * Hamper() constructor
+     * @param client The name of the client for whom the hamper is made
+     * @param numAdultMales The number of male adults to be considered for the hamper
+     * @param numAdultFemales The number of female adults to be considered for the hamper
+     * @param numChildUnder8 The number of children under the age of 8 to be considered for the hamper
+     * @param numChildOver8 The number of children over the age of 8 to be considered for the hamper
      */
     public Hamper(String clientName, int numAdultMales, int numAdultFemales, int numChildUnder8, int numChildOver8){
         
@@ -64,21 +79,23 @@ public class Hamper {
     }
 
     /**
-     * @return double
+     * getOptimizationAmount()
+     * Gets the optimization amount
+     * @return A number (double) that represents the optimization amount for the hamper
      */
     public double getOptimizationAmount() {
         return optimizationAmount;
     }
 
+    /**
+     * setOptimizationAmount()
+     * Sets the optimiation amount
+     * @param optimizationAmount
+     */
     public void setOptimizationAmount(double optimizationAmount) {
         this.optimizationAmount = optimizationAmount;
     }
 
-    /**
-     * calculateNeededNutrients()
-     * Calculates total nutrients needed for Hamper based on
-     * amount and type of people in people ArrayList
-     */
     private void calculateNeededNutrients() {
         double totalNeedWG = 0;
         double totalNeedFV = 0;
@@ -95,13 +112,20 @@ public class Hamper {
         totalNeeds = new NutritionValues(totalNeedWG/totalNeedCalories, totalNeedFV/totalNeedCalories, totalNeedProtein/totalNeedCalories, totalNeedOther/totalNeedCalories, totalNeedCalories);
     }
 
+    /**
+     * recalculateNutrients()
+     * Calculates total nutrients needed for the hamper based on
+     * the amount and type of people included in the hamper 
+     */
     public void recalculateNutrients(){
         totalNeeds = null;
         calculateNeededNutrients();
     }
 
     /**
-     * @return NutritionValues
+     * getNutritionValues()
+     * Gets the total needed nutrition values of the hamper
+     * @return NutritionValues object
      */
     public NutritionValues getNutritionValues(){
         return this.totalNeeds;
