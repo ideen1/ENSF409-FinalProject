@@ -1,3 +1,0 @@
-//Update UML for FoodItem data types from int --> double
-// Update the Nutrition values constructor in UML
-// Update the Hamper return types in UML
