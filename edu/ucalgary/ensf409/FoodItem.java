@@ -28,10 +28,21 @@ public class FoodItem{
 	 */
 	public int getID() { return this.ID; }
 
+	/** 
+	 * getUsageStatus()
+	 * Returns the Usage status flag of a food item
+	 * @return An integer representing the food item's status flag
+	 */
 	public int getUsageStatus() {
 		return usageStatus;
 	}
 
+	/** 
+	 * setUsageStatus()
+	 * Sets the Usage status flag of a food item
+	 * @return void
+	 * @param usageStatus An int value to be set as the food item's new usage status flag
+	 */
 	public void setUsageStatus(int usageStatus) {
 		this.usageStatus = usageStatus;
 	}

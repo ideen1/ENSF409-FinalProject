@@ -1,3 +1,12 @@
+/** Request.java 
+ *  Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
+ *  Represents a request which is created every time the user creates a request using the program.
+ *  Copyright © 2022 I.B., T.D., M.M.
+ *  @author Ideen, Tanish, Mary 
+ *  @version 1.4
+ *  @since 1.0
+ */
+
 package edu.ucalgary.ensf409;
 
 import java.io.PrintWriter;
@@ -7,13 +16,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 
-/** Represents a request which is created every time the user initiates a request using the program.
- * Winter 2022 - Group 5
- * Copyright © 2022 I.B., T.D., M.M.
- * @author Ideen, Tanish, Mary 
- * @version 1.4
- * @since 1.0
-*/
+
 public class Request{
 	private ArrayList<Hamper> hampers = new ArrayList<Hamper>();
     private LocalDate date;
@@ -59,7 +62,7 @@ public class Request{
         return true;
     }
 
-    /** createOrderFile
+    /** createOrderFile()
      * Creates a text file with the name of the request that lists out the details of the request 
      */
     public void createOrderFile() {

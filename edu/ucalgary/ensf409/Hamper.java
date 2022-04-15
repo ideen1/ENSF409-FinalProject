@@ -1,6 +1,5 @@
 /** Hamper.java 
- *  Java Class file for ENSF409 Final Project 202 - 
- *  Winter 2022 - Group 5
+ *  Java Class file for ENSF409 Final Project - Winter 2022 - Group 5
  *  Copyright © 2022 I.B., T.D., M.M.
  *  @author Ideen
  *  @version 1.0
@@ -29,17 +28,6 @@ public class Hamper {
     private int numChildUnder8 = 0;
     private int numChildOver8 = 0;
 
-    /** 
-	 * FoodItem() constructor
-	 * Fills the info field of the food item
-	 * @param id The food item's id number in the inventory
-	 * @param name The food item's description including the name and quantity
-	 * @param fruitVeggieContent The food item's fruit and vegetable nutritional content
-	 * @param grainContent The food item's grain nutrional content
-	 * @param proteinContent The food item's protein nutrional content
-	 * @param other The food item's other nutrional content
-	 * @param calories The food item's caloric nutrional content
-	 */ 
     /**
      * Hamper() constructor
      * @param client The name of the client for whom the hamper is made
@@ -91,6 +79,7 @@ public class Hamper {
      * setOptimizationAmount()
      * Sets the optimiation amount
      * @param optimizationAmount
+     * @return void
      */
     public void setOptimizationAmount(double optimizationAmount) {
         this.optimizationAmount = optimizationAmount;
@@ -116,6 +105,7 @@ public class Hamper {
      * recalculateNutrients()
      * Calculates total nutrients needed for the hamper based on
      * the amount and type of people included in the hamper 
+     *@return no return type
      */
     public void recalculateNutrients(){
         totalNeeds = null;
@@ -132,13 +122,17 @@ public class Hamper {
     }
 
     /** 
-     * @return ArrayList<Person>
+     * getPeople()
+     * Gets the composition of people in the hamper
+     * @return ArrayList<Person> that contains all people included in the hamper
      */
     public ArrayList<Person> getPeople() {
         return people;
     }
 
     /** 
+     * getAllocatedItems()
+     * Gets all the food items that have been allocated to the hamper
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getAllocatedItems() {
@@ -146,7 +140,10 @@ public class Hamper {
     }
     
     /** 
-     * @param allocatedItems
+     * addAllocatedItem()
+     * Adds a food item from the inventory to the hamper
+     * @param allocatedItems The food item from the inventory that is being allocated to the hamper
+     * @return void
      */
     public void addAllocatedItem(Integer allocatedItems) {
         this.allocatedItems.add(allocatedItems);
@@ -247,6 +244,7 @@ public class Hamper {
     
     /** 
      * @param optimal
+     * @return void
      */
     public void setOptimalSet(ArrayList<Integer> optimal) {
         this.optimalSet = optimal;
